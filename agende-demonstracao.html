@@ -96,23 +96,23 @@
 
     <div class="demo-form-card">
       <h2>Formulário de agendamento</h2>
-      <form onsubmit="event.preventDefault();">
+      <form id="demo-request-form">
         <div class="form-grid">
           <div class="form-field">
-            <label>Nome completo*</label>
-            <input type="text" placeholder="Digite seu nome" required>
+            <label for="demo-nome">Nome completo*</label>
+            <input type="text" id="demo-nome" name="nome_completo" placeholder="Digite seu nome" required>
           </div>
           <div class="form-field">
-            <label>E-mail corporativo*</label>
-            <input type="email" placeholder="seu@email.com" required>
+            <label for="demo-email">E-mail corporativo*</label>
+            <input type="email" id="demo-email" name="email" placeholder="seu@email.com" required>
           </div>
           <div class="form-field">
-            <label>Empresa*</label>
-            <input type="text" placeholder="Digite o nome da empresa" required>
+            <label for="demo-empresa">Empresa*</label>
+            <input type="text" id="demo-empresa" name="company" placeholder="Digite o nome da empresa" required>
           </div>
           <div class="form-field">
-            <label>Cargo*</label>
-            <select required>
+            <label for="demo-cargo">Cargo*</label>
+            <select id="demo-cargo" name="jobtitle" required>
               <option value="" selected disabled>Selecione seu cargo</option>
               <option>Diretoria / C-level</option>
               <option>Gerência</option>
@@ -122,12 +122,12 @@
             </select>
           </div>
           <div class="form-field">
-            <label>Telefone / WhatsApp*</label>
-            <input type="tel" placeholder="(11) 99999-9999" required>
+            <label for="demo-telefone">Telefone / WhatsApp*</label>
+            <input type="tel" id="demo-telefone" name="phone" placeholder="(11) 99999-9999" required>
           </div>
           <div class="form-field">
-            <label>Segmento*</label>
-            <select required>
+            <label for="demo-segmento">Segmento*</label>
+            <select id="demo-segmento" name="segmento" required>
               <option value="" selected disabled>Selecione o segmento</option>
               <option>Financeiro</option>
               <option>Varejo</option>
@@ -138,15 +138,16 @@
             </select>
           </div>
           <div class="form-field full">
-            <label>Qual o principal desafio que você deseja resolver?*</label>
-            <textarea placeholder="Conte-nos um pouco sobre o seu desafio" required></textarea>
+            <label for="demo-desafio">Qual o principal desafio que você deseja resolver?*</label>
+            <textarea id="demo-desafio" name="message" placeholder="Conte-nos um pouco sobre o seu desafio" required></textarea>
           </div>
           <div class="form-field full">
-            <label>Quando você gostaria de agendar?</label>
-            <input type="text" placeholder="Selecione a melhor data e horário" onfocus="(this.type='datetime-local')">
+            <label for="demo-agendamento">Quando você gostaria de agendar?</label>
+            <input type="text" id="demo-agendamento" name="demo_preferred_datetime" placeholder="Selecione a melhor data e horário" onfocus="(this.type='datetime-local')">
           </div>
         </div>
         <button type="submit" class="btn btn-primary form-submit">Agendar demonstração →</button>
+        <div id="demo-form-status" class="form-status" role="status" aria-live="polite" hidden></div>
         <div class="form-note">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
           Seus dados estão seguros conosco.
@@ -194,6 +195,8 @@
   </div>
 </footer>
 
+<script src="js/form-config.js"></script>
+<script src="js/forms.js"></script>
 <script>
   document.querySelectorAll('.lang-option').forEach(function(opt){
     opt.addEventListener('click', function(e){
