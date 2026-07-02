@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Agende uma demonstração — data BOAR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="announce">
+  <div class="wrap">
+    <div class="left">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+      <span><b>O compliance</b> da sua empresa mais inteligente, ágil e seguro.</span>
+    </div>
+    <div class="right">
+      <a class="mini-btn" href="agende-demonstracao.html">Agendar Demonstração →</a>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><img src="images/logo-databoar.png" alt="DATA BOAR"></a>
+    <nav class="links">
+      <a href="solucao.html">Solução</a>
+      <a href="#">Recursos</a>
+      <a href="#">Clientes</a>
+      <a href="#">Preços</a>
+      <a href="https://github.com/DataBoar/data-boar">OpenSource</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="login" href="login.html">Login</a>
+      <div class="lang-switch">
+        <button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false" onclick="var m=this.nextElementSibling; var open=m.classList.toggle('open'); this.setAttribute('aria-expanded', open);">
+          <span class="lang-flag">🇧🇷</span>
+          <span class="lang-code">PT-BR</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="lang-menu">
+          <a href="#" class="lang-option selected" data-lang="pt-BR" data-flag="🇧🇷">🇧🇷 Português (Brasil)</a>
+          <a href="#" class="lang-option" data-lang="en" data-flag="🇺🇸">🇺🇸 English</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO + FORMULÁRIO ============ -->
+<section class="demo-hero">
+  <div class="wrap demo-hero-grid">
+    <div>
+      <div class="eyebrow on-dark">SOLUÇÃO</div>
+      <h1>Agende uma <span class="accent">demonstração</span></h1>
+      <p>Preencha o formulário ao lado e fale com um de nossos especialistas. Vamos entender o seu desafio e mostrar como o dataBOAR pode gerar valor para o seu negócio.</p>
+
+      <div class="demo-features">
+        <div class="demo-feature">
+          <div class="demo-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></div>
+          <div>
+            <h3>Apresentação personalizada</h3>
+            <p>Entendemos seu contexto e mostramos como nossa solução se adapta às suas necessidades.</p>
+          </div>
+        </div>
+        <div class="demo-feature">
+          <div class="demo-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <div>
+            <h3>Veja na prática</h3>
+            <p>Conheça os principais recursos da plataforma e como entregamos resultados reais.</p>
+          </div>
+        </div>
+        <div class="demo-feature">
+          <div class="demo-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+          <div>
+            <h3>Decida com confiança</h3>
+            <p>Tire suas dúvidas e descubra como transformar dados em decisões estratégicas.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-mini-art">
+        <i style="height:35%"></i>
+        <i style="height:60%"></i>
+        <i style="height:45%"></i>
+        <i style="height:75%"></i>
+        <i style="height:50%"></i>
+        <div class="dm-mag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
+      </div>
+    </div>
+
+    <div class="demo-form-card">
+      <h2>Formulário de agendamento</h2>
+      <form onsubmit="event.preventDefault();">
+        <div class="form-grid">
+          <div class="form-field">
+            <label>Nome completo*</label>
+            <input type="text" placeholder="Digite seu nome" required>
+          </div>
+          <div class="form-field">
+            <label>E-mail corporativo*</label>
+            <input type="email" placeholder="seu@email.com" required>
+          </div>
+          <div class="form-field">
+            <label>Empresa*</label>
+            <input type="text" placeholder="Digite o nome da empresa" required>
+          </div>
+          <div class="form-field">
+            <label>Cargo*</label>
+            <select required>
+              <option value="" selected disabled>Selecione seu cargo</option>
+              <option>Diretoria / C-level</option>
+              <option>Gerência</option>
+              <option>Coordenação</option>
+              <option>Analista</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Telefone / WhatsApp*</label>
+            <input type="tel" placeholder="(11) 99999-9999" required>
+          </div>
+          <div class="form-field">
+            <label>Segmento*</label>
+            <select required>
+              <option value="" selected disabled>Selecione o segmento</option>
+              <option>Financeiro</option>
+              <option>Varejo</option>
+              <option>Saúde</option>
+              <option>Indústria</option>
+              <option>Tecnologia</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div class="form-field full">
+            <label>Qual o principal desafio que você deseja resolver?*</label>
+            <textarea placeholder="Conte-nos um pouco sobre o seu desafio" required></textarea>
+          </div>
+          <div class="form-field full">
+            <label>Quando você gostaria de agendar?</label>
+            <input type="text" placeholder="Selecione a melhor data e horário" onfocus="(this.type='datetime-local')">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary form-submit">Agendar demonstração →</button>
+        <div class="form-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+          Seus dados estão seguros conosco.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo-databoar.png" alt="data BOAR">
+        <p>Descoberta de dados pessoais forense, soberana e com evidência para conformidade.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Produto</h4>
+        <a href="#">Como Funciona</a>
+        <a href="solucao.html">Soluções</a>
+        <a href="#">Casos de Uso</a>
+        <a href="#">Preços</a>
+      </div>
+      <div class="footer-col">
+        <h4>Recursos</h4>
+        <a href="#">Documentação</a>
+        <a href="#">Central de Ajuda</a>
+        <a href="#">Blog</a>
+      </div>
+      <div class="footer-col">
+        <h4>Conformidade</h4>
+        <a href="#">LGPD</a>
+        <a href="#">GDPR</a>
+        <a href="#">CCPA</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 data BOAR. Todos os direitos reservados.</span>
+      <div class="footer-social">
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.1 3.1 0 00-.9-2.4c3-.3 6-1.5 6-6.6a5.1 5.1 0 00-1.4-3.5 4.6 4.6 0 00-.1-3.5s-1.1-.3-3.5 1.3a12.2 12.2 0 00-6.4 0C6.9 1.3 5.8 1.6 5.8 1.6a4.6 4.6 0 00-.1 3.5A5.1 5.1 0 004.3 8.6c0 5 3 6.3 6 6.6a3.1 3.1 0 00-.9 2.4V22"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.lang-option').forEach(function(opt){
+    opt.addEventListener('click', function(e){
+      e.preventDefault();
+      document.querySelectorAll('.lang-option').forEach(function(o){ o.classList.remove('selected'); });
+      this.classList.add('selected');
+      document.querySelector('.lang-btn .lang-code').textContent = this.dataset.lang === 'en' ? 'EN' : 'PT-BR';
+      document.querySelector('.lang-btn .lang-flag').textContent = this.dataset.flag;
+      document.querySelector('.lang-menu').classList.remove('open');
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('.lang-switch')){
+      document.querySelector('.lang-menu').classList.remove('open');
+      document.querySelector('.lang-btn').setAttribute('aria-expanded','false');
+    }
+  });
+</script>
+</body>
+</html>
