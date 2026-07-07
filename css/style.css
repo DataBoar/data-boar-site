@@ -105,6 +105,7 @@
   /* ---------- HERO ---------- */
   .hero{padding:24px 0 26px; position:relative; overflow:hidden;}
   .hero-grid{display:grid; grid-template-columns:1.05fr 1fr; gap:40px; align-items:center; position:relative; z-index:2;}
+  .hero-copy{position:relative; z-index:3;}
   .eyebrow{
     font-family:var(--sans); font-size:12.5px; font-weight:700;
     letter-spacing:.08em; text-transform:uppercase; color:var(--color-accent-hover);
@@ -442,7 +443,9 @@
 
   @media (max-width:900px){
     .hero-grid{grid-template-columns:1fr;}
-    .hero-art{order:-1; margin-bottom:20px;}
+    .hero-art{order:-1; margin-bottom:28px;}
+    .hero-art .art-inner{transform:none;}
+    .hero > .blob{display:none;}
     .hero > .blob{width:640px; height:620px; left:auto; right:-140px; top:-140px;}
     .nav-burger{display:flex;}
     nav.links{
