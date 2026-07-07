@@ -448,11 +448,17 @@
   }
 
   @media (max-width:900px){
-    .hero-grid{grid-template-columns:1fr;}
-    .hero-art{order:-1; margin-bottom:28px;}
-    .hero-art .art-inner{transform:none;}
+    .hero{padding-top:0;}
+    .hero-grid{grid-template-columns:1fr; gap:14px;}
+    .hero-art{order:-1; margin:0; padding:0; position:relative;}
+    .hero-art::before{
+      content:""; position:absolute; top:0; bottom:0; left:50%; width:100vw;
+      transform:translateX(-50%);
+      background:radial-gradient(circle at 32% 20%, var(--color-gold), var(--color-accent) 74%);
+      z-index:0;
+    }
+    .hero-art .art-inner{position:relative; z-index:1; transform:none; padding:14px 0 0;}
     .hero > .blob{display:none;}
-    .hero > .blob{width:640px; height:620px; left:auto; right:-140px; top:-140px;}
     .nav-burger{display:flex;}
     nav.links{
       display:none; position:absolute; top:100%; left:0; right:0; z-index:80;
