@@ -497,23 +497,33 @@
     .cta-bar-text{text-align:center;}
     .cta-banner h2{font-size:22px;}
     .page-hero h1{font-size:28px;}
-    .platform-circle{width:270px; height:270px; margin:24px auto 28px;}
-    .platform-node{width:78px; gap:6px;}
-    .platform-node .node-icon{width:42px; height:42px;}
-    .platform-node .node-icon svg{width:19px; height:19px;}
-    .platform-node .node-label{font-size:11.5px;}
-    .platform-node .node-label b{font-size:12.5px;}
-    .node-left{left:8%;}
-    .node-right{right:8%;}
-    .node-top{top:4%;}
-    .node-bottom{bottom:4%;}
-    .platform-core .core-name{font-size:18px;}
-    .platform-core img{width:30px; height:30px;}
+    .platform-circle{width:310px; height:310px; margin:20px auto 24px;}
+    .platform-node{width:84px; gap:6px;}
+    .platform-node .node-icon{width:46px; height:46px;}
+    .platform-node .node-icon svg{width:20px; height:20px;}
+    .platform-node .node-label{font-size:12px;}
+    .platform-node .node-label b{font-size:13px;}
+    .node-left{left:6%;}
+    .node-right{right:6%;}
+    .node-top{top:3%;}
+    .node-bottom{bottom:3%;}
+    .platform-core .core-name{font-size:19px;}
+    .platform-core img{width:32px; height:32px;}
     .demo-hero h1{font-size:26px;}
     .demo-hero > .wrap > .demo-hero-grid > div:first-child > p{margin-bottom:22px;}
     .form-grid{grid-template-columns:1fr;}
     .demo-form-card{padding:26px 22px;}
     .demo-hero{padding:48px 0 64px;}
+  }
+
+  @media (max-width:340px){
+    .platform-circle{width:270px; height:270px;}
+    .platform-node{width:72px;}
+    .platform-node .node-icon{width:40px; height:40px;}
+    .platform-node .node-label{font-size:10.5px;}
+    .platform-node .node-label b{font-size:11.5px;}
+    .node-left{left:8%;}
+    .node-right{right:8%;}
   }
 
   /* ========================================================
