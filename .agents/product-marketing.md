@@ -16,9 +16,9 @@ Tiers: Community (free) · Pro · Pro+ · Enterprise+Partner (open-core; premiss
 4. **Sem superlativos vazios** ("o melhor", "líder") → claim substanciado (número + fonte/benchmark).
 5. **Zero-LLM é diferencial, não disfarce** — determinístico/reproduzível, não "AI mágica".
 6. **Skill competitors:** todo claim sobre rival **datado + com fonte** (G2/Capterra/doc), reconhecendo forças dele.
-7. **Skill launch:** tom sóbrio de produto ssez artificial**.
+7. **Skill launch:** tom sobrio de produto de confianca; **sem FOMO/escassez artificial**.
 8. **Nunca plugar conectores que trafegam PII de terceiros** (ex: Introw/PRM da skill launch) — inaceitável num scanner de PII.
 
 ## Público
 Site em GH Pages, editado por agentes (Claude Code/Cursor) e pela Talita.
-Headline que prometa resultado de compliancção de gate** (trata como bug).
+Headline que prometa resultado de compliance ou garantia legal = **violacao de gate** (trata como bug).
