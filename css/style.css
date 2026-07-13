@@ -483,7 +483,6 @@
     body.nav-menu-open{overflow:hidden;}
     .nav{gap:12px;}
     .nav-cta{gap:12px; margin-left:auto;}
-    .nav-cta .login{display:none;}
     .lang-btn{padding:8px 10px 8px 12px; gap:4px;}
     .lang-btn .lang-flag{display:none;}
     h1{font-size:34px;}
