@@ -25,7 +25,12 @@
 <header>
   <div class="wrap nav">
     <a class="brand" href="index.html"><img src="images/logo-databoar.png" alt="DATA BOAR"></a>
-    <nav class="links">
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu de navegação">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+    <nav class="links" id="site-nav">
       <a href="solucao.html">Solução</a>
       <a href="#">Recursos</a>
       <a href="#">Clientes</a>
@@ -38,7 +43,7 @@
     <div class="nav-cta">
       <a class="login" href="login.html">Login</a>
       <div class="lang-switch">
-        <button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false" onclick="var m=this.nextElementSibling; var open=m.classList.toggle('open'); this.setAttribute('aria-expanded', open);">
+        <button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false">
           <span class="lang-flag">🇧🇷</span>
           <span class="lang-code">PT-BR</span>
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
@@ -50,6 +55,7 @@
       </div>
     </div>
   </div>
+  <div class="nav-overlay" aria-hidden="true"></div>
 </header>
 
 <!-- ============ PAGE HERO ============ -->
@@ -261,23 +267,6 @@
   </div>
 </footer>
 
-<script>
-  document.querySelectorAll('.lang-option').forEach(function(opt){
-    opt.addEventListener('click', function(e){
-      e.preventDefault();
-      document.querySelectorAll('.lang-option').forEach(function(o){ o.classList.remove('selected'); });
-      this.classList.add('selected');
-      document.querySelector('.lang-btn .lang-code').textContent = this.dataset.lang === 'en' ? 'EN' : 'PT-BR';
-      document.querySelector('.lang-btn .lang-flag').textContent = this.dataset.flag;
-      document.querySelector('.lang-menu').classList.remove('open');
-    });
-  });
-  document.addEventListener('click', function(e){
-    if(!e.target.closest('.lang-switch')){
-      document.querySelector('.lang-menu').classList.remove('open');
-      document.querySelector('.lang-btn').setAttribute('aria-expanded','false');
-    }
-  });
-</script>
+<script src="js/site.js"></script>
 </body>
 </html>
