@@ -32,10 +32,9 @@
     </button>
     <nav class="links" id="site-nav">
       <a href="solucao.html">Solução</a>
-      <a href="#">Recursos</a>
-      <a href="#">Clientes</a>
-      <a href="#">Preços</a>
+      <a href="solucao.html#casos-de-uso">Casos de uso</a>
       <a href="opensource.html">OpenSource</a>
+      <span class="nav-soon" title="Em breve">Preços · em breve</span>
     </nav>
     <div class="nav-cta">
       <a class="login" href="login.html">Login</a>
@@ -78,20 +77,11 @@
       </div>
     </div>
 
-    <div class="video-mock">
+    <div class="video-mock video-placeholder" role="img" aria-label="Demonstração em vídeo — em breve">
       <div class="video-mock-inner">
         <img src="images/boar-icon.png" alt="">
         <span class="video-mock-brand">data<b>BOAR</b></span>
-        <button class="video-play" aria-label="Reproduzir vídeo">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-        </button>
-      </div>
-      <div class="video-controls">
-        <span class="vc-time">0:00 / 2:45</span>
-        <div class="vc-bar"><i></i></div>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/></svg>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.9l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.9-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 01-4 0v-.1a1.7 1.7 0 00-1-1.6 1.7 1.7 0 00-1.9.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.9 1.7 1.7 0 00-1.5-1H3a2 2 0 010-4h.1a1.7 1.7 0 001.6-1 1.7 1.7 0 00-.3-1.9l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.9.3H9a1.7 1.7 0 001-1.5V3a2 2 0 014 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.9-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.9V9a1.7 1.7 0 001.5 1h.1a2 2 0 010 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3"/></svg>
+        <p class="video-placeholder-label">Demonstração em vídeo — em breve</p>
       </div>
     </div>
   </div>
@@ -141,17 +131,17 @@
       <div class="diff-card">
         <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg></div>
         <h3>Precisão e Confiabilidade</h3>
-        <p>Detecção determinística combinada com IA para resultados mais precisos e consistentes.</p>
+        <p>IA determinística e verificável (ML/DL especializados + sidecar Clojure), sem LLM/generativa — reproduzível e auditável.</p>
       </div>
       <div class="diff-card">
         <div class="diff-icon c2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
-        <h3>Governança e Compliance</h3>
-        <p>Políticas de privacidade, LGPD e auditoria integradas em todo o ciclo do dado.</p>
+        <h3>Governança com evidências</h3>
+        <p>Escopo honesto: descoberta → classificação → evidência → remediação via plugin — rastros auditáveis para o seu programa de privacidade.</p>
       </div>
       <div class="diff-card">
         <div class="diff-icon c3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></div>
-        <h3>Agilidade e Escalabilidade</h3>
-        <p>Processamento em larga escala com performance e custo otimizados.</p>
+        <h3>Leve e portátil</h3>
+        <p>Roda do min-spec ao datacenter, inclusive air-gapped, sem infraestrutura pesada — onde stacks monolíticas não cabem.</p>
       </div>
       <div class="diff-card">
         <div class="diff-icon c4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5"/><circle cx="17" cy="9" r="2.8"/><path d="M15.5 13.2c2.7.3 4.8 2.6 4.8 5.4"/></svg></div>
@@ -235,30 +225,27 @@
       </div>
       <div class="footer-col">
         <h4>Produto</h4>
-        <a href="#">Como Funciona</a>
-        <a href="solucao.html">Soluções</a>
-        <a href="#">Casos de Uso</a>
-        <a href="#">Preços</a>
+        <a href="solucao.html">Solução</a>
+        <a href="solucao.html#casos-de-uso">Casos de uso</a>
+        <a href="opensource.html">OpenSource</a>
+        <a href="agende-demonstracao.html">Agendar demonstração</a>
       </div>
       <div class="footer-col">
         <h4>Recursos</h4>
-        <a href="#">Documentação</a>
-        <a href="#">Central de Ajuda</a>
-        <a href="#">Blog</a>
+        <span class="footer-soon">Documentação · em breve</span>
+        <span class="footer-soon">Blog · em breve</span>
+        <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">GitHub</a>
       </div>
       <div class="footer-col">
-        <h4>Conformidade</h4>
-        <a href="#">LGPD</a>
-        <a href="#">GDPR</a>
-        <a href="#">CCPA</a>
+        <h4>Posicionamento</h4>
+        <a href="opensource.html">Open-core &amp; método</a>
+        <span class="footer-soon">Preços · em breve</span>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 data BOAR. Todos os direitos reservados.</span>
+      <span>© 2026 data BOAR</span>
       <div class="footer-social">
-        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-        <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.1 3.1 0 00-.9-2.4c3-.3 6-1.5 6-6.6a5.1 5.1 0 00-1.4-3.5 4.6 4.6 0 00-.1-3.5s-1.1-.3-3.5 1.3a12.2 12.2 0 00-6.4 0C6.9 1.3 5.8 1.6 5.8 1.6a4.6 4.6 0 00-.1 3.5A5.1 5.1 0 004.3 8.6c0 5 3 6.3 6 6.6a3.1 3.1 0 00-.9 2.4V22"/></svg></a>
-        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.1 3.1 0 00-.9-2.4c3-.3 6-1.5 6-6.6a5.1 5.1 0 00-1.4-3.5 4.6 4.6 0 00-.1-3.5s-1.1-.3-3.5 1.3a12.2 12.2 0 00-6.4 0C6.9 1.3 5.8 1.6 5.8 1.6a4.6 4.6 0 00-.1 3.5A5.1 5.1 0 004.3 8.6c0 5 3 6.3 6 6.6a3.1 3.1 0 00-.9 2.4V22"/></svg></a>
       </div>
     </div>
   </div>
