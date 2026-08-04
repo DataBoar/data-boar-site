@@ -28,9 +28,9 @@
   }
 
   var CONSENT_PROCESS_TEXT =
-    'Autorizo a DataBoar a armazenar e tratar meus dados pessoais para responder a este contato.';
+    'Autorizo o DataBoar a armazenar e tratar meus dados pessoais para responder a este contato.';
   var CONSENT_MARKETING_TEXT =
-    'Aceito receber comunicações e novidades da DataBoar. Posso cancelar quando quiser.';
+    'Aceito receber comunicações e novidades do DataBoar. Posso cancelar quando quiser.';
 
   function submitDemoToHubSpot(form) {
     var preferred = val(form, 'demo_preferred_datetime');
