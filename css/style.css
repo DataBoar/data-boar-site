@@ -891,3 +891,42 @@
     .login-brand{display:none;}
     .login-form-col{padding:56px 24px;}
   }
+
+
+/* ===== Formulário demo — consent, hints, asterisco ===== */
+.form-field .req, .consent-item .req{color:#C0392B; font-weight:700; margin-left:1px;}
+.field-hint{font-weight:400; color:var(--color-text-secondary); font-size:12px;}
+.form-consent{
+  border:1px solid var(--color-line);
+  border-radius:var(--radius-sm);
+  padding:16px 16px 14px;
+  margin:4px 0 18px;
+  display:flex; flex-direction:column; gap:12px;
+}
+.form-consent legend{
+  font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.04em;
+  color:var(--color-text-secondary); padding:0 6px;
+}
+.consent-item{
+  display:flex; align-items:flex-start; gap:10px;
+  font-size:13px; line-height:1.5; color:var(--color-text); cursor:pointer;
+}
+.consent-item input[type="checkbox"]{
+  margin-top:2px; width:16px; height:16px; flex:0 0 auto;
+  accent-color:var(--color-accent); cursor:pointer;
+}
+.consent-note{font-size:12px; color:var(--color-text-secondary); line-height:1.5; margin:0;}
+.consent-note a{color:var(--color-accent); font-weight:600; text-decoration:underline;}
+
+
+/* ===== Página legal (privacidade) ===== */
+.legal{padding:56px 0 72px; background:var(--color-bg);}
+.legal-wrap{max-width:760px;}
+.legal h1{font-family:var(--serif); font-size:40px; color:var(--color-primary); margin:6px 0 8px;}
+.legal-meta{color:var(--color-text-secondary); font-size:13px; margin-bottom:28px;}
+.legal h2{font-family:var(--sans); font-weight:800; font-size:19px; color:var(--color-primary); margin:30px 0 10px;}
+.legal p{color:var(--color-text); line-height:1.7; margin:0 0 12px;}
+.legal ul{margin:0 0 12px; padding-left:20px; color:var(--color-text); line-height:1.7;}
+.legal li{margin-bottom:6px;}
+.legal a{color:var(--color-accent); font-weight:600; text-decoration:underline;}
+.legal-back{margin-top:34px; padding-top:18px; border-top:1px solid var(--color-line);}

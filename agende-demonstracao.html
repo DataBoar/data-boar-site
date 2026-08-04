@@ -7,6 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 </head>
 <body>
 
@@ -98,62 +101,224 @@
 
     <div class="demo-form-card">
       <h2>Formulário de agendamento</h2>
-      <form id="demo-request-form">
+      <form id="demo-request-form" novalidate>
         <div class="form-grid">
           <div class="form-field">
-            <label for="demo-nome">Nome completo*</label>
-            <input type="text" id="demo-nome" name="nome_completo" placeholder="Digite seu nome" required>
+            <label for="demo-nome">Nome</label>
+            <input type="text" id="demo-nome" name="firstname" placeholder="Seu nome" autocomplete="given-name">
           </div>
           <div class="form-field">
-            <label for="demo-email">E-mail corporativo*</label>
-            <input type="email" id="demo-email" name="email" placeholder="seu@email.com" required>
-          </div>
-          <div class="form-field">
-            <label for="demo-empresa">Empresa*</label>
-            <input type="text" id="demo-empresa" name="company" placeholder="Digite o nome da empresa" required>
-          </div>
-          <div class="form-field">
-            <label for="demo-cargo">Cargo*</label>
-            <select id="demo-cargo" name="jobtitle" required>
-              <option value="" selected disabled>Selecione seu cargo</option>
-              <option>Diretoria / C-level</option>
-              <option>Gerência</option>
-              <option>Coordenação</option>
-              <option>Analista</option>
-              <option>Outro</option>
-            </select>
-          </div>
-          <div class="form-field">
-            <label for="demo-telefone">Telefone / WhatsApp*</label>
-            <input type="tel" id="demo-telefone" name="phone" placeholder="(11) 99999-9999" required>
-          </div>
-          <div class="form-field">
-            <label for="demo-segmento">Segmento*</label>
-            <select id="demo-segmento" name="segmento" required>
-              <option value="" selected disabled>Selecione o segmento</option>
-              <option>Financeiro</option>
-              <option>Varejo</option>
-              <option>Saúde</option>
-              <option>Indústria</option>
-              <option>Tecnologia</option>
-              <option>Outro</option>
-            </select>
+            <label for="demo-sobrenome">Sobrenome</label>
+            <input type="text" id="demo-sobrenome" name="lastname" placeholder="Seu sobrenome" autocomplete="family-name">
           </div>
           <div class="form-field full">
-            <label for="demo-desafio">Qual o principal desafio que você deseja resolver?*</label>
-            <textarea id="demo-desafio" name="message" placeholder="Conte-nos um pouco sobre o seu desafio" required></textarea>
+            <label for="demo-email">E-mail corporativo<span class="req">*</span></label>
+            <input type="email" id="demo-email" name="email" placeholder="voce@empresa.com" autocomplete="email" required>
+          </div>
+          <div class="form-field">
+            <label for="demo-empresa">Empresa<span class="req">*</span></label>
+            <input type="text" id="demo-empresa" name="company" placeholder="Nome da empresa" autocomplete="organization" required>
+          </div>
+          <div class="form-field">
+            <label for="demo-cargo">Cargo</label>
+            <input type="text" id="demo-cargo" name="jobtitle" list="cargo-options" placeholder="ex: DPO / Encarregado de Dados" autocomplete="organization-title">
+            <datalist id="cargo-options">
+              <option value="DPO / Encarregado de Dados"></option>
+              <option value="Privacidade / Proteção de Dados"></option>
+              <option value="Compliance / Conformidade"></option>
+              <option value="CISO / Segurança da Informação"></option>
+              <option value="Jurídico"></option>
+              <option value="Governança de Dados"></option>
+              <option value="TI / Infraestrutura"></option>
+              <option value="Auditoria / Risco"></option>
+              <option value="Diretoria / C-level"></option>
+              <option value="Gerência"></option>
+              <option value="Outro"></option>
+            </datalist>
+          </div>
+          <div class="form-field">
+            <label for="demo-telefone">Telefone / WhatsApp</label>
+            <input type="tel" id="demo-telefone" name="phone" placeholder="(21) 99999-9999" autocomplete="tel">
           </div>
           <div class="form-field full">
-            <label for="demo-agendamento">Quando você gostaria de agendar?</label>
-            <input type="text" id="demo-agendamento" name="demo_preferred_datetime" placeholder="Selecione a melhor data e horário" onfocus="(this.type='datetime-local')">
+            <label for="demo-industria">Indústria</label>
+            <input type="text" id="demo-industria" name="industry" list="industria-options" placeholder="Busque sua indústria…" autocomplete="off">
+            <datalist id="industria-options">
+              <option value="Accounting / Contabilidade"></option>
+              <option value="Airlines / Aviation / Cia. Aérea"></option>
+              <option value="Alternative Dispute Resolution / Conciliação"></option>
+              <option value="Alternative Medicine / Medicina Alternativa"></option>
+              <option value="Animation / Animação"></option>
+              <option value="Apparel &amp; Fashion / Vestuário &amp; Moda"></option>
+              <option value="Architecture &amp; Planning / Arquitetura &amp; Planejamento"></option>
+              <option value="Arts and Crafts / Artesanato &amp; Bricolagem"></option>
+              <option value="Automotive / Automotiva"></option>
+              <option value="Aviation &amp; Aerospace / Aviação &amp; Aeroespacial"></option>
+              <option value="Banking / Bancário"></option>
+              <option value="Biotechnology / Biotecnologia"></option>
+              <option value="Broadcast Media / Radiodifusão"></option>
+              <option value="Building Materials / Materiais de Construção"></option>
+              <option value="Business Supplies and Equipment / Suprimentos de Escritório"></option>
+              <option value="Capital Markets / Mercado de Capitais"></option>
+              <option value="Chemicals / Química"></option>
+              <option value="Civic &amp; Social Organization / ONG"></option>
+              <option value="Civil Engineering / Engenharia Civil"></option>
+              <option value="Commercial Real Estate / Imobiliária"></option>
+              <option value="Computer &amp; Network Security / Computação &amp; Segurança de Rede"></option>
+              <option value="Computer Games / Jogos"></option>
+              <option value="Computer Hardware / Computadores"></option>
+              <option value="Computer Networking / Redes"></option>
+              <option value="Computer Software / Desenvolvimento"></option>
+              <option value="Internet"></option>
+              <option value="Construction / Construção"></option>
+              <option value="Consumer Electronics / Eletrônicos"></option>
+              <option value="Consumer Goods / Bens de Consumo"></option>
+              <option value="Consumer Services / Serviços ao Consumidor"></option>
+              <option value="Cosmetics / Cosméticos"></option>
+              <option value="Dairy / Laticínios"></option>
+              <option value="Defense &amp; Space / Defesa &amp; Espaço"></option>
+              <option value="Design"></option>
+              <option value="Education Management / Administração Educacional"></option>
+              <option value="E-Learning / EAD"></option>
+              <option value="Electrical/Electronic Manufacturing / Fabricação de Eletroeletrônica"></option>
+              <option value="Entertainment / Entretenimento"></option>
+              <option value="Environmental Services / Serviços Ambientais"></option>
+              <option value="Events Services / Eventos"></option>
+              <option value="Executive Office / Gabinete Executivo"></option>
+              <option value="Facilities Services / Serviços de Instalações"></option>
+              <option value="Farming / Agro"></option>
+              <option value="Financial Services / Serviços Financeiros"></option>
+              <option value="Fine Art / Belas Artes"></option>
+              <option value="Fishery / Pesca"></option>
+              <option value="Food &amp; Beverages / Refeições &amp; Bebidas"></option>
+              <option value="Food Production / Produção de Alimentos"></option>
+              <option value="Fund-Raising / Captação de Recursos"></option>
+              <option value="Furniture / Móveis &amp; Mobiliário"></option>
+              <option value="Gambling &amp; Casinos / Jogos de Azar &amp; Casinos"></option>
+              <option value="Glass, Ceramics &amp; Concrete / Vidro, Cerâmica &amp; Concreto"></option>
+              <option value="Government Administration / Administração Pública"></option>
+              <option value="Government Relations / Relações Governamentais"></option>
+              <option value="Graphic Design / Design Gráfico"></option>
+              <option value="Health, Wellness &amp; Fitness / Saúde, Bem-estar &amp; Boa-forma"></option>
+              <option value="Higher Education / Ensino Superior"></option>
+              <option value="Hospital &amp; Health Care / Hospital &amp; Saúde"></option>
+              <option value="Hospitality / Hotelaria"></option>
+              <option value="Human Resources / Recursos Humanos"></option>
+              <option value="Import and Export / Importação e Exportação"></option>
+              <option value="Individual &amp; Family Services / Serviços a Indivíduos e Famílias"></option>
+              <option value="Industrial Automation / Automação Industrial"></option>
+              <option value="Information Services / Serviços de Informação"></option>
+              <option value="IT Services / Serviços de TI"></option>
+              <option value="Insurance / Seguros"></option>
+              <option value="International Affairs / Relações Internacionais"></option>
+              <option value="International Trade and Development / Comércio Internacional e Desenvolvimento"></option>
+              <option value="Investment Banking / Banco de Investimento"></option>
+              <option value="Investment Management / Gestão de Investimentos"></option>
+              <option value="Judiciary / Judiciário"></option>
+              <option value="Law Enforcement / Segurança Pública"></option>
+              <option value="Law Practice / Advocacia"></option>
+              <option value="Legal Services / Serviços Jurídicos"></option>
+              <option value="Legislative Office / Gabinete Legislativo"></option>
+              <option value="Leisure, Travel &amp; Tourism / Lazer, Viagens &amp; Turismo"></option>
+              <option value="Libraries / Bibliotecas"></option>
+              <option value="Logistics and Supply Chain / Logística e Cadeia de Suprimentos"></option>
+              <option value="Luxury Goods &amp; Jewelry / Bens de Luxo &amp; Joalheria"></option>
+              <option value="Machinery / Máquinas"></option>
+              <option value="Management Consulting / Consultoria de Gestão"></option>
+              <option value="Maritime / Naval"></option>
+              <option value="Market Research / Pesquisa de Mercado"></option>
+              <option value="Marketing and Advertising / Marketing e Publicidade"></option>
+              <option value="Mechanical or Industrial Engineering / Engenharia Mecânica ou Industrial"></option>
+              <option value="Media Production / Produção de Mídia"></option>
+              <option value="Medical Devices / Dispositivos Médicos"></option>
+              <option value="Medical Practice / Prática Médica &amp; Consultórios"></option>
+              <option value="Mental Health Care / Assistência em Saúde Mental"></option>
+              <option value="Military / Militar"></option>
+              <option value="Mining &amp; Metals / Mineração e Metais"></option>
+              <option value="Motion Pictures and Film / Cinema e Filmes"></option>
+              <option value="Museums and Institutions / Museus e Instituições"></option>
+              <option value="Music / Música"></option>
+              <option value="Nanotechnology / Nanotecnologia"></option>
+              <option value="Newspapers &amp; Press / Jornais e Imprensa"></option>
+              <option value="Non-Profit Organization Management / Gestão de Organizações sem Fins Lucrativos"></option>
+              <option value="Oil &amp; Energy / Petróleo e Energia"></option>
+              <option value="Online Media / Mídia Online"></option>
+              <option value="Outsourcing &amp; Offshoring / Terceirização"></option>
+              <option value="Package &amp; Freight Delivery / Entrega de encomendas e cargas"></option>
+              <option value="Packaging and Containers / Embalagens e Recipientes"></option>
+              <option value="Paper &amp; Forest Products / Papel e Produtos Florestais"></option>
+              <option value="Performing Arts / Artes Cênicas"></option>
+              <option value="Pharmaceuticals / Farmacêutico"></option>
+              <option value="Philanthropy / Filantropia"></option>
+              <option value="Photography / Fotografia"></option>
+              <option value="Plastics / Plásticos"></option>
+              <option value="Political Organization / Organização Política"></option>
+              <option value="Primary &amp; Secondary Education / Ensino Fundamental e Médio"></option>
+              <option value="Printing / Impressão"></option>
+              <option value="Professional Training / Treinamento Profissional &amp; Coaching"></option>
+              <option value="Program Development / Desenvolvimento de Programas"></option>
+              <option value="Public Policy / Políticas Públicas"></option>
+              <option value="Public Relations and Communications / Relações Públicas e Comunicação"></option>
+              <option value="Public Safety / Segurança Pública"></option>
+              <option value="Publishing / Gráfica &amp; Editorial"></option>
+              <option value="Railroad Manufacture / Fabricação de equipamentos ferroviários"></option>
+              <option value="Ranching / Pecuária"></option>
+              <option value="Real Estate / Imobiliária"></option>
+              <option value="Recreational Facilities and Services / Instalações e Serviços Recreativos"></option>
+              <option value="Religious Institutions / Instituições Religiosas"></option>
+              <option value="Renewables &amp; Environment / Energias Renováveis e Meio Ambiente"></option>
+              <option value="Research / Pesquisa"></option>
+              <option value="Restaurants / Restaurantes"></option>
+              <option value="Retail / Varejo"></option>
+              <option value="Security and Investigations / Segurança e Investigações"></option>
+              <option value="Semiconductors / Semicondutores"></option>
+              <option value="Shipbuilding / Construção naval"></option>
+              <option value="Sporting Goods / Artigos Esportivos"></option>
+              <option value="Sports / Esportes"></option>
+              <option value="Staffing and Recruiting / Recrutamento e Seleção"></option>
+              <option value="Supermarkets / Supermercados"></option>
+              <option value="Telecommunications / Telecomunicações"></option>
+              <option value="Textiles / Têxtil"></option>
+              <option value="Think Tanks"></option>
+              <option value="Tobacco / Tabaco"></option>
+              <option value="Translation and Localization / Tradução e Localização"></option>
+              <option value="Transportation, Trucking &amp; Railroad / Transporte Rodoviário e Ferroviário de Cargas"></option>
+              <option value="Utilities / Serviços de Utilidade Pública"></option>
+              <option value="Venture Capital &amp; Private Equity / Capital de Risco &amp; Private Equity"></option>
+              <option value="Veterinary / Veterinária"></option>
+              <option value="Warehousing / Armazenagem"></option>
+              <option value="Wholesale / Atacado"></option>
+              <option value="Wine and Spirits / Vinhos e Destilados"></option>
+              <option value="Wireless / Comunicação sem fio"></option>
+              <option value="Writing and Editing / Redação e Edição"></option>
+              <option value="Mobile Games / Jogos para dispositivos móveis"></option>
+            </datalist>
+          </div>
+          <div class="form-field full">
+            <label for="demo-desafio">Mensagem <span class="field-hint">(ex: qual o principal desafio que você deseja resolver?)</span></label>
+            <textarea id="demo-desafio" name="message" placeholder="Conte-nos um pouco sobre o seu contexto e desafio"></textarea>
+          </div>
+          <div class="form-field full">
+            <label for="demo-agendamento">Data e horário preferidos</label>
+            <input type="datetime-local" id="demo-agendamento" name="demo_preferred_datetime">
           </div>
         </div>
+
+        <fieldset class="form-consent">
+          <legend>Consentimento</legend>
+          <label class="consent-item">
+            <input type="checkbox" id="consent-process" name="consent_process" required>
+            <span>Autorizo a DataBoar a armazenar e tratar meus dados pessoais para responder a este contato.<span class="req">*</span></span>
+          </label>
+          <label class="consent-item">
+            <input type="checkbox" id="consent-marketing" name="consent_marketing">
+            <span>Aceito receber comunicações e novidades da DataBoar. Posso cancelar quando quiser.</span>
+          </label>
+          <p class="consent-note">Cuidamos da sua privacidade. Saiba como tratamos seus dados na nossa <a href="privacidade.html">Política de Privacidade</a>.</p>
+        </fieldset>
+
         <button type="submit" class="btn btn-primary form-submit">Agendar demonstração →</button>
         <div id="demo-form-status" class="form-status" role="status" aria-live="polite" hidden></div>
-        <div class="form-note">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
-          Seus dados estão seguros conosco.
-        </div>
       </form>
     </div>
   </div>
