@@ -54,34 +54,62 @@
     });
   });
 
+  function applyLanguage(lang) {
+    var resolved = lang === 'en' ? 'en' : 'pt-BR';
+    document.documentElement.lang = resolved === 'en' ? 'en' : 'pt-BR';
+    try {
+      localStorage.setItem('databoar-lang', resolved);
+    } catch (err) {
+      /* ignore */
+    }
+    document.querySelectorAll('[data-lang-panel]').forEach(function (panel) {
+      var match = panel.getAttribute('data-lang-panel') === resolved;
+      if (match) {
+        panel.removeAttribute('hidden');
+      } else {
+        panel.setAttribute('hidden', '');
+      }
+    });
+    document.querySelectorAll('.lang-option').forEach(function (o) {
+      o.classList.toggle('selected', o.dataset.lang === resolved);
+    });
+    var langBtn = document.querySelector('.lang-btn');
+    if (langBtn) {
+      var code = langBtn.querySelector('.lang-code');
+      var flag = langBtn.querySelector('.lang-flag');
+      var selected = document.querySelector('.lang-option.selected');
+      if (code) {
+        code.textContent = resolved === 'en' ? 'EN' : 'PT-BR';
+      }
+      if (flag && selected) {
+        flag.textContent = selected.dataset.flag;
+      }
+      langBtn.setAttribute('aria-expanded', 'false');
+    }
+    document.querySelectorAll('.lang-menu').forEach(function (menu) {
+      menu.classList.remove('open');
+    });
+  }
+
   document.querySelectorAll('.lang-option').forEach(function (opt) {
     opt.addEventListener('click', function (event) {
       event.preventDefault();
-      document.querySelectorAll('.lang-option').forEach(function (o) {
-        o.classList.remove('selected');
-      });
-      this.classList.add('selected');
-      var langBtn = document.querySelector('.lang-btn');
-      if (langBtn) {
-        var code = langBtn.querySelector('.lang-code');
-        var flag = langBtn.querySelector('.lang-flag');
-        if (code) {
-          code.textContent = this.dataset.lang === 'en' ? 'EN' : 'PT-BR';
-        }
-        if (flag) {
-          flag.textContent = this.dataset.flag;
-        }
-      }
-      var menu = this.closest('.lang-menu');
-      if (menu) {
-        menu.classList.remove('open');
-      }
-      var activeBtn = document.querySelector('.lang-btn');
-      if (activeBtn) {
-        activeBtn.setAttribute('aria-expanded', 'false');
-      }
+      applyLanguage(this.dataset.lang);
     });
   });
+
+  try {
+    var savedLang = localStorage.getItem('databoar-lang');
+    if (savedLang === 'en' || savedLang === 'pt-BR') {
+      applyLanguage(savedLang);
+    } else if (document.querySelector('[data-lang-panel]')) {
+      applyLanguage('pt-BR');
+    }
+  } catch (err) {
+    if (document.querySelector('[data-lang-panel]')) {
+      applyLanguage('pt-BR');
+    }
+  }
 
   document.addEventListener('click', function (event) {
     if (!event.target.closest('.lang-switch')) {
