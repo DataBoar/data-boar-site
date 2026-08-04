@@ -39,6 +39,12 @@
       preferred ? 'Preferência de agendamento: ' + preferred : '',
     ].filter(Boolean);
 
+    // Enquanto o subscriptionTypeId de marketing não estiver configurado, preserva
+    // o opt-in do titular na mensagem para não perder o sinal de consentimento.
+    if (!hubspot.marketingSubscriptionTypeId && isChecked(form, 'consent_marketing')) {
+      messageParts.push('Opt-in de comunicações (marketing): Sim');
+    }
+
     var rawFields = {
       firstname: val(form, 'firstname'),
       lastname: val(form, 'lastname'),
