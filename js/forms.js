@@ -13,58 +13,73 @@
     el.appendChild(document.createTextNode(message));
   }
 
-  function splitName(fullName) {
-    var parts = fullName.trim().split(/\s+/).filter(Boolean);
-    if (!parts.length) {
-      return { firstname: '', lastname: '' };
-    }
-    if (parts.length === 1) {
-      return { firstname: parts[0], lastname: '' };
-    }
-    return {
-      firstname: parts[0],
-      lastname: parts.slice(1).join(' '),
-    };
-  }
-
   function hubspotConfigured() {
     return Boolean(hubspot.portalId && hubspot.demoFormGuid);
   }
 
-  function submitDemoToHubSpot(form) {
-    var nome = form.querySelector('[name="nome_completo"]');
-    var email = form.querySelector('[name="email"]');
-    var empresa = form.querySelector('[name="company"]');
-    var cargo = form.querySelector('[name="jobtitle"]');
-    var telefone = form.querySelector('[name="phone"]');
-    var segmento = form.querySelector('[name="segmento"]');
-    var desafio = form.querySelector('[name="message"]');
-    var agendamento = form.querySelector('[name="demo_preferred_datetime"]');
+  function val(form, name) {
+    var el = form.querySelector('[name="' + name + '"]');
+    return el ? el.value.trim() : '';
+  }
 
-    var nameParts = splitName(nome ? nome.value : '');
-    var fields = [
-      { objectTypeId: '0-1', name: 'firstname', value: nameParts.firstname },
-      { objectTypeId: '0-1', name: 'lastname', value: nameParts.lastname },
-      { objectTypeId: '0-1', name: 'email', value: email ? email.value.trim() : '' },
-      { objectTypeId: '0-1', name: 'company', value: empresa ? empresa.value.trim() : '' },
-      { objectTypeId: '0-1', name: 'jobtitle', value: cargo ? cargo.value : '' },
-      { objectTypeId: '0-1', name: 'phone', value: telefone ? telefone.value.trim() : '' },
-      {
-        objectTypeId: '0-1',
-        name: 'message',
-        value: [
-          desafio ? desafio.value.trim() : '',
-          segmento && segmento.value ? 'Segmento: ' + segmento.value : '',
-          agendamento && agendamento.value
-            ? 'Preferência de agendamento: ' + agendamento.value
-            : '',
-        ]
-          .filter(Boolean)
-          .join('\n\n'),
+  function isChecked(form, name) {
+    var el = form.querySelector('[name="' + name + '"]');
+    return Boolean(el && el.checked);
+  }
+
+  var CONSENT_PROCESS_TEXT =
+    'Autorizo a DataBoar a armazenar e tratar meus dados pessoais para responder a este contato.';
+  var CONSENT_MARKETING_TEXT =
+    'Aceito receber comunicações e novidades da DataBoar. Posso cancelar quando quiser.';
+
+  function submitDemoToHubSpot(form) {
+    var preferred = val(form, 'demo_preferred_datetime');
+    var messageParts = [
+      val(form, 'message'),
+      preferred ? 'Preferência de agendamento: ' + preferred : '',
+    ].filter(Boolean);
+
+    // Enquanto o subscriptionTypeId de marketing não estiver configurado, preserva
+    // o opt-in do titular na mensagem para não perder o sinal de consentimento.
+    if (!hubspot.marketingSubscriptionTypeId && isChecked(form, 'consent_marketing')) {
+      messageParts.push('Opt-in de comunicações (marketing): Sim');
+    }
+
+    var rawFields = {
+      firstname: val(form, 'firstname'),
+      lastname: val(form, 'lastname'),
+      email: val(form, 'email'),
+      company: val(form, 'company'),
+      jobtitle: val(form, 'jobtitle'),
+      phone: val(form, 'phone'),
+      industry: val(form, 'industry'),
+      message: messageParts.join('\n\n'),
+    };
+
+    var fields = Object.keys(rawFields)
+      .filter(function (k) {
+        return rawFields[k];
+      })
+      .map(function (k) {
+        return { objectTypeId: '0-1', name: k, value: rawFields[k] };
+      });
+
+    // LGPD — consentimento granular: tratamento (obrigatório) + comunicações (opcional)
+    var communications = [];
+    if (hubspot.marketingSubscriptionTypeId) {
+      communications.push({
+        value: isChecked(form, 'consent_marketing'),
+        subscriptionTypeId: Number(hubspot.marketingSubscriptionTypeId),
+        text: CONSENT_MARKETING_TEXT,
+      });
+    }
+    var legalConsentOptions = {
+      consent: {
+        consentToProcess: true,
+        text: CONSENT_PROCESS_TEXT,
+        communications: communications,
       },
-    ].filter(function (field) {
-      return field.value;
-    });
+    };
 
     var endpoint =
       'https://api.hsforms.com/submissions/v3/integration/submit/' +
@@ -77,6 +92,7 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         fields: fields,
+        legalConsentOptions: legalConsentOptions,
         context: {
           pageUri: window.location.href,
           pageName: document.title,
