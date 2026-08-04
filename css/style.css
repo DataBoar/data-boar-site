@@ -930,3 +930,10 @@
 .legal li{margin-bottom:6px;}
 .legal a{color:var(--color-accent); font-weight:600; text-decoration:underline;}
 .legal-back{margin-top:34px; padding-top:18px; border-top:1px solid var(--color-line);}
+
+
+/* ===== Combobox de busca (indústria) ===== */
+.cbx-wrap{position:relative;}
+.cbx-menu{position:absolute; z-index:30; top:calc(100% + 4px); left:0; right:0; max-height:240px; overflow-y:auto; margin:0; padding:4px; list-style:none; background:var(--color-surface); border:1px solid var(--color-line); border-radius:var(--radius-sm); box-shadow:0 10px 30px rgba(0,0,0,.12);}
+.cbx-opt{padding:8px 10px; border-radius:8px; font-size:14px; color:var(--color-text); cursor:pointer;}
+.cbx-opt:hover, .cbx-opt.is-active{background:var(--color-bg); color:var(--color-primary);}
