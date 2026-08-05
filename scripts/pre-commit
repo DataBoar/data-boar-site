@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Fast pre-commit gate for data-boar-site (installed via scripts/install-hooks.sh).
+# Mirrors the data-boar pre-commit discipline: lint + code-quality + quick anti-regression
+# BEFORE each commit. Full suite runs in scripts/check-all.sh and in CI. NOT a toy project.
+set -uo pipefail
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT" || exit 2
+rc=0
+
+# 0) No tool co-authorship / session trailer in the message being committed.
+MSG_FILE="${1:-.git/COMMIT_EDITMSG}"
+if [ -f "$MSG_FILE" ] && grep -qiE '^\s*(co-authored-by:\s*(claude|cursor|copilot|gpt|gemini|grok)|claude-session:|generated with \[?claude)' "$MSG_FILE"; then
+  echo "❌ pre-commit: co-autoria/sessão de ferramenta na mensagem — o HITL é o único autor (ADR-0001)"; rc=1
+fi
+
+# 1) Quick anti-regression: the live form config must have real HubSpot values (#22).
+if [ -f js/form-config.js ] && ! grep -qE "portalId:\s*['\"][0-9]{6,}['\"]" js/form-config.js; then
+  echo "❌ pre-commit: form-config.js sem portalId real (regressão do form)"; rc=1
+fi
+
+# 2) Lint / code-quality (best-effort; a present tool must pass, an absent one is skipped).
+if command -v node >/dev/null 2>&1; then
+  for f in js/*.js; do node --check "$f" || { echo "❌ pre-commit: erro de sintaxe JS em $f"; rc=1; }; done
+fi
+if command -v tidy >/dev/null 2>&1; then
+  for f in *.html; do tidy -qe "$f" >/dev/null 2>&1 || { echo "⚠️  pre-commit: tidy apontou erros em $f"; }; done
+fi
+
+# 3) The one guardrail that is cheap AND catches the worst overclaim regressions.
+if grep -rniE "RIPD\s*\(Art\.?\s*30\)|DPIA\s*\(Art\.?\s*30\)" -- *.html >/dev/null 2>&1; then
+  echo "❌ pre-commit: overclaim normativo 'RIPD/DPIA (Art. 30)' (ADR-0001 anti-overclaim)"; rc=1
+fi
+
+[ "$rc" = "0" ] && echo "✅ pre-commit ok" || echo "❌ pre-commit VERMELHO — commit bloqueado (rode scripts/check-all.sh)"
+exit "$rc"

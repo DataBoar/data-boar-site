@@ -1,0 +1,23 @@
+name: guardrails
+# Inviolable gate — see docs/adr/ADR-0001. This check is REQUIRED by the branch ruleset.
+# Uses only pinned actions (supply-chain) + system python (no setup-python dependency).
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  guardrails:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history for the HITL/co-authorship check)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Guardrail suite (anti-regression · security · supply-chain · anti-overclaim · anti-llm · hitl)
+        run: python3 -m unittest -v tests.test_guardrails
