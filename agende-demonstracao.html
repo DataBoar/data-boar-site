@@ -17,10 +17,12 @@
   <div class="wrap">
     <div class="left">
       <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
-      <span><b>O compliance</b> da sua empresa mais inteligente, ágil e seguro.</span>
+      <span data-lang-panel="pt-BR"><b>O compliance</b> da sua empresa mais inteligente, ágil e seguro.</span>
+      <span data-lang-panel="en" hidden><b>Compliance</b> that is smarter, leaner, and under your control.</span>
     </div>
     <div class="right">
-      <a class="mini-btn" href="agende-demonstracao.html">Agendar Demonstração →</a>
+      <a class="mini-btn" href="agende-demonstracao.html" data-lang-panel="pt-BR">Agendar Demonstração →</a>
+      <a class="mini-btn" href="agende-demonstracao.html" data-lang-panel="en" hidden>Book a demo →</a>
     </div>
   </div>
 </div>
@@ -34,10 +36,13 @@
       <span class="nav-toggle-bar" aria-hidden="true"></span>
     </button>
     <nav class="links" id="site-nav">
-      <a href="solucao.html">Solução</a>
-      <a href="solucao.html#casos-de-uso">Casos de uso</a>
+      <a href="solucao.html" data-lang-panel="pt-BR">Solução</a>
+      <a href="solucao.html" data-lang-panel="en" hidden>Solution</a>
+      <a href="solucao.html#casos-de-uso" data-lang-panel="pt-BR">Casos de uso</a>
+      <a href="solucao.html#casos-de-uso-en" data-lang-panel="en" hidden>Use cases</a>
       <a href="opensource.html">OpenSource</a>
-      <span class="nav-soon" title="Em breve">Preços · em breve</span>
+      <span class="nav-soon" title="Em breve" data-lang-panel="pt-BR">Preços · em breve</span>
+      <span class="nav-soon" title="Coming soon" data-lang-panel="en" hidden>Pricing · coming soon</span>
     </nav>
     <div class="nav-cta">
       <a class="login" href="login.html">Login</a>
@@ -61,6 +66,7 @@
 <section class="demo-hero">
   <div class="wrap demo-hero-grid">
     <div>
+      <div data-lang-panel="pt-BR">
       <div class="eyebrow on-dark">SOLUÇÃO</div>
       <h1>Agende uma <span class="accent">demonstração</span></h1>
       <p>Preencha o formulário ao lado e fale com um de nossos especialistas. Vamos entender o seu desafio e mostrar como o DataBoar pode gerar valor para o seu negócio.</p>
@@ -88,6 +94,36 @@
           </div>
         </div>
       </div>
+      </div>
+      <div data-lang-panel="en" hidden>
+      <div class="eyebrow on-dark">SOLUTION</div>
+      <h1>Book a <span class="accent">demo</span></h1>
+      <p>Fill out the form and talk to one of our specialists. We'll understand your challenge and show how DataBoar can create value for your business.</p>
+
+      <div class="demo-features">
+        <div class="demo-feature">
+          <div class="demo-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></div>
+          <div>
+            <h3>Personalized walkthrough</h3>
+            <p>We learn your context and show how our solution adapts to your needs.</p>
+          </div>
+        </div>
+        <div class="demo-feature">
+          <div class="demo-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <div>
+            <h3>See it in action</h3>
+            <p>Explore the platform's core features and how it delivers real results.</p>
+          </div>
+        </div>
+        <div class="demo-feature">
+          <div class="demo-feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+          <div>
+            <h3>Decide with confidence</h3>
+            <p>Get your questions answered and see how to turn data into strategic decisions.</p>
+          </div>
+        </div>
+      </div>
+      </div>
 
       <div class="demo-mini-art">
         <i style="height:35%"></i>
@@ -100,28 +136,28 @@
     </div>
 
     <div class="demo-form-card">
-      <h2>Formulário de agendamento</h2>
+      <h2><span data-lang-panel="pt-BR">Formulário de agendamento</span><span data-lang-panel="en" hidden>Scheduling form</span></h2>
       <form id="demo-request-form" novalidate>
         <div class="form-grid">
           <div class="form-field">
-            <label for="demo-nome">Nome</label>
-            <input type="text" id="demo-nome" name="firstname" placeholder="Seu nome" autocomplete="given-name">
+            <label for="demo-nome"><span data-lang-panel="pt-BR">Nome</span><span data-lang-panel="en" hidden>First name</span></label>
+            <input type="text" id="demo-nome" name="firstname" placeholder="Seu nome" data-ph-pt-BR="Seu nome" data-ph-en="Your first name" autocomplete="given-name">
           </div>
           <div class="form-field">
-            <label for="demo-sobrenome">Sobrenome</label>
-            <input type="text" id="demo-sobrenome" name="lastname" placeholder="Seu sobrenome" autocomplete="family-name">
+            <label for="demo-sobrenome"><span data-lang-panel="pt-BR">Sobrenome</span><span data-lang-panel="en" hidden>Last name</span></label>
+            <input type="text" id="demo-sobrenome" name="lastname" placeholder="Seu sobrenome" data-ph-pt-BR="Seu sobrenome" data-ph-en="Your last name" autocomplete="family-name">
           </div>
           <div class="form-field full">
-            <label for="demo-email">E-mail corporativo<span class="req">*</span></label>
-            <input type="email" id="demo-email" name="email" placeholder="voce@empresa.com" autocomplete="email" required>
+            <label for="demo-email"><span data-lang-panel="pt-BR">E-mail corporativo</span><span data-lang-panel="en" hidden>Work email</span><span class="req">*</span></label>
+            <input type="email" id="demo-email" name="email" placeholder="voce@empresa.com" data-ph-pt-BR="voce@empresa.com" data-ph-en="you@company.com" autocomplete="email" required>
           </div>
           <div class="form-field">
-            <label for="demo-empresa">Empresa<span class="req">*</span></label>
-            <input type="text" id="demo-empresa" name="company" placeholder="Nome da empresa" autocomplete="organization" required>
+            <label for="demo-empresa"><span data-lang-panel="pt-BR">Empresa</span><span data-lang-panel="en" hidden>Company</span><span class="req">*</span></label>
+            <input type="text" id="demo-empresa" name="company" placeholder="Nome da empresa" data-ph-pt-BR="Nome da empresa" data-ph-en="Company name" autocomplete="organization" required>
           </div>
           <div class="form-field">
-            <label for="demo-cargo">Cargo</label>
-            <input type="text" id="demo-cargo" name="jobtitle" list="cargo-options" placeholder="ex: DPO / Encarregado de Dados" autocomplete="organization-title">
+            <label for="demo-cargo"><span data-lang-panel="pt-BR">Cargo</span><span data-lang-panel="en" hidden>Role / Job title</span></label>
+            <input type="text" id="demo-cargo" name="jobtitle" list="cargo-options" placeholder="ex: DPO / Encarregado de Dados" data-ph-pt-BR="ex: DPO / Encarregado de Dados" data-ph-en="e.g., DPO / Data Protection Officer" autocomplete="organization-title">
             <datalist id="cargo-options">
               <option value="DPO / Encarregado de Dados"></option>
               <option value="Privacidade / Proteção de Dados"></option>
@@ -137,12 +173,12 @@
             </datalist>
           </div>
           <div class="form-field">
-            <label for="demo-telefone">Telefone / WhatsApp</label>
-            <input type="tel" id="demo-telefone" name="phone" placeholder="(21) 99999-9999" autocomplete="tel">
+            <label for="demo-telefone"><span data-lang-panel="pt-BR">Telefone / WhatsApp</span><span data-lang-panel="en" hidden>Phone / WhatsApp</span></label>
+            <input type="tel" id="demo-telefone" name="phone" placeholder="(21) 99999-9999" data-ph-pt-BR="(21) 99999-9999" data-ph-en="Your phone number" autocomplete="tel">
           </div>
           <div class="form-field full">
-            <label for="demo-industria">Indústria</label>
-            <input type="text" id="demo-industria" name="industry" list="industria-options" placeholder="Busque sua indústria…" autocomplete="off">
+            <label for="demo-industria"><span data-lang-panel="pt-BR">Indústria</span><span data-lang-panel="en" hidden>Industry</span></label>
+            <input type="text" id="demo-industria" name="industry" list="industria-options" placeholder="Busque sua indústria…" data-ph-pt-BR="Busque sua indústria…" data-ph-en="Search your industry…" autocomplete="off">
             <datalist id="industria-options">
               <option value="Accounting / Contabilidade"></option>
               <option value="Airlines / Aviation / Cia. Aérea"></option>
@@ -295,29 +331,32 @@
             </datalist>
           </div>
           <div class="form-field full">
-            <label for="demo-desafio">Mensagem <span class="field-hint">(ex: qual o principal desafio que você deseja resolver?)</span></label>
-            <textarea id="demo-desafio" name="message" placeholder="Conte-nos um pouco sobre o seu contexto e desafio"></textarea>
+            <label for="demo-desafio"><span data-lang-panel="pt-BR">Mensagem <span class="field-hint">(ex: qual o principal desafio que você deseja resolver?)</span></span><span data-lang-panel="en" hidden>Message <span class="field-hint">(e.g., what's the main challenge you want to solve?)</span></span></label>
+            <textarea id="demo-desafio" name="message" placeholder="Conte-nos um pouco sobre o seu contexto e desafio" data-ph-pt-BR="Conte-nos um pouco sobre o seu contexto e desafio" data-ph-en="Tell us a bit about your context and challenge"></textarea>
           </div>
           <div class="form-field full">
-            <label for="demo-agendamento">Data e horário preferidos</label>
+            <label for="demo-agendamento"><span data-lang-panel="pt-BR">Data e horário preferidos</span><span data-lang-panel="en" hidden>Preferred date and time</span></label>
             <input type="datetime-local" id="demo-agendamento" name="demo_preferred_datetime">
           </div>
         </div>
 
         <fieldset class="form-consent">
-          <legend>Consentimento</legend>
+          <legend><span data-lang-panel="pt-BR">Consentimento</span><span data-lang-panel="en" hidden>Consent</span></legend>
           <label class="consent-item">
             <input type="checkbox" id="consent-process" name="consent_process" required>
-            <span>Autorizo o DataBoar a armazenar e tratar meus dados pessoais para responder a este contato.<span class="req">*</span></span>
+            <span data-lang-panel="pt-BR">Autorizo o DataBoar a armazenar e tratar meus dados pessoais para responder a este contato.<span class="req">*</span></span>
+            <span data-lang-panel="en" hidden>I authorize DataBoar to store and process my personal data to respond to this inquiry.<span class="req">*</span></span>
           </label>
           <label class="consent-item">
             <input type="checkbox" id="consent-marketing" name="consent_marketing">
-            <span>Aceito receber comunicações e novidades do DataBoar. Posso cancelar quando quiser.</span>
+            <span data-lang-panel="pt-BR">Aceito receber comunicações e novidades do DataBoar. Posso cancelar quando quiser.</span>
+            <span data-lang-panel="en" hidden>I agree to receive communications and updates from DataBoar. I can unsubscribe at any time.</span>
           </label>
-          <p class="consent-note">Cuidamos da sua privacidade. Saiba como tratamos seus dados na nossa <a href="privacidade.html">Política de Privacidade</a>.</p>
+          <p class="consent-note" data-lang-panel="pt-BR">Cuidamos da sua privacidade. Saiba como tratamos seus dados na nossa <a href="privacidade.html">Política de Privacidade</a>.</p>
+          <p class="consent-note" data-lang-panel="en" hidden>We care about your privacy. See how we handle your data in our <a href="privacidade.html">Privacy Policy</a>.</p>
         </fieldset>
 
-        <button type="submit" class="btn btn-primary form-submit">Agendar demonstração →</button>
+        <button type="submit" class="btn btn-primary form-submit"><span data-lang-panel="pt-BR">Agendar demonstração →</span><span data-lang-panel="en" hidden>Book a demo →</span></button>
         <div id="demo-form-status" class="form-status" role="status" aria-live="polite" hidden></div>
       </form>
     </div>
@@ -329,25 +368,36 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <img src="images/logo-databoar.png" alt="DataBoar">
-        <p>Descoberta de dados pessoais forense, soberana e com evidência para conformidade.</p>
+        <p data-lang-panel="pt-BR">Descoberta de dados pessoais forense, soberana e com evidência para conformidade.</p>
+        <p data-lang-panel="en" hidden>Forensic, sovereign personal-data discovery, with evidence for compliance work.</p>
       </div>
       <div class="footer-col">
-        <h4>Produto</h4>
-        <a href="solucao.html">Solução</a>
-        <a href="solucao.html#casos-de-uso">Casos de uso</a>
+        <h4 data-lang-panel="pt-BR">Produto</h4>
+        <h4 data-lang-panel="en" hidden>Product</h4>
+        <a href="solucao.html" data-lang-panel="pt-BR">Solução</a>
+        <a href="solucao.html" data-lang-panel="en" hidden>Solution</a>
+        <a href="solucao.html#casos-de-uso" data-lang-panel="pt-BR">Casos de uso</a>
+        <a href="solucao.html#casos-de-uso-en" data-lang-panel="en" hidden>Use cases</a>
         <a href="opensource.html">OpenSource</a>
-        <a href="agende-demonstracao.html">Agendar demonstração</a>
+        <a href="agende-demonstracao.html" data-lang-panel="pt-BR">Agendar demonstração</a>
+        <a href="agende-demonstracao.html" data-lang-panel="en" hidden>Book a demo</a>
       </div>
       <div class="footer-col">
-        <h4>Recursos</h4>
-        <span class="footer-soon">Documentação · em breve</span>
-        <span class="footer-soon">Blog · em breve</span>
+        <h4 data-lang-panel="pt-BR">Recursos</h4>
+        <h4 data-lang-panel="en" hidden>Resources</h4>
+        <span class="footer-soon" data-lang-panel="pt-BR">Documentação · em breve</span>
+        <span class="footer-soon" data-lang-panel="en" hidden>Docs · coming soon</span>
+        <span class="footer-soon" data-lang-panel="pt-BR">Blog · em breve</span>
+        <span class="footer-soon" data-lang-panel="en" hidden>Blog · coming soon</span>
         <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">GitHub</a>
       </div>
       <div class="footer-col">
-        <h4>Posicionamento</h4>
-        <a href="opensource.html">Open-core &amp; método</a>
-        <span class="footer-soon">Preços · em breve</span>
+        <h4 data-lang-panel="pt-BR">Posicionamento</h4>
+        <h4 data-lang-panel="en" hidden>Positioning</h4>
+        <a href="opensource.html" data-lang-panel="pt-BR">Open-core &amp; método</a>
+        <a href="opensource.html" data-lang-panel="en" hidden>Open-core &amp; method</a>
+        <span class="footer-soon" data-lang-panel="pt-BR">Preços · em breve</span>
+        <span class="footer-soon" data-lang-panel="en" hidden>Pricing · coming soon</span>
       </div>
     </div>
     <div class="footer-bottom">

@@ -70,6 +70,11 @@
         panel.setAttribute('hidden', '');
       }
     });
+    // Swap placeholders/aria in form fields by language (single form, no duplication)
+    document.querySelectorAll('[data-ph-en],[data-ph-pt-BR]').forEach(function (el) {
+      var ph = el.getAttribute('data-ph-' + resolved);
+      if (ph !== null) el.setAttribute('placeholder', ph);
+    });
     document.querySelectorAll('.lang-option').forEach(function (o) {
       o.classList.toggle('selected', o.dataset.lang === resolved);
     });
