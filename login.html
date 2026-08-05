@@ -17,10 +17,12 @@
   <div class="wrap">
     <div class="left">
       <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
-      <span><b>O compliance</b> da sua empresa mais inteligente, ágil e seguro.</span>
+      <span data-lang-panel="pt-BR"><b>O compliance</b> da sua empresa mais inteligente, ágil e seguro.</span>
+      <span data-lang-panel="en" hidden><b>Compliance</b> that is smarter, leaner, and under your control.</span>
     </div>
     <div class="right">
-      <a class="mini-btn" href="agende-demonstracao.html">Agendar Demonstração →</a>
+      <a class="mini-btn" href="agende-demonstracao.html" data-lang-panel="pt-BR">Agendar Demonstração →</a>
+      <a class="mini-btn" href="agende-demonstracao.html" data-lang-panel="en" hidden>Book a demo →</a>
     </div>
   </div>
 </div>
@@ -34,10 +36,13 @@
       <span class="nav-toggle-bar" aria-hidden="true"></span>
     </button>
     <nav class="links" id="site-nav">
-      <a href="solucao.html">Solução</a>
-      <a href="solucao.html#casos-de-uso">Casos de uso</a>
+      <a href="solucao.html" data-lang-panel="pt-BR">Solução</a>
+      <a href="solucao.html" data-lang-panel="en" hidden>Solution</a>
+      <a href="solucao.html#casos-de-uso" data-lang-panel="pt-BR">Casos de uso</a>
+      <a href="solucao.html#casos-de-uso-en" data-lang-panel="en" hidden>Use cases</a>
       <a href="opensource.html">OpenSource</a>
-      <span class="nav-soon" title="Em breve">Preços · em breve</span>
+      <span class="nav-soon" title="Em breve" data-lang-panel="pt-BR">Preços · em breve</span>
+      <span class="nav-soon" title="Coming soon" data-lang-panel="en" hidden>Pricing · coming soon</span>
     </nav>
     <div class="nav-cta">
       <a class="login" href="login.html">Login</a>
@@ -62,6 +67,7 @@
   <div class="login-wrap">
     <div class="login-brand">
       <div class="login-brand-content">
+        <div data-lang-panel="pt-BR">
         <h2>Bem-vindo de volta ao DataBoar.</h2>
         <p>Acesse sua conta para acompanhar scans, relatórios e o mapa de risco dos seus dados pessoais.</p>
         <div class="login-brand-list">
@@ -69,44 +75,56 @@
           <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Heatmap de risco em tempo real</div>
           <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Relatórios prontos para auditoria</div>
         </div>
+        </div>
+        <div data-lang-panel="en" hidden>
+        <h2>Welcome back to DataBoar.</h2>
+        <p>Sign in to track scans, reports, and the risk map of your personal data.</p>
+        <div class="login-brand-list">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Personal data discovery</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Real-time risk heatmap</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Audit-ready reports</div>
+        </div>
+        </div>
       </div>
     </div>
 
     <div class="login-form-col">
       <div class="login-card">
-        <h1>Entrar na sua conta</h1>
-        <p>Informe seus dados para acessar o painel do DataBoar.</p>
+        <h1><span data-lang-panel="pt-BR">Entrar na sua conta</span><span data-lang-panel="en" hidden>Sign in to your account</span></h1>
+        <p data-lang-panel="pt-BR">Informe seus dados para acessar o painel do DataBoar.</p>
+        <p data-lang-panel="en" hidden>Enter your details to access the DataBoar dashboard.</p>
 
         <form id="login-form">
           <div class="form-field">
-            <label for="login-email">E-mail corporativo</label>
-            <input type="email" id="login-email" name="email" placeholder="seu@email.com" required>
+            <label for="login-email"><span data-lang-panel="pt-BR">E-mail corporativo</span><span data-lang-panel="en" hidden>Work email</span></label>
+            <input type="email" id="login-email" name="email" placeholder="seu@email.com" data-ph-pt-BR="seu@email.com" data-ph-en="you@company.com" required>
           </div>
           <div class="form-field">
-            <label for="login-password">Senha</label>
-            <input type="password" id="login-password" name="password" placeholder="Digite sua senha" required>
+            <label for="login-password"><span data-lang-panel="pt-BR">Senha</span><span data-lang-panel="en" hidden>Password</span></label>
+            <input type="password" id="login-password" name="password" placeholder="Digite sua senha" data-ph-pt-BR="Digite sua senha" data-ph-en="Enter your password" required>
           </div>
 
           <div class="login-row">
             <label class="login-remember">
               <input type="checkbox" id="login-remember" name="remember">
-              Manter conectado
+              <span data-lang-panel="pt-BR">Manter conectado</span><span data-lang-panel="en" hidden>Keep me signed in</span>
             </label>
-            <a class="login-forgot" href="#">Esqueceu a senha?</a>
+            <a class="login-forgot" href="#" data-lang-panel="pt-BR">Esqueceu a senha?</a>
+            <a class="login-forgot" href="#" data-lang-panel="en" hidden>Forgot your password?</a>
           </div>
 
-          <button type="submit" class="btn btn-primary login-submit">Entrar →</button>
+          <button type="submit" class="btn btn-primary login-submit"><span data-lang-panel="pt-BR">Entrar →</span><span data-lang-panel="en" hidden>Sign in →</span></button>
           <div id="login-form-status" class="form-status" role="status" aria-live="polite" hidden></div>
         </form>
 
-        <div class="login-divider"><i></i>ou<i></i></div>
+        <div class="login-divider"><i></i><span data-lang-panel="pt-BR">ou</span><span data-lang-panel="en" hidden>or</span><i></i></div>
 
         <button type="button" class="login-sso">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-          Entrar com SSO
+          <span data-lang-panel="pt-BR">Entrar com SSO</span><span data-lang-panel="en" hidden>Sign in with SSO</span>
         </button>
 
-        <div class="login-signup">Ainda não tem conta? <a href="agende-demonstracao.html">Fale com um especialista</a></div>
+        <div class="login-signup"><span data-lang-panel="pt-BR">Ainda não tem conta? <a href="agende-demonstracao.html">Fale com um especialista</a></span><span data-lang-panel="en" hidden>Don't have an account? <a href="agende-demonstracao.html">Talk to a specialist</a></span></div>
       </div>
     </div>
   </div>
@@ -120,22 +138,32 @@
         <p>Descoberta de dados pessoais forense, soberana e com evidência para conformidade.</p>
       </div>
       <div class="footer-col">
-        <h4>Produto</h4>
-        <a href="solucao.html">Solução</a>
-        <a href="solucao.html#casos-de-uso">Casos de uso</a>
+        <h4 data-lang-panel="pt-BR">Produto</h4>
+        <h4 data-lang-panel="en" hidden>Product</h4>
+        <a href="solucao.html" data-lang-panel="pt-BR">Solução</a>
+        <a href="solucao.html" data-lang-panel="en" hidden>Solution</a>
+        <a href="solucao.html#casos-de-uso" data-lang-panel="pt-BR">Casos de uso</a>
+        <a href="solucao.html#casos-de-uso-en" data-lang-panel="en" hidden>Use cases</a>
         <a href="opensource.html">OpenSource</a>
-        <a href="agende-demonstracao.html">Agendar demonstração</a>
+        <a href="agende-demonstracao.html" data-lang-panel="pt-BR">Agendar demonstração</a>
+        <a href="agende-demonstracao.html" data-lang-panel="en" hidden>Book a demo</a>
       </div>
       <div class="footer-col">
-        <h4>Recursos</h4>
-        <span class="footer-soon">Documentação · em breve</span>
-        <span class="footer-soon">Blog · em breve</span>
+        <h4 data-lang-panel="pt-BR">Recursos</h4>
+        <h4 data-lang-panel="en" hidden>Resources</h4>
+        <span class="footer-soon" data-lang-panel="pt-BR">Documentação · em breve</span>
+        <span class="footer-soon" data-lang-panel="en" hidden>Docs · coming soon</span>
+        <span class="footer-soon" data-lang-panel="pt-BR">Blog · em breve</span>
+        <span class="footer-soon" data-lang-panel="en" hidden>Blog · coming soon</span>
         <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">GitHub</a>
       </div>
       <div class="footer-col">
-        <h4>Posicionamento</h4>
-        <a href="opensource.html">Open-core &amp; método</a>
-        <span class="footer-soon">Preços · em breve</span>
+        <h4 data-lang-panel="pt-BR">Posicionamento</h4>
+        <h4 data-lang-panel="en" hidden>Positioning</h4>
+        <a href="opensource.html" data-lang-panel="pt-BR">Open-core &amp; método</a>
+        <a href="opensource.html" data-lang-panel="en" hidden>Open-core &amp; method</a>
+        <span class="footer-soon" data-lang-panel="pt-BR">Preços · em breve</span>
+        <span class="footer-soon" data-lang-panel="en" hidden>Pricing · coming soon</span>
       </div>
     </div>
     <div class="footer-bottom">
