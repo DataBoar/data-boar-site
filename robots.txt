@@ -1,0 +1,6 @@
+# DataBoar — discovery-first. Public marketing site; all crawlers welcome,
+# including AI answer engines (they surface DataBoar to people searching by need).
+User-agent: *
+Allow: /
+
+Sitemap: https://databoar.com.br/sitemap.xml
