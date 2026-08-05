@@ -29,6 +29,7 @@ jobs:
           HUBSPOT_PORTAL_ID: ${{ secrets.HUBSPOT_PORTAL_ID }}
           HUBSPOT_DEMO_FORM_GUID: ${{ secrets.HUBSPOT_DEMO_FORM_GUID }}
           HUBSPOT_REGION: ${{ secrets.HUBSPOT_REGION }}
+          HUBSPOT_MARKETING_SUBSCRIPTION_TYPE_ID: ${{ secrets.HUBSPOT_MARKETING_SUBSCRIPTION_TYPE_ID }}
         run: |
           mkdir -p js
           REGION="${HUBSPOT_REGION:-na1}"
@@ -38,6 +39,7 @@ jobs:
               portalId: "${HUBSPOT_PORTAL_ID}",
               demoFormGuid: "${HUBSPOT_DEMO_FORM_GUID}",
               region: "${REGION}",
+              marketingSubscriptionTypeId: "${HUBSPOT_MARKETING_SUBSCRIPTION_TYPE_ID}",
             },
             fallbackMailto: "contact@databoar.com.br",
           };

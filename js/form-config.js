@@ -4,6 +4,7 @@ window.DATA_BOAR_FORM_CONFIG = {
     portalId: '',
     demoFormGuid: '',
     region: 'na1',
+    marketingSubscriptionTypeId: '',
   },
   fallbackMailto: 'contact@databoar.com.br',
 };
