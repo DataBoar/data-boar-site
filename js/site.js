@@ -98,17 +98,20 @@
     });
   });
 
-  try {
-    var savedLang = localStorage.getItem('databoar-lang');
-    if (savedLang === 'en' || savedLang === 'pt-BR') {
-      applyLanguage(savedLang);
-    } else if (document.querySelector('[data-lang-panel]')) {
-      applyLanguage('pt-BR');
+  function detectLang() {
+    try {
+      var saved = localStorage.getItem('databoar-lang');
+      if (saved === 'en' || saved === 'pt-BR') return saved;
+    } catch (e) {
+      /* ignore */
     }
-  } catch (err) {
-    if (document.querySelector('[data-lang-panel]')) {
-      applyLanguage('pt-BR');
-    }
+    // 1a visita: detecta pelo navegador. pt* -> PT-BR; qualquer outro -> EN.
+    var nav = (navigator.language || navigator.userLanguage || 'pt-BR').toLowerCase();
+    return nav.indexOf('pt') === 0 ? 'pt-BR' : 'en';
+  }
+
+  if (document.querySelector('[data-lang-panel]')) {
+    applyLanguage(detectLang());
   }
 
   document.addEventListener('click', function (event) {
