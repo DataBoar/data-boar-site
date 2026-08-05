@@ -172,6 +172,10 @@
   .cost-head h2{font-family:var(--sans); font-weight:800; font-size:30px; color:var(--color-primary); line-height:1.2; margin-bottom:12px;}
   .cost-head h2 .accent{color:var(--color-accent-hover);}
   .cost-head p{font-size:14.5px; max-width:540px; margin:0 auto; color:var(--color-text);}
+  /* Contrast fix: .cost-head ("Faminto…" and "Dados de menores…") sits directly on the dark
+     .platform section — was dark-on-dark (near-invisible). Ivory text; accent stays gold. */
+  .platform .cost-head h2{color:#f2e9dc;}
+  .platform .cost-head p, .platform .cost-head p strong{color:rgba(255,255,255,.85);}
 
   .cost-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
   .cost-card{
