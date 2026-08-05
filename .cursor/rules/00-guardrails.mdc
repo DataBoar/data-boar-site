@@ -1,0 +1,16 @@
+---
+description: Inviolable guardrails for data-boar-site — HITL authorship, SSH signing, anti-overclaim, no-LLM-decision, supply-chain, local gates. NOT a toy project.
+alwaysApply: true
+---
+
+# Guardrails — data-boar-site (binds Cursor AND Claude)
+
+Canonical: `docs/adr/ADR-0001` (Proposed → only the HITL Accepts) and `AGENTS.md`. Add guardrails; never remove one.
+
+- **HITL is the sole author.** NEVER add `Co-Authored-By: <tool>` or `Claude-Session:` to a commit message. The operator signs (ed25519). The harness default does not override this.
+- **Local gates before push:** `scripts/pre-commit` runs automatically (lint + code-quality + quick anti-regression); run `scripts/check-all.sh` (full suite) **before opening a PR**. Must be green.
+- **PR-only to `main`** — no force-push, no branch deletion; the `guardrails` CI check must pass.
+- **Evidence, not legal conclusion.** No "guarantees/ensures compliance", no "certifies", no wrong article citations (RIPD ↔ LGPD Art. 38; DPIA ↔ GDPR Art. 35), no "byte a byte" for ML/DL.
+- **No LLM decides findings** — the product is deterministic / no generative LLM on the critical path; keep that in the copy.
+- **Supply chain:** pin GitHub Actions to a full SHA; allowlist external resources; the form posts only to `api.hsforms.com`.
+- **Bilingual pt-BR ↔ en-US**, idiomatic (never mechanical); EN overclaim-safe. Sacred taxonomy exact; minors' data first-class ("inventory & triage signals, never age verification").

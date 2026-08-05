@@ -1,0 +1,47 @@
+name: security
+# Extra security scanners (see docs/adr/ADR-0001). Pip-installed tools run under the
+# runner's system Python, so no extra Action SHAs are needed — only actions/checkout is
+# pinned (keeps the supply-chain guardrail green). Turn scanners ON now; triage findings.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  actions-zizmor:
+    # Audit our OWN GitHub Actions workflows for security issues (offline mode, no token).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - run: pip install zizmor
+      - run: zizmor --offline .github/workflows/
+
+  sast-semgrep:
+    # Static analysis for the site's JS/HTML. OSS engine + public rulesets (no token/login).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - run: pip install semgrep
+      - run: semgrep scan --config p/security-audit --config p/secrets --error .
+
+  py-ruff:
+    # Lint the repo's own Python (guardrail tests + scripts) — hygiene, not app code.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - run: pip install ruff
+      - run: ruff check tests/
+
+# CodeQL (JavaScript/TypeScript) is enabled via GitHub's managed **default setup**
+# (Settings → Code security), NOT a committed workflow — no Action SHA to verify/maintain.
+# Free on this public repo. See docs/adr/ADR-0001.
