@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Data Boar no Windows — demo em minutos, SEM Docker | DataBoar</title>
+<meta name="description" content="Passo a passo para usar o Data Boar no Windows SEM Docker: descubra dados pessoais e sensíveis (LGPD) direto no seu PC. Feito para quem nunca usou terminal — escritórios de contabilidade, PMEs. Dados de demonstração sintéticos, nada sai da máquina.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><img src="images/logo-databoar.png" alt="DataBoar"></a>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu de navegação">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+    <nav class="links" id="site-nav">
+      <a href="solucao.html" data-lang-panel="pt-BR">Solução</a>
+      <a href="solucao.html" data-lang-panel="en" hidden>Solution</a>
+      <a href="solucao.html#casos-de-uso" data-lang-panel="pt-BR">Casos de uso</a>
+      <a href="solucao.html#casos-de-uso-en" data-lang-panel="en" hidden>Use cases</a>
+      <a href="opensource.html">OpenSource</a>
+      <span class="nav-soon" title="Em breve" data-lang-panel="pt-BR">Preços · em breve</span>
+      <span class="nav-soon" title="Coming soon" data-lang-panel="en" hidden>Pricing · coming soon</span>
+    </nav>
+    <div class="nav-cta">
+      <a class="login" href="login.html">Login</a>
+      <a class="mini-btn" href="agende-demonstracao.html" data-lang-panel="pt-BR">Agendar Demonstração →</a>
+      <a class="mini-btn" href="agende-demonstracao.html" data-lang-panel="en" hidden>Book a demo →</a>
+      <div class="lang-switch">
+        <button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false">
+          <span class="lang-flag">🇧🇷</span>
+          <span class="lang-code">PT-BR</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="lang-menu">
+          <a href="#" class="lang-option selected" data-lang="pt-BR" data-flag="🇧🇷">🇧🇷 Português (Brasil)</a>
+          <a href="#" class="lang-option" data-lang="en" data-flag="🇺🇸">🇺🇸 English</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-overlay" aria-hidden="true"></div>
+</header>
+
+<div data-lang-panel="pt-BR">
+<section class="legal">
+  <div class="wrap legal-wrap">
+    <div class="eyebrow">WINDOWS · QUICKSTART</div>
+    <h1>Data Boar no Windows — demo em minutos, <span class="accent">SEM Docker</span></h1>
+    <p class="lede"><strong>Sem Docker, sem virtualização, sem complicação.</strong> Instala direto no Windows. O demo usa <strong>dados falsos (sintéticos)</strong> — <strong>nada seu sai do PC</strong>, zero risco. Roda até em máquina modesta ou Windows antigo. Feito para quem <strong>nunca usou "terminal" nem "Python"</strong> — cada passo diz o <em>como</em> e o <em>porquê</em>.</p>
+
+    <blockquote><strong>⚠️ A regra de ouro (leia antes de tudo).</strong> Você vai <strong>colar comandos no Terminal</strong> — a telinha onde aparece <code>PS C:\Users\voce&gt;</code>. <strong>Não</strong> digite <code>python</code> e Enter antes: se aparecer <code>&gt;&gt;&gt;</code>, você entrou no Python sem querer (isso dá erro maluco) — feche e reabra o Terminal.</blockquote>
+
+    <h2>Passo 0 — abra o PowerShell que já vem no Windows</h2>
+    <p>Tecle <strong>Windows</strong> → digite <strong><code>PowerShell</code></strong> → Enter. Essa telinha <strong>já está no seu Windows</strong>, não precisa instalar nada. Apareceu <code>PS C:\Users\voce&gt;</code>? É ele. Apareceu <code>&gt;&gt;&gt;</code>? Abriu o Python por engano — feche (lembra a regra de ouro).</p>
+
+    <h2>Passo 1 — instale o Terminal e o Python (2 comandos)</h2>
+    <p>Cole <strong>um por vez</strong> no PowerShell:</p>
+    <pre><code>winget install Microsoft.WindowsTerminal
+winget install Python.Python.3.12</code></pre>
+    <p><strong>Por que <code>winget</code> e não a Microsoft Store?</strong> O <code>winget</code> já vem no Windows e pega a versão certa; a Store empurra sempre a mais nova (3.14), que costuma dar dor de cabeça. <strong>Por que a 3.12?</strong> A mais nova muitas vezes ainda não tem tudo pronto — a 3.12 é testada e funciona.</p>
+    <p><strong>Agora feche o PowerShell</strong> e abra o <strong>Windows Terminal</strong> (Windows → <code>Terminal</code> → Enter) — ele copia-e-cola melhor, menos erro bobo. <em>(Sem <code>winget</code>? Raro. Baixe o Python 3.12 em python.org/downloads/windows — não a 3.13/3.14 — e marque "Add python.exe to PATH".)</em></p>
+
+    <h2>Passo 2 — instale o Data Boar</h2>
+    <p>No <strong>Terminal</strong> (prompt <code>PS C:\&gt;</code>, nunca o <code>&gt;&gt;&gt;</code>), cole uma linha por vez:</p>
+    <pre><code>python -m pip install --upgrade pip
+python -m pip install --user pipx
+python -m pipx ensurepath</code></pre>
+    <p>🟡 Vão aparecer avisos <strong>amarelos</strong> (<code>...is not on PATH</code>, <code>A new release of pip...</code>) — é <strong>normal, não é erro</strong>. Só se preocupe com <strong>vermelho</strong> que tenha a palavra <code>Error</code>. <strong>Feche e reabra o Terminal</strong> mais uma vez. Depois:</p>
+    <pre><code>pipx install data-boar</code></pre>
+
+    <h2>Passo 3 — rode o DEMO (comece sempre por aqui)</h2>
+    <pre><code>data-boar --demo</code></pre>
+    <p>O Terminal mostra que está rodando (algo como <code>servidor em 127.0.0.1:8088</code>) — <strong>isso já confirma que funcionou</strong> no seu PC. Para ver o painel, abra o navegador (Edge, Chrome ou Firefox) e digite <strong>exatamente isto</strong> na barra de endereço:</p>
+    <pre><code>http://127.0.0.1:8088</code></pre>
+    <p>Sem asterisco, sem aspas. O painel (<strong>dashBOARd</strong>) abre com uma varredura de demonstração (CPF/e-mail <strong>de mentira</strong>, nada seu). Abriu em inglês? Troque no seletor de idioma no cantinho. Para parar: volte ao Terminal e aperte <strong>Ctrl + C</strong>.</p>
+    <blockquote>✅ <strong>O <code>--demo</code> é o primeiro contato:</strong> dados <strong>sintéticos</strong>, roda <strong>só na sua máquina</strong> (loopback), <strong>zero risco</strong>. Serve para validar que roda e ganhar confiança — <strong>antes</strong> de tocar em qualquer dado real. Validado funcionando no Windows.</blockquote>
+
+    <h2>Passo 3.5 — rodar de verdade (nos seus dados) — com ajuda</h2>
+    <p>O <code>--demo</code> é auto-suficiente. Para varrer <strong>os seus dados de verdade</strong>, o Data Boar precisa de um arquivo <code>config.yaml</code> que <strong>aponta para onde olhar</strong> (qual pasta ou banco). Ele não adivinha: você aponta o lugar. Esse é um <strong>próximo passo guiado</strong> — <a href="agende-demonstracao.html">fale com a gente</a> que ajudamos a montar o seu <code>config.yaml</code>. Com ele pronto:</p>
+    <pre><code>data-boar --web --allow-insecure --config caminho\do\seu-config.yaml</code></pre>
+    <p>O <code>--allow-insecure</code> é normal para rodar <strong>local</strong> (sua máquina, sem certificado) — não é inseguro no seu PC. Comece <strong>sempre</strong> pelo <code>--demo</code>.</p>
+
+    <h2>Passo 4 — atalho com ícone (para nunca mais voltar ao terminal)</h2>
+    <ol>
+      <li>Botão-direito na Área de Trabalho → Novo → Atalho.</li>
+      <li>No caminho, cole: <code>%USERPROFILE%\.local\bin\data-boar.exe --demo</code></li>
+      <li>Nome: <strong>Data Boar</strong> → Concluir. Botão-direito → Propriedades → Alterar ícone → aponte para o ícone do javali <em>(fornecemos o <code>.ico</code>)</em>.</li>
+    </ol>
+    <p>Pronto: <strong>duplo-clique no javali</strong> abre o painel. Nunca mais precisa do terminal.</p>
+
+    <p><strong>Qual Windows você tem?</strong> Este guia é para <strong>Windows 10 e 11</strong>. Windows 7 (bem antigo) é caso especial — <a href="agende-demonstracao.html">nos chame</a>, há outro caminho (ou o MSI, em construção). <strong>Travou?</strong> Manda uma foto da tela. Na maioria das máquinas <strong>roda direto — zero Docker, zero virtualização</strong>.</p>
+
+    <p class="legal-back"><a href="agende-demonstracao.html">Precisa de ajuda para os seus dados? Agende uma conversa →</a></p>
+  </div>
+</section>
+</div>
+
+<div data-lang-panel="en" hidden>
+<section class="legal">
+  <div class="wrap legal-wrap">
+    <div class="eyebrow">WINDOWS · QUICKSTART</div>
+    <h1>Data Boar on Windows — a demo in minutes, <span class="accent">NO Docker</span></h1>
+    <p class="lede"><strong>No Docker, no virtualization, no hassle.</strong> Install straight on Windows. The demo uses <strong>fake (synthetic) data</strong> — <strong>nothing of yours leaves the PC</strong>, zero risk. Runs even on a modest or older Windows machine. Built for people who have <strong>never used a "terminal" or "Python"</strong> — each step tells you the <em>how</em> and the <em>why</em>.</p>
+
+    <blockquote><strong>⚠️ The golden rule (read this first).</strong> You'll <strong>paste commands into the Terminal</strong> — the window showing <code>PS C:\Users\you&gt;</code>. Do <strong>not</strong> type <code>python</code> and Enter first: if you see <code>&gt;&gt;&gt;</code>, you accidentally entered Python (that causes weird errors) — close and reopen the Terminal.</blockquote>
+
+    <h2>Step 0 — open PowerShell (already in Windows)</h2>
+    <p>Press <strong>Windows</strong> → type <strong><code>PowerShell</code></strong> → Enter. This window is <strong>already on your Windows</strong>, nothing to install. See <code>PS C:\Users\you&gt;</code>? That's it. See <code>&gt;&gt;&gt;</code>? You opened Python by mistake — close it (remember the golden rule).</p>
+
+    <h2>Step 1 — install the Terminal and Python (2 commands)</h2>
+    <p>Paste <strong>one at a time</strong> in PowerShell:</p>
+    <pre><code>winget install Microsoft.WindowsTerminal
+winget install Python.Python.3.12</code></pre>
+    <p><strong>Why <code>winget</code> and not the Microsoft Store?</strong> <code>winget</code> ships with Windows and picks the right version; the Store always pushes the newest (3.14), which often causes trouble. <strong>Why 3.12?</strong> The newest often isn't fully ready yet — 3.12 is tested and works.</p>
+    <p><strong>Now close PowerShell</strong> and open <strong>Windows Terminal</strong> (Windows → <code>Terminal</code> → Enter) — it copy-pastes better, fewer silly errors. <em>(No <code>winget</code>? Rare. Download Python 3.12 from python.org/downloads/windows — not 3.13/3.14 — and tick "Add python.exe to PATH".)</em></p>
+
+    <h2>Step 2 — install Data Boar</h2>
+    <p>In the <strong>Terminal</strong> (prompt <code>PS C:\&gt;</code>, never <code>&gt;&gt;&gt;</code>), paste one line at a time:</p>
+    <pre><code>python -m pip install --upgrade pip
+python -m pip install --user pipx
+python -m pipx ensurepath</code></pre>
+    <p>🟡 You'll see <strong>yellow</strong> warnings (<code>...is not on PATH</code>, <code>A new release of pip...</code>) — that's <strong>normal, not an error</strong>. Only worry about <strong>red</strong> lines with the word <code>Error</code>. <strong>Close and reopen the Terminal</strong> once more. Then:</p>
+    <pre><code>pipx install data-boar</code></pre>
+
+    <h2>Step 3 — run the DEMO (always start here)</h2>
+    <pre><code>data-boar --demo</code></pre>
+    <p>The Terminal shows it's running (something like <code>server at 127.0.0.1:8088</code>) — <strong>that already confirms it works</strong> on your PC. To see the panel, open your browser (Edge, Chrome or Firefox) and type <strong>exactly this</strong> in the address bar:</p>
+    <pre><code>http://127.0.0.1:8088</code></pre>
+    <p>No asterisks, no quotes. The panel (<strong>dashBOARd</strong>) opens with a demo scan (fake CPF/email, nothing of yours). Opened in Portuguese? Switch it in the language selector. To stop: go back to the Terminal and press <strong>Ctrl + C</strong>.</p>
+    <blockquote>✅ <strong><code>--demo</code> is the first contact:</strong> <strong>synthetic</strong> data, runs <strong>only on your machine</strong> (loopback), <strong>zero risk</strong>. It's there to prove it runs and build confidence — <strong>before</strong> touching any real data. Verified working on Windows.</blockquote>
+
+    <h2>Step 3.5 — running for real (on your data) — with help</h2>
+    <p><code>--demo</code> is self-contained. To scan <strong>your real data</strong>, Data Boar needs a <code>config.yaml</code> that <strong>points to where to look</strong> (which folder or database). It doesn't guess: you point the place. That's a <strong>guided next step</strong> — <a href="agende-demonstracao.html">talk to us</a> and we'll help build your <code>config.yaml</code>. Once ready:</p>
+    <pre><code>data-boar --web --allow-insecure --config path\to\your-config.yaml</code></pre>
+    <p><code>--allow-insecure</code> is normal for running <strong>locally</strong> (your machine, no certificate) — not unsafe on your PC. Always start with <code>--demo</code>.</p>
+
+    <h2>Step 4 — a desktop shortcut with an icon</h2>
+    <ol>
+      <li>Right-click the Desktop → New → Shortcut.</li>
+      <li>Paste the path: <code>%USERPROFILE%\.local\bin\data-boar.exe --demo</code></li>
+      <li>Name it <strong>Data Boar</strong> → Finish. Right-click → Properties → Change Icon → point to the boar icon <em>(we provide the <code>.ico</code>)</em>.</li>
+    </ol>
+    <p>Done: <strong>double-click the boar</strong> to open the panel. No terminal needed again.</p>
+
+    <p><strong>Which Windows do you have?</strong> This guide is for <strong>Windows 10 and 11</strong>. Windows 7 (very old) is a special case — <a href="agende-demonstracao.html">reach out</a>, there's another path (or the MSI, in progress). <strong>Stuck?</strong> Send a screenshot. On most machines it <strong>runs directly — zero Docker, zero virtualization</strong>.</p>
+
+    <p class="legal-back"><a href="agende-demonstracao.html">Need help with your own data? Book a chat →</a></p>
+  </div>
+</section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo-databoar.png" alt="DataBoar">
+        <p>Descoberta de dados pessoais forense, soberana e com evidência para conformidade.</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-lang-panel="pt-BR">Produto</h4>
+        <h4 data-lang-panel="en" hidden>Product</h4>
+        <a href="solucao.html" data-lang-panel="pt-BR">Solução</a>
+        <a href="solucao.html" data-lang-panel="en" hidden>Solution</a>
+        <a href="solucao.html#casos-de-uso" data-lang-panel="pt-BR">Casos de uso</a>
+        <a href="solucao.html#casos-de-uso-en" data-lang-panel="en" hidden>Use cases</a>
+        <a href="opensource.html">OpenSource</a>
+        <a href="agende-demonstracao.html" data-lang-panel="pt-BR">Agendar demonstração</a>
+        <a href="agende-demonstracao.html" data-lang-panel="en" hidden>Book a demo</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-lang-panel="pt-BR">Recursos</h4>
+        <h4 data-lang-panel="en" hidden>Resources</h4>
+        <a href="windows.html" data-lang-panel="pt-BR">Windows (sem Docker)</a>
+        <a href="windows.html" data-lang-panel="en" hidden>Windows (no Docker)</a>
+        <a href="glossario.html" data-lang-panel="pt-BR">Glossário</a>
+        <a href="glossario.html" data-lang-panel="en" hidden>Glossary</a>
+        <a href="https://github.com/DataBoar/data-boar/blob/main/docs/README.md" rel="noopener noreferrer" target="_blank" data-lang-panel="pt-BR">Documentação</a>
+        <a href="https://github.com/DataBoar/data-boar/blob/main/docs/README.md" rel="noopener noreferrer" target="_blank" data-lang-panel="en" hidden>Docs</a>
+        <a href="https://databoar.wordpress.com" rel="noopener noreferrer" target="_blank" data-lang-panel="pt-BR">Blog</a>
+        <a href="https://databoar.wordpress.com" rel="noopener noreferrer" target="_blank" data-lang-panel="en" hidden>Blog</a>
+        <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">GitHub</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-lang-panel="pt-BR">Posicionamento</h4>
+        <h4 data-lang-panel="en" hidden>Positioning</h4>
+        <a href="opensource.html" data-lang-panel="pt-BR">Open-core &amp; método</a>
+        <a href="opensource.html" data-lang-panel="en" hidden>Open-core &amp; method</a>
+        <a href="privacidade.html" data-lang-panel="pt-BR">Política de Privacidade</a>
+        <a href="privacidade.html" data-lang-panel="en" hidden>Privacy Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 DataBoar</span>
+      <div class="footer-social">
+        <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.1 3.1 0 00-.9-2.4c3-.3 6-1.5 6-6.6a5.1 5.1 0 00-1.4-3.5 4.6 4.6 0 00-.1-3.5s-1.1-.3-3.5 1.3a12.2 12.2 0 00-6.4 0C6.9 1.3 5.8 1.6 5.8 1.6a4.6 4.6 0 00-.1 3.5A5.1 5.1 0 004.3 8.6c0 5 3 6.3 6 6.6a3.1 3.1 0 00-.9 2.4V22"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/site.js"></script>
+</body>
+</html>
