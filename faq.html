@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FAQ — Inventário e descoberta de dados pessoais LGPD | DataBoar</title>
+<meta name="description" content="Perguntas frequentes sobre inventário de dados pessoais, data discovery LGPD, instalação no Windows sem Docker, open source local e relatórios em Excel. Respostas claras para escritórios, PMEs e quem não é de TI.">
+<link rel="canonical" href="https://databoar.com.br/faq.html">
+<meta property="og:title" content="FAQ — Inventário e descoberta de dados pessoais LGPD | DataBoar">
+<meta property="og:description" content="Respostas claras: o que é inventário de dados pessoais, como descobrir onde estão os dados da empresa, se precisa de TI, Docker ou DPO, e como começar no Windows.">
+<meta property="og:url" content="https://databoar.com.br/faq.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "O que é inventário de dados pessoais na LGPD?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "É o registro de quais dados pessoais a organização trata, onde estão armazenados, para qual finalidade, com base legal, quem tem acesso e por quanto tempo. A LGPD (art. 37) exige que controlador e operador mantenham registro das operações de tratamento. Sem inventário, fica difícil atender titulares, elaborar RIPD ou demonstrar conformidade."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como descobrir onde estão os dados pessoais da minha empresa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Além de entrevistar áreas e preencher planilhas, dá para automatizar a descoberta técnica: varrer pastas, arquivos (PDF, Excel, Word, ZIP), e em muitos casos bancos e sistemas, identificando CPF, e-mail, dados bancários e outros padrões. O DataBoar faz essa descoberta de forma local (os dados não saem da sua máquina) e gera relatório em Excel com os achados."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Preciso ser de TI ou ter DPO para usar o DataBoar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Não necessariamente. Existe um caminho pensado para quem nunca usou terminal: demo no Windows sem Docker, com passos explicados. Microempresas e profissionais liberais muitas vezes não são obrigados a nomear DPO (Resolução CD/ANPD nº 2/2022). O DataBoar gera evidência técnica; a decisão de conformidade continua sendo do responsável pela organização."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "O DataBoar envia meus dados para a nuvem?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Não. O modelo é local-first: a varredura roda no seu ambiente. Só metadados e achados estruturados são produzidos como relatório; o conteúdo dos arquivos dos clientes não é enviado para servidores de terceiros."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Preciso instalar Docker?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Não. Docker é uma opção para quem já usa contêineres. No Windows há caminho nativo com Python e o comando de demonstração data-boar --demo, descrito passo a passo na página Windows sem Docker."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Funciona com arquivos ZIP e arquivos protegidos por senha?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Arquivos ZIP são analisados por dentro, sem você precisar descompactar pasta a pasta. Arquivos protegidos por senha não podem ter o conteúdo lido (é o papel da senha); o relatório registra que a leitura foi bloqueada, para você saber quais documentos já estão trancados."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "O DataBoar é gratuito?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "O núcleo open source é gratuito e o código é público no GitHub. O modelo é open-core: a base permanece aberta e auditável; recursos avançados, suporte e SLA para ambientes corporativos maiores podem ser comerciais. Escritórios menores podem começar e operar no núcleo gratuito."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Serve só para LGPD ou também para dados fiscais e outras normas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "O foco prático no Brasil inclui LGPD (CPF, dados sensíveis, etc.). O motor é flexível: padrões configuráveis permitem apoiar inventário e descoberta também em contextos fiscais e financeiros (por exemplo CNPJ, dados bancários) e alinhamento a outros marcos (GDPR e correlatos) como evidência técnica, não como parecer jurídico."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como começar sem medo de quebrar o computador?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Comece sempre pelo modo demo: data-boar --demo usa só dados sintéticos (de mentira) e abre o painel em http://127.0.0.1:8088. Nada dos seus arquivos reais é tocado. Só depois de validar, aponte para uma pasta de teste ou, com ajuda, para as pastas reais do escritório."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Planilha da ANPD ou ferramenta automática — qual usar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A planilha simplificada da ANPD ajuda a organizar o registro de tratamentos (o lado administrativo). Ela não varre o disco em busca de CPF esquecido em PDF ou planilha antiga. Ferramenta de descoberta e planilha se complementam: uma encontra onde os dados estão de fato; a outra documenta finalidade, base legal e responsáveis."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><img src="images/logo-databoar.png" alt="DataBoar"></a>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu de navegação">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+    <nav class="links" id="site-nav">
+      <a href="solucao.html" data-lang-panel="pt-BR">Solução</a>
+      <a href="solucao.html" data-lang-panel="en" hidden>Solution</a>
+      <a href="solucao.html#casos-de-uso" data-lang-panel="pt-BR">Casos de uso</a>
+      <a href="solucao.html#casos-de-uso-en" data-lang-panel="en" hidden>Use cases</a>
+      <a href="opensource.html">OpenSource</a>
+      <a href="faq.html">FAQ</a>
+      <span class="nav-soon" title="Em breve" data-lang-panel="pt-BR">Preços · em breve</span>
+      <span class="nav-soon" title="Coming soon" data-lang-panel="en" hidden>Pricing · coming soon</span>
+    </nav>
+    <div class="nav-cta">
+      <a class="login" href="login.html">Login</a>
+      <a class="mini-btn" href="agende-demonstracao.html" data-lang-panel="pt-BR">Agendar Demonstração →</a>
+      <a class="mini-btn" href="agende-demonstracao.html" data-lang-panel="en" hidden>Book a demo →</a>
+      <div class="lang-switch">
+        <button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false">
+          <span class="lang-flag">🇧🇷</span>
+          <span class="lang-code">PT-BR</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="lang-menu">
+          <a href="#" class="lang-option selected" data-lang="pt-BR" data-flag="🇧🇷">🇧🇷 Português (Brasil)</a>
+          <a href="#" class="lang-option" data-lang="en" data-flag="🇺🇸">🇺🇸 English</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-overlay" aria-hidden="true"></div>
+</header>
+
+<section class="legal">
+  <div class="wrap legal-wrap">
+    <div class="eyebrow">FAQ</div>
+    <h1>Perguntas frequentes</h1>
+    <p>Respostas diretas sobre <strong>inventário de dados pessoais</strong>, <strong>descoberta (data discovery) na LGPD</strong>, instalação e o que esperar do DataBoar — em linguagem de quem precisa resolver o problema no escritório, não de quem configura servidor o dia inteiro.</p>
+
+    <p style="margin:1rem 0 1.5rem">
+      <a class="btn btn-primary" href="windows.html">Começar no Windows (sem Docker) →</a>
+      &nbsp;
+      <a class="btn btn-outline" href="solucao.html">Ver a solução</a>
+    </p>
+
+    <h2 id="inventario">Inventário e LGPD</h2>
+
+    <h3>O que é inventário de dados pessoais na LGPD?</h3>
+    <p>É o registro de <strong>quais</strong> dados pessoais a organização trata, <strong>onde</strong> estão, <strong>para quê</strong>, com qual <strong>base legal</strong>, <strong>quem</strong> acessa e por <strong>quanto tempo</strong>. A LGPD (art. 37) exige que controlador e operador mantenham registro das operações de tratamento. Sem inventário fica difícil atender titulares, elaborar RIPD ou demonstrar conformidade em fiscalização.</p>
+
+    <h3>Inventário (ROPA) e descoberta técnica são a mesma coisa?</h3>
+    <p><strong>Não.</strong> O inventário/ROPA é o documento de governança (finalidade, base legal, responsáveis). A <strong>descoberta técnica</strong> responde: “em qual pasta, planilha ou sistema esse CPF realmente aparece?”. Os dois se complementam. Planilha da ANPD ajuda no registro administrativo; não substitui varrer o disco atrás de arquivo esquecido.</p>
+
+    <h3>Como descobrir onde estão os dados pessoais da minha empresa?</h3>
+    <p>Além de conversar com as áreas e preencher planilhas, dá para <strong>automatizar</strong>: varrer pastas e arquivos (PDF, Excel, Word, ZIP) e, quando configurado, bancos e sistemas, identificando CPF, e-mail, dados bancários e outros padrões brasileiros. O DataBoar faz isso de forma <strong>local</strong> (nada sai do seu ambiente) e entrega <strong>relatório em Excel</strong> com os caminhos dos achados.</p>
+
+    <h2 id="para-quem">Para quem é / o que preciso saber</h2>
+
+    <h3>Preciso ser de TI ou ter DPO para usar?</h3>
+    <p>Não necessariamente. Existe caminho pensado para quem <strong>nunca usou terminal</strong> — ver <a href="windows.html">Data Boar no Windows (sem Docker)</a>. Microempresas e profissionais liberais muitas vezes <strong>não são obrigados</strong> a nomear DPO (Resolução CD/ANPD nº 2/2022), conforme o perfil de risco. O DataBoar gera <strong>evidência técnica</strong>; a decisão de conformidade continua sendo do responsável pela organização — não é parecer jurídico.</p>
+
+    <h3>Serve para escritório de contabilidade?</h3>
+    <p>Sim. Contabilidades tratam CPF, IR, folha, dados bancários por obrigação legal. O risco prático costuma ser arquivo solto, pasta compartilhada demais ou ex-cliente antigo. A descoberta ajuda a <strong>enxergar</strong> onde isso está; organizar, restringir acesso ou eliminar o que já passou do prazo legal continua sendo trabalho do escritório.</p>
+
+    <h2 id="privacidade-local">Privacidade e modelo local</h2>
+
+    <h3>O DataBoar envia meus dados para a nuvem?</h3>
+    <p><strong>Não.</strong> O desenho é <strong>local-first</strong>: a varredura roda no seu ambiente. O que se produz são metadados e relatórios de achados — o conteúdo dos documentos dos clientes não é enviado a servidores de terceiros.</p>
+
+    <h3>É open source e auditável?</h3>
+    <p>Sim. O código do núcleo está público no <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">GitHub</a>. Dá para inspecionar como a detecção e os logs funcionam. Modelo <strong>open-core</strong>: base gratuita e aberta; suporte, SLA e recursos avançados para cenários corporativos maiores podem ser comerciais.</p>
+
+    <h2 id="instalacao">Instalação e uso prático</h2>
+
+    <h3>Preciso instalar Docker?</h3>
+    <p><strong>Não.</strong> Docker é opção para quem já vive de contêiner. No Windows o caminho recomendado para não-técnicos é nativo (Python + demo), descrito em <a href="windows.html">windows.html</a>.</p>
+
+    <h3>Como começar sem medo de quebrar o computador?</h3>
+    <p>Comece <strong>sempre</strong> pelo modo demo:</p>
+    <pre><code>data-boar --demo</code></pre>
+    <p>Usa só dados sintéticos (de mentira) e abre o painel em <code>http://127.0.0.1:8088</code>. Nada dos seus arquivos reais é lido. Só depois de validar, aponte para uma pasta de teste — e só então para pastas reais.</p>
+
+    <h3>Funciona com ZIP e arquivos com senha?</h3>
+    <p><strong>ZIP:</strong> o conteúdo interno pode ser analisado sem descompactar tudo na mão.<br>
+    <strong>Com senha:</strong> nenhum software legítimo “adivinha” o conteúdo; o relatório indica que a leitura foi bloqueada, para você saber o que já está trancado.</p>
+
+    <h3>Em computador antigo demora muito?</h3>
+    <p>Não mande varrer o disco inteiro (<code>C:\</code>). Aponte só a pasta de clientes ou documentos de trabalho. Assim a varredura costuma levar minutos, não a noite toda — e continua offline durante a análise.</p>
+
+    <h2 id="resultado">O que o relatório entrega</h2>
+
+    <h3>O programa “inventa” problemas para cobrar depois?</h3>
+    <p>Não. O resultado é uma <strong>planilha transparente</strong> com caminho do arquivo e o tipo de achado (por exemplo CPF na linha X). Você mesmo abre o arquivo e confere. A organização (mover, restringir, apagar o que já pode) é feita por você, com as ferramentas que já tem.</p>
+
+    <h3>Serve só para LGPD ou também dados fiscais / outras normas?</h3>
+    <p>No dia a dia brasileiro o foco inclui LGPD (CPF, dados sensíveis, etc.). O motor aceita padrões configuráveis e pode apoiar descoberta de informações fiscais/financeiras (CNPJ, dados bancários, etc.) e evidência alinhada a outros marcos. Continua sendo ferramenta de <strong>descoberta e evidência</strong>, não substituto de assessoria jurídica.</p>
+
+    <h2 id="proximo-passo">Próximo passo</h2>
+    <ol>
+      <li>Leia o passo a passo: <a href="windows.html"><strong>Data Boar no Windows — sem Docker</strong></a></li>
+      <li>Rode o <code>--demo</code> e abra o painel local</li>
+      <li>Se quiser ajuda no primeiro apontamento de pastas reais: <a href="agende-demonstracao.html">agende uma demonstração</a></li>
+    </ol>
+
+    <p>Mais detalhes de produto: <a href="solucao.html">Solução</a> · <a href="opensource.html">OpenSource</a> · <a href="glossario.html">Glossário</a> · <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">GitHub</a></p>
+
+    <p class="legal-back"><a href="index.html">← Início</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4 data-lang-panel="pt-BR">Produto</h4>
+        <h4 data-lang-panel="en" hidden>Product</h4>
+        <a href="solucao.html" data-lang-panel="pt-BR">Solução</a>
+        <a href="solucao.html" data-lang-panel="en" hidden>Solution</a>
+        <a href="opensource.html">OpenSource</a>
+        <a href="agende-demonstracao.html" data-lang-panel="pt-BR">Agendar demonstração</a>
+        <a href="agende-demonstracao.html" data-lang-panel="en" hidden>Book a demo</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-lang-panel="pt-BR">Recursos</h4>
+        <h4 data-lang-panel="en" hidden>Resources</h4>
+        <a href="windows.html" data-lang-panel="pt-BR">Windows (sem Docker)</a>
+        <a href="windows.html" data-lang-panel="en" hidden>Windows (no Docker)</a>
+        <a href="faq.html">FAQ</a>
+        <a href="glossario.html" data-lang-panel="pt-BR">Glossário</a>
+        <a href="glossario.html" data-lang-panel="en" hidden>Glossary</a>
+        <a href="https://github.com/DataBoar/data-boar/blob/main/docs/README.md" rel="noopener noreferrer" target="_blank" data-lang-panel="pt-BR">Documentação</a>
+        <a href="https://github.com/DataBoar/data-boar/blob/main/docs/README.md" rel="noopener noreferrer" target="_blank" data-lang-panel="en" hidden>Docs</a>
+        <a href="https://databoar.wordpress.com" rel="noopener noreferrer" target="_blank" data-lang-panel="pt-BR">Blog</a>
+        <a href="https://databoar.wordpress.com" rel="noopener noreferrer" target="_blank" data-lang-panel="en" hidden>Blog</a>
+        <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">GitHub</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-lang-panel="pt-BR">Posicionamento</h4>
+        <h4 data-lang-panel="en" hidden>Positioning</h4>
+        <a href="opensource.html" data-lang-panel="pt-BR">Open-core & método</a>
+        <a href="opensource.html" data-lang-panel="en" hidden>Open-core & method</a>
+        <a href="privacidade.html" data-lang-panel="pt-BR">Política de Privacidade</a>
+        <a href="privacidade.html" data-lang-panel="en" hidden>Privacy Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 DataBoar</span>
+      <div class="footer-social">
+        <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.1 3.1 0 00-.9-2.4c3-.3 6-1.5 6-6.6a5.1 5.1 0 00-.9 2.4V22"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/site.js"></script>
+</body>
+</html>
