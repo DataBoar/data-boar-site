@@ -122,11 +122,24 @@ class SupplyChain(unittest.TestCase):
                 )
 
     def test_2_external_resources_allowlisted(self):
-        # LOADED resources only: src=, and <link ... href=> (stylesheet/preconnect).
-        # Navigation links (<a href=...>) are NOT loaded resources and are out of scope here.
+        # LOADED resources only: src=, and <link rel=stylesheet|preconnect|… href=>.
+        # Navigation (<a href=…>) and metadata (<link rel=canonical|alternate>) are out of scope —
+        # the browser does not fetch those as third-party assets the way stylesheets/fonts are.
+        _loaded_link_rels = (
+            "stylesheet", "preconnect", "preload", "prefetch", "dns-prefetch",
+            "icon", "apple-touch-icon", "mask-icon",
+        )
         for name, txt in _html().items():
             loaded = re.findall(r'\bsrc="(https?://[^"]+)"', txt)
-            loaded += re.findall(r'<link\b[^>]*\shref="(https?://[^"]+)"', txt)
+            for tag in re.findall(r"<link\b[^>]*>", txt, flags=re.IGNORECASE):
+                href_m = re.search(r'\bhref="(https?://[^"]+)"', tag, flags=re.IGNORECASE)
+                rel_m = re.search(r'\brel="([^"]+)"', tag, flags=re.IGNORECASE)
+                if not href_m or not rel_m:
+                    continue
+                rels = {r.strip().lower() for r in rel_m.group(1).split()}
+                if rels.isdisjoint(_loaded_link_rels):
+                    continue  # e.g. rel=canonical — SEO metadata, not a loaded asset
+                loaded.append(href_m.group(1))
             for url in loaded:
                 host = re.sub(r"^https?://", "", url).split("/")[0].lower()
                 self.assertIn(
