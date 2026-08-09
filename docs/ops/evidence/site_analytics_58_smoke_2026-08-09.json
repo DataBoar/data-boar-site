@@ -16,5 +16,6 @@
       "provider": "umami"
     }
   ],
-  "note": "Local mock receiver proved first-party beacon path; production stays enabled:false until operator sets Umami/Plausible URL"
+  "note": "Local mock receiver proved first-party beacon path; production stays enabled:false until operator sets Umami/Plausible URL",
+  "privacy": "beacon path=pathname only; referrer=origin only (no search/full URL)"
 }
