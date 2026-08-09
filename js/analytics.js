@@ -2,9 +2,31 @@
  * Privacy-first analytics loader (site#58).
  * No-op unless window.DATABOAR_ANALYTICS.enabled is true and src/websiteId are set.
  * Does not introduce a bundler; injects at most one provider <script>.
+ *
+ * First-party beacon (optional): path = pathname only (no query); referrer =
+ * origin only (no path/query). Full referrer URL requires a future explicit allowlist.
  */
 (function () {
   "use strict";
+
+  function safePathname() {
+    try {
+      return location.pathname || "/";
+    } catch (_e) {
+      return "/";
+    }
+  }
+
+  function safeReferrerOrigin(raw) {
+    if (!raw) {
+      return "";
+    }
+    try {
+      return new URL(raw).origin || "";
+    } catch (_e) {
+      return "";
+    }
+  }
 
   var cfg = window.DATABOAR_ANALYTICS || {};
   if (!cfg.enabled) {
@@ -38,8 +60,8 @@
     try {
       var payload = {
         type: "pageview",
-        path: location.pathname + location.search,
-        referrer: document.referrer || "",
+        path: safePathname(),
+        referrer: safeReferrerOrigin(document.referrer),
         title: document.title || "",
         ts: new Date().toISOString(),
         websiteId: websiteId,

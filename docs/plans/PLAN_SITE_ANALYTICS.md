@@ -22,7 +22,7 @@
 
 - **No build pipeline** — plain HTML + one loader script.
 - **No-op by default** — until the operator sets `window.DATABOAR_ANALYTICS` (via `js/analytics-config.js`).
-- **Zero PII** — do not send form field values; page path + referrer only (provider defaults).
+- **Zero PII** — do not send form field values. First-party beacon (when used): `path` = `location.pathname` only (**never** `location.search`); `referrer` = **origin only** (`new URL(document.referrer).origin`), never the full referrer URL (path/query). Full-referrer allowlist is a future explicit opt-in, not default. Provider scripts (Umami/Plausible) should be configured for the same privacy bar when possible.
 - **Consent** — when enabling a live endpoint, keep `privacidade.html` honest about what is measured (operator follow-up if legal copy must change).
 
 ## Implementation
