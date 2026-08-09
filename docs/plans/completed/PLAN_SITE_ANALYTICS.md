@@ -1,7 +1,7 @@
 # Site — lightweight privacy-first analytics / RUM
 
-**Status:** Active (opt-in POC)
-**Date:** 2026-08-09
+**Status:** Done (opt-in shipped on `main` via #59)
+**Date:** 2026-08-09 (closed)
 **Authors:** Fabio Leitao
 **Priority:** P3
 **Issue:** [DataBoar/data-boar-site#58](https://github.com/DataBoar/data-boar-site/issues/58)
