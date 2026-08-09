@@ -1,0 +1,21 @@
+{
+  "issue": 58,
+  "decision": "umami/plausible-class (privacy-first); OTel Web rejected as Pages default",
+  "pages_wired": [
+    "index.html",
+    "agende-demonstracao.html"
+  ],
+  "beacon_events": [
+    {
+      "type": "pageview",
+      "path": "/agende-demonstracao.html",
+      "referrer": "",
+      "title": "Agende demonstracao - smoke",
+      "ts": "2026-08-09T00:00:00Z",
+      "websiteId": "smoke-site-58",
+      "provider": "umami"
+    }
+  ],
+  "note": "Local mock receiver proved first-party beacon path; production stays enabled:false until operator sets Umami/Plausible URL",
+  "privacy": "beacon path=pathname only; referrer=origin only (no search/full URL)"
+}
