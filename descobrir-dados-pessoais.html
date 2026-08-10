@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Como descobrir onde estão os dados pessoais da empresa | DataBoar</title>
+<meta name="description" content="Como achar dados pessoais em pastas, planilhas, CRM/ERP e arquivos sem ser de TI: data discovery LGPD local-first, relatório Excel, demo Windows sem Docker.">
+<link rel="canonical" href="https://databoar.com.br/descobrir-dados-pessoais.html">
+<meta property="og:title" content="Onde estão os dados pessoais da empresa? | DataBoar">
+<meta property="og:description" content="Passo a passo para descobrir CPF e dados sensíveis em arquivos — sem nuvem, sem Docker obrigatório.">
+<meta property="og:url" content="https://databoar.com.br/descobrir-dados-pessoais.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pt_BR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Como descobrir onde estão os dados pessoais da empresa sem ser de TI",
+  "description": "Validar demo local, apontar pasta de trabalho e ler o relatório Excel de achados — descoberta técnica para LGPD.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Rodar o demo no Windows",
+      "text": "Instale pelo guia Windows sem Docker e execute data-boar --demo. Usa só dados sintéticos em http://127.0.0.1:8088."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Apontar a pasta certa",
+      "text": "Com config apontando só a pasta de clientes ou documentos (não o disco inteiro), rode a varredura local."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Ler o Excel de achados",
+      "text": "Abra o relatório: caminho do arquivo e tipo de dado encontrado. Confira e decida restrição, retenção ou eliminação com o responsável da organização."
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><img src="images/logo-databoar.png" alt="DataBoar"></a>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu de navegação">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+    <nav class="links" id="site-nav">
+      <a href="solucao.html">Solução</a>
+      <a href="faq.html">FAQ</a>
+      <a href="opensource.html">OpenSource</a>
+      <span class="nav-soon" title="Em breve">Preços · em breve</span>
+    </nav>
+    <div class="nav-cta">
+      <a class="login" href="login.html">Login</a>
+      <a class="mini-btn" href="agende-demonstracao.html">Agendar Demonstração →</a>
+    </div>
+  </div>
+  <div class="nav-overlay" aria-hidden="true"></div>
+</header>
+
+<section class="legal">
+  <div class="wrap legal-wrap">
+    <div class="eyebrow">DATA DISCOVERY · SEM TI</div>
+    <h1>Como descobrir onde estão os <span class="accent">dados pessoais</span> da empresa</h1>
+    <p class="lede"><strong>Resposta direta:</strong> além de perguntar às áreas, <strong>varra as pastas e arquivos</strong> onde o negócio realmente trabalha — PDF, Excel, Word, ZIP, exports de CRM/ERP. Uma ferramenta de <strong>data discovery LGPD</strong> local aponta padrões (CPF, e-mail, dados bancários etc.) e gera relatório. Não precisa ser de TI para o caminho Windows + demo; banco de dados pode vir depois.</p>
+
+    <p style="margin:1rem 0 1.5rem">
+      <a class="btn btn-primary" href="windows.html">Windows sem Docker — demo →</a>
+      &nbsp;
+      <a class="btn btn-outline" href="inventario-dados-pessoais-lgpd.html">Entender o inventário LGPD</a>
+    </p>
+
+    <h2>Onde os dados costumam se esconder</h2>
+    <ul>
+      <li>Pastas de clientes e “Arquivo morto”</li>
+      <li>Planilhas e exports de sistemas</li>
+      <li>ZIP de backup e anexos salvos fora do e-mail</li>
+      <li>SharePoint / pastas de rede / nuvem sincronizada no PC</li>
+    </ul>
+
+    <h2>Passo a passo (sem jargão de servidor)</h2>
+    <ol>
+      <li><strong>Demo primeiro</strong> — <code>data-boar --demo</code> com dados de mentira. Guia: <a href="windows.html">windows.html</a>.</li>
+      <li><strong>Pasta de teste</strong> — copie poucos arquivos sintéticos ou uma pasta controlada; nunca comece pelo disco inteiro.</li>
+      <li><strong>Relatório</strong> — Excel com caminho e tipo de achado. Você abre o arquivo e confere.</li>
+      <li><strong>Decisão humana</strong> — restringir acesso, arquivar ou eliminar o que já passou do prazo é processo do escritório.</li>
+    </ol>
+
+    <blockquote><strong>Local-first.</strong> A varredura roda no seu ambiente. O conteúdo dos documentos dos clientes não é o produto a ser enviado para a nuvem do fabricante — o que você leva é o relatório de achados.</blockquote>
+
+    <h2>Solução LGPD sem precisar de TI / sem Docker</h2>
+    <p>Docker é opcional para quem já usa contêiner. Para escritório, PME e profissional liberal, o caminho nativo no Windows foi feito para quem <strong>nunca usou terminal</strong>. Microempresas muitas vezes não são obrigadas a nomear DPO — ainda assim precisam saber onde estão os dados. Ver <a href="faq.html">FAQ</a>.</p>
+
+    <h2>Leia também</h2>
+    <ul>
+      <li><a href="data-discovery-contabilidade.html">Data discovery para escritórios de contabilidade</a></li>
+      <li><a href="casos/menores-lgpd-art-14.html">Dados de menores / Art. 14 sem programar</a></li>
+      <li><a href="agende-demonstracao.html">Agendar demonstração</a></li>
+    </ul>
+    <p class="legal-back"><a href="index.html">← Início</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Produto</h4>
+        <a href="solucao.html">Solução</a>
+        <a href="opensource.html">OpenSource</a>
+        <a href="agende-demonstracao.html">Agendar demonstração</a>
+      </div>
+      <div class="footer-col">
+        <h4>Recursos</h4>
+        <a href="windows.html">Windows (sem Docker)</a>
+        <a href="faq.html">FAQ</a>
+        <a href="descobrir-dados-pessoais.html">Descobrir dados pessoais</a>
+        <a href="glossario.html">Glossário</a>
+      </div>
+      <div class="footer-col">
+        <h4>Posicionamento</h4>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 DataBoar</span></div>
+  </div>
+</footer>
+<script src="js/site.js"></script>
+</body>
+</html>
