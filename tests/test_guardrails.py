@@ -23,7 +23,10 @@ import unittest
 from typing import ClassVar
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-HTML_FILES = sorted(glob.glob(os.path.join(ROOT, "*.html")))
+HTML_FILES = sorted(
+    glob.glob(os.path.join(ROOT, "*.html"))
+    + glob.glob(os.path.join(ROOT, "casos", "*.html"))
+)
 
 
 def _read(path):
@@ -32,7 +35,12 @@ def _read(path):
 
 
 def _html():
-    return {os.path.basename(p): _read(p) for p in HTML_FILES}
+    """Keys are paths relative to repo root (forward slashes)."""
+    out = {}
+    for p in HTML_FILES:
+        rel = os.path.relpath(p, ROOT).replace("\\", "/")
+        out[rel] = _read(p)
+    return out
 
 
 def _git(*args):
