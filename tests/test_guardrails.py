@@ -73,22 +73,41 @@ class AntiRegression(unittest.TestCase):
         cname = _read(os.path.join(ROOT, "CNAME")).strip()
         self.assertEqual(cname, "databoar.com.br")
 
-    def test_footer_recursos_has_discovery_links(self):
-        """Every page footer Recursos column must expose FAQ + business SEO landings."""
-        required = (
-            "faq.html",
-            "inventario-dados-pessoais-lgpd.html",
-            "descobrir-dados-pessoais.html",
-            "data-discovery-contabilidade.html",
-            "menores-lgpd-art-14.html",
-        )
-        for name, txt in _html().items():
-            if "Recursos" not in txt:
+    def test_footer_block_identical_across_pages(self):
+        """Single canonical <footer> — fails on structural drift (no build pipeline).
+
+        Nested pages (casos/) may use a ``../`` prefix on relative href/src; that is
+        stripped before comparison. Absolute URLs and panel markup must match.
+        """
+        footer_re = re.compile(r"<footer\b[^>]*>.*?</footer>", re.S | re.I)
+
+        def normalize(rel: str, html: str) -> str:
+            m = footer_re.search(html)
+            self.assertIsNotNone(m, f"{rel}: sem <footer>")
+            block = m.group(0)
+            if rel.startswith("casos/"):
+                block = block.replace('href="../', 'href="').replace('src="../', 'src="')
+            return block
+
+        pages = _html()
+        self.assertIn("index.html", pages)
+        canon = normalize("index.html", pages["index.html"])
+        self.assertIn("docs/MAP.pt_BR.md", canon, "Documentação pt-BR deve apontar para MAP.pt_BR.md")
+        self.assertIn("docs/MAP.md", canon, "Docs en deve apontar para MAP.md")
+        self.assertNotIn("docs/README.md", canon)
+        self.assertIn("footer-brand", canon, "canônico inclui coluna logo/blurb")
+        self.assertIn("casos-de-uso", canon)
+        self.assertIn('href="casos/menores-lgpd-art-14.html"', canon)
+
+        for rel, html in sorted(pages.items()):
+            if "<footer" not in html.lower():
                 continue
-            for href in required:
-                self.assertIn(
-                    href, txt, f"{name}: footer Recursos sem link {href}"
-                )
+            got = normalize(rel, html)
+            self.assertEqual(
+                got,
+                canon,
+                f"{rel}: <footer> diverge do canônico (index.html)",
+            )
 
 
 class Security(unittest.TestCase):
