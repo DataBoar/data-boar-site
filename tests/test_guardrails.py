@@ -73,6 +73,68 @@ class AntiRegression(unittest.TestCase):
         cname = _read(os.path.join(ROOT, "CNAME")).strip()
         self.assertEqual(cname, "databoar.com.br")
 
+    def test_footer_block_identical_across_pages(self):
+        """Single canonical <footer> — fails on structural drift (no build pipeline).
+
+        Nested pages (casos/) may use a ``../`` prefix on relative href/src; that is
+        stripped before comparison. Absolute URLs and panel markup must match.
+        """
+        footer_re = re.compile(r"<footer\b[^>]*>.*?</footer>", re.DOTALL | re.IGNORECASE)
+
+        def normalize(rel: str, html: str) -> str:
+            m = footer_re.search(html)
+            self.assertIsNotNone(m, f"{rel}: sem <footer>")
+            block = m.group(0)
+            if rel.startswith("casos/"):
+                block = block.replace('href="../', 'href="').replace('src="../', 'src="')
+            return block
+
+        pages = _html()
+        self.assertIn("index.html", pages)
+        canon = normalize("index.html", pages["index.html"])
+        self.assertIn("docs/MAP.pt_BR.md", canon, "Documentação pt-BR deve apontar para MAP.pt_BR.md")
+        self.assertIn("docs/MAP.md", canon, "Docs en deve apontar para MAP.md")
+        self.assertNotIn("docs/README.md", canon)
+        self.assertIn("footer-brand", canon, "canônico inclui coluna logo/blurb")
+        self.assertIn("casos-de-uso", canon)
+        self.assertIn('href="casos/menores-lgpd-art-14.html"', canon)
+
+        for rel, html in sorted(pages.items()):
+            if "<footer" not in html.lower():
+                continue
+            got = normalize(rel, html)
+            self.assertEqual(
+                got,
+                canon,
+                f"{rel}: <footer> diverge do canônico (index.html)",
+            )
+
+    def test_legal_section_btn_primary_keeps_readable_color(self):
+        """`.legal a` must not paint `.btn-primary` gold-on-gold (specificity trap)."""
+        css = _read(os.path.join(ROOT, "css", "style.css"))
+        self.assertRegex(
+            css,
+            r"\.legal\s+a\s*\{[^}]*color:\s*var\(--color-accent\)",
+            "expected .legal a accent link style (context for the override)",
+        )
+        self.assertRegex(
+            css,
+            r"\.legal\s+a\.btn-primary\s*\{[^}]*color:\s*var\(--color-primary\)",
+            "missing .legal a.btn-primary override — CTA text becomes invisible",
+        )
+        # Pages that ship primary CTAs inside section.legal (regression inventory)
+        pages = _html()
+        for rel in (
+            "casos/menores-lgpd-art-14.html",
+            "inventario-dados-pessoais-lgpd.html",
+            "descobrir-dados-pessoais.html",
+            "data-discovery-contabilidade.html",
+            "faq.html",
+        ):
+            txt = pages[rel]
+            self.assertIn('class="legal"', txt, f"{rel}: expected section.legal")
+            self.assertIn("btn-primary", txt, f"{rel}: expected btn-primary CTA")
+
 
 class Security(unittest.TestCase):
     # Public, non-secret identifiers that are allowed to appear in source.

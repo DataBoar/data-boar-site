@@ -11,7 +11,22 @@ run() { echo; echo "── $1 ──"; shift; if "$@"; then echo "  ✅ ok"; els
 # 1) Guardrail suite (anti-regression · security · supply-chain · anti-overclaim · anti-llm · hitl)
 run "guardrails (unittest)" python3 -m unittest -q tests.test_guardrails
 
-# 2) Lint / code quality (best-effort; skip if tool absent, never silently pass a present tool)
+# 2) Ruff on tests/ — mirrors CI job py-ruff in .github/workflows/security.yml.
+#    Same availability pattern as tidy/node: use the tool when present; if missing,
+#    fail loudly (CI always installs ruff — a silent skip here would greenwash).
+if command -v ruff >/dev/null 2>&1; then
+  run "ruff check tests/" ruff check tests/
+elif python3 -m ruff --version >/dev/null 2>&1; then
+  run "ruff check tests/ (python3 -m)" python3 -m ruff check tests/
+else
+  echo
+  echo "── ruff check tests/ ──"
+  echo "  ❌ FALHOU — ruff ausente (CI security.yml · py-ruff instala e roda \`ruff check tests/\`)"
+  echo "     instale: pip install ruff   # ou: uv tool install ruff"
+  fail=1
+fi
+
+# 3) Lint / code quality (best-effort; skip if tool absent, never silently pass a present tool)
 if command -v tidy >/dev/null 2>&1; then
   run "html tidy (errors only)" bash -c 'for f in *.html; do tidy -qe "$f" || exit 1; done'
 fi
