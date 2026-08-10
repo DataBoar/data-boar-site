@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Data discovery LGPD para escritórios de contabilidade | DataBoar</title>
+<meta name="description" content="Scanner de dados pessoais para escritório de contabilidade e profissionais liberais: local, open source, Excel, ZIP, sem Docker. Descubra onde estão CPF e dados fiscais dos clientes.">
+<link rel="canonical" href="https://databoar.com.br/data-discovery-contabilidade.html">
+<meta property="og:title" content="Data discovery LGPD para contabilidade | DataBoar">
+<meta property="og:description" content="Ferramenta de descoberta de dados pessoais para contadores — local-first, sem enviar arquivos de cliente para a nuvem.">
+<meta property="og:url" content="https://databoar.com.br/data-discovery-contabilidade.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pt_BR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Contabilidade precisa de inventário / data discovery LGPD?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Escritórios tratam CPF, IR, folha e dados bancários por obrigação. O risco prático é arquivo solto, pasta compartilhada ou ex-cliente antigo. Descoberta técnica ajuda a enxergar onde isso está; organizar acesso e retenção continua sendo trabalho do escritório."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Existe scanner de dados pessoais sem enviar arquivos para a nuvem?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim. O DataBoar é local-first e open-core: a varredura roda no ambiente do escritório e gera relatório Excel. Comece pelo demo no Windows sem Docker, com dados sintéticos."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Serve para profissional liberal ou só para grandes empresas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "O núcleo open source serve para começar em escritórios menores. Suites GRC caras fazem sentido em programas maduros; para mapear pastas e planilhas, o caminho leve costuma bastar."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><img src="images/logo-databoar.png" alt="DataBoar"></a>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu de navegação">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+    <nav class="links" id="site-nav">
+      <a href="solucao.html">Solução</a>
+      <a href="faq.html">FAQ</a>
+      <a href="opensource.html">OpenSource</a>
+      <span class="nav-soon" title="Em breve">Preços · em breve</span>
+    </nav>
+    <div class="nav-cta">
+      <a class="login" href="login.html">Login</a>
+      <a class="mini-btn" href="agende-demonstracao.html">Agendar Demonstração →</a>
+    </div>
+  </div>
+  <div class="nav-overlay" aria-hidden="true"></div>
+</header>
+
+<section class="legal">
+  <div class="wrap legal-wrap">
+    <div class="eyebrow">CONTABILIDADE · PME · PROFISSIONAL LIBERAL</div>
+    <h1>Data discovery LGPD para <span class="accent">escritórios de contabilidade</span></h1>
+    <p class="lede"><strong>Resposta direta:</strong> contabilidade já trata dados pessoais o dia inteiro. O que falta em muitos escritórios é <strong>saber em qual pasta e planilha</strong> isso ainda vive — inclusive de ex-cliente. Uma ferramenta de descoberta <strong>local</strong>, com relatório em Excel, ajuda sem exigir equipe de TI nem enviar IRPF de cliente para a nuvem de um fornecedor.</p>
+
+    <p style="margin:1rem 0 1.5rem">
+      <a class="btn btn-primary" href="windows.html">Demo no Windows (sem Docker) →</a>
+      &nbsp;
+      <a class="btn btn-outline" href="agende-demonstracao.html">Agendar demonstração</a>
+    </p>
+
+    <h2>Dor típica do escritório</h2>
+    <ul>
+      <li>“Cadê a pasta daquele cliente de 2018?”</li>
+      <li>ZIP de declaração espalhado em pendrive e rede</li>
+      <li>Planilha de folha com CPF além do necessário</li>
+      <li>Medo de ferramenta na nuvem com documento fiscal</li>
+    </ul>
+
+    <h2>O que o DataBoar faz (e o que não faz)</h2>
+    <p><strong>Ajuda:</strong> varrer pastas apontadas; olhar dentro de ZIP; marcar padrões (CPF, e-mail, dados bancários etc.); gerar Excel auditável; rodar offline no PC.</p>
+    <p><strong>Não substitui:</strong> assessoria jurídica, política de retenção do CRC/cliente, IAM/MFA do escritório, nem “selo” de conformidade. Evidência técnica para você decidir.</p>
+
+    <h2>Começar sem drama</h2>
+    <ol>
+      <li>Siga <a href="windows.html">Data Boar no Windows — SEM Docker</a>.</li>
+      <li>Rode <code>data-boar --demo</code> (dados sintéticos).</li>
+      <li>Só então aponte uma pasta de teste — nunca o disco inteiro no primeiro dia.</li>
+    </ol>
+
+    <h2>Relacionado</h2>
+    <ul>
+      <li><a href="inventario-dados-pessoais-lgpd.html">Inventário de dados pessoais LGPD</a></li>
+      <li><a href="descobrir-dados-pessoais.html">Como descobrir onde estão os dados</a></li>
+      <li><a href="faq.html">FAQ</a> · <a href="opensource.html">Open source &amp; método</a></li>
+    </ul>
+    <p class="legal-back"><a href="index.html">← Início</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Produto</h4>
+        <a href="solucao.html">Solução</a>
+        <a href="opensource.html">OpenSource</a>
+        <a href="agende-demonstracao.html">Agendar demonstração</a>
+      </div>
+      <div class="footer-col">
+        <h4>Recursos</h4>
+        <a href="windows.html">Windows (sem Docker)</a>
+        <a href="faq.html">FAQ</a>
+        <a href="data-discovery-contabilidade.html">Contabilidade</a>
+        <a href="glossario.html">Glossário</a>
+      </div>
+      <div class="footer-col">
+        <h4>Posicionamento</h4>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 DataBoar</span></div>
+  </div>
+</footer>
+<script src="js/site.js"></script>
+</body>
+</html>

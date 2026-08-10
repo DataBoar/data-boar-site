@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Inventário de dados pessoais LGPD: o que é e como automatizar | DataBoar</title>
+<meta name="description" content="O que é inventário de dados pessoais na LGPD, por que planilha infinita falha e como automatizar a descoberta técnica sem enviar dados para a nuvem — caminho Windows sem Docker.">
+<link rel="canonical" href="https://databoar.com.br/inventario-dados-pessoais-lgpd.html">
+<meta property="og:title" content="Inventário de dados pessoais LGPD | DataBoar">
+<meta property="og:description" content="Inventário ≠ planilha eterna. Descubra onde os dados pessoais estão de fato, com evidência local em Excel.">
+<meta property="og:url" content="https://databoar.com.br/inventario-dados-pessoais-lgpd.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pt_BR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "O que é inventário de dados pessoais na LGPD?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "É o registro de quais dados pessoais a organização trata, onde estão, para qual finalidade, com base legal, quem acessa e por quanto tempo. A LGPD (art. 37) exige registro das operações de tratamento. Sem inventário fica difícil atender titulares ou responder à fiscalização."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Por que a maioria dos inventários LGPD falha?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Porque dependem só de entrevista e planilha manual: o que está no papel não bate com o arquivo esquecido na pasta compartilhada. Falta descoberta técnica — varrer onde CPF, e-mail e dados sensíveis realmente aparecem."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como automatizar o inventário sem planilha infinita?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Combine o registro administrativo (finalidade, base legal) com uma ferramenta de data discovery local que aponta pastas e gera relatório Excel dos achados. O DataBoar faz a parte técnica offline; a organização completa o inventário formal. Não substitui DPO nem parecer jurídico."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><img src="images/logo-databoar.png" alt="DataBoar"></a>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu de navegação">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+    <nav class="links" id="site-nav">
+      <a href="solucao.html">Solução</a>
+      <a href="faq.html">FAQ</a>
+      <a href="opensource.html">OpenSource</a>
+      <span class="nav-soon" title="Em breve">Preços · em breve</span>
+    </nav>
+    <div class="nav-cta">
+      <a class="login" href="login.html">Login</a>
+      <a class="mini-btn" href="agende-demonstracao.html">Agendar Demonstração →</a>
+    </div>
+  </div>
+  <div class="nav-overlay" aria-hidden="true"></div>
+</header>
+
+<section class="legal">
+  <div class="wrap legal-wrap">
+    <div class="eyebrow">LGPD · INVENTÁRIO · NEGÓCIO</div>
+    <h1>Inventário de dados pessoais LGPD: o que é, por que falha e como automatizar</h1>
+    <p class="lede"><strong>Resposta direta:</strong> inventário de dados pessoais é o mapa de <em>quais</em> dados você trata, <em>onde</em> estão e <em>para quê</em>. A maioria falha porque a planilha não enxerga o arquivo real. Automatize a <strong>descoberta técnica</strong> no seu PC (local, sem nuvem) e use o Excel de achados como insumo — evidência, não parecer jurídico.</p>
+
+    <p style="margin:1rem 0 1.5rem">
+      <a class="btn btn-primary" href="windows.html">Começar no Windows (sem Docker) →</a>
+      &nbsp;
+      <a class="btn btn-outline" href="descobrir-dados-pessoais.html">Como descobrir onde estão os dados</a>
+    </p>
+
+    <h2>O que a LGPD espera (em linguagem de escritório)</h2>
+    <p>Controlador e operador precisam saber o que tratam. Isso aparece no registro de operações (art. 37), no atendimento a titulares e, quando couber, no RIPD. Sem mapa, sobra achismo — e risco operacional.</p>
+
+    <h2>Por que a planilha sozinha não basta</h2>
+    <ul>
+      <li>Entrevista registra o que a área <em>lembra</em>, não o PDF de 2019 na pasta “Arquivo morto”.</li>
+      <li>ZIP, exports de ERP e e-mail com anexo escapam do checklist.</li>
+      <li>A planilha da ANPD ajuda no lado administrativo; <strong>não varre o disco</strong>.</li>
+    </ul>
+
+    <h2>Como automatizar sem virar projeto de TI</h2>
+    <ol>
+      <li>Valide o produto com <code>data-boar --demo</code> (dados sintéticos) — <a href="windows.html">guia Windows</a>.</li>
+      <li>Aponte só a pasta de clientes/documentos (não o <code>C:\</code> inteiro).</li>
+      <li>Leia o relatório Excel: caminho + tipo de achado (ex.: CPF). Você confere e decide o que fazer.</li>
+      <li>Complete o inventário formal (finalidade, base legal, responsáveis) com DPO/jurídico — a ferramenta não faz isso por você.</li>
+    </ol>
+
+    <h2>Open source local-first vs suíte cara</h2>
+    <p>Se o escritório precisa de <strong>visão</strong> e evidência auditável, sem enviar documentos de cliente para SaaS de inventário, o caminho open-core local costuma bastar. Suites GRC completas fazem sentido em programas maduros; para “onde está o CPF?”, comece leve. Mais em <a href="opensource.html">OpenSource &amp; método</a>.</p>
+
+    <h2>Próximos passos</h2>
+    <ul>
+      <li><a href="descobrir-dados-pessoais.html">Como descobrir onde estão os dados pessoais da empresa</a></li>
+      <li><a href="data-discovery-contabilidade.html">Data discovery LGPD para contabilidade</a></li>
+      <li><a href="faq.html">FAQ</a> · <a href="agende-demonstracao.html">Agendar demonstração</a></li>
+    </ul>
+    <p class="legal-back"><a href="index.html">← Início</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Produto</h4>
+        <a href="solucao.html">Solução</a>
+        <a href="opensource.html">OpenSource</a>
+        <a href="agende-demonstracao.html">Agendar demonstração</a>
+      </div>
+      <div class="footer-col">
+        <h4>Recursos</h4>
+        <a href="windows.html">Windows (sem Docker)</a>
+        <a href="faq.html">FAQ</a>
+        <a href="inventario-dados-pessoais-lgpd.html">Inventário LGPD</a>
+        <a href="glossario.html">Glossário</a>
+      </div>
+      <div class="footer-col">
+        <h4>Posicionamento</h4>
+        <a href="privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 DataBoar</span></div>
+  </div>
+</footer>
+<script src="js/site.js"></script>
+</body>
+</html>
