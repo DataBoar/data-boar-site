@@ -79,7 +79,7 @@ class AntiRegression(unittest.TestCase):
         Nested pages (casos/) may use a ``../`` prefix on relative href/src; that is
         stripped before comparison. Absolute URLs and panel markup must match.
         """
-        footer_re = re.compile(r"<footer\b[^>]*>.*?</footer>", re.S | re.I)
+        footer_re = re.compile(r"<footer\b[^>]*>.*?</footer>", re.DOTALL | re.IGNORECASE)
 
         def normalize(rel: str, html: str) -> str:
             m = footer_re.search(html)
