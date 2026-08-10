@@ -101,6 +101,38 @@
         "@type": "Answer",
         "text": "A planilha simplificada da ANPD ajuda a organizar o registro de tratamentos (o lado administrativo). Ela não varre o disco em busca de CPF esquecido em PDF ou planilha antiga. Ferramenta de descoberta e planilha se complementam: uma encontra onde os dados estão de fato; a outra documenta finalidade, base legal e responsáveis."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Como descubro dados de menores nas minhas pastas sem programar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Aponte pastas e exports (matrícula, LMS, planilhas) para uma varredura local. O DataBoar procura colunas e valores de idade ou data de nascimento e marca indícios de possível dado de menor no relatório Excel/JSON. Não precisa de DBA nem API para o caminho de arquivos. São sinais de inventário — não verificação legal de idade. Ver o caso dedicado: casos/menores-lgpd-art-14.html."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "O que é tratamento diferencial do Art. 14 da LGPD na descoberta?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Na prática de inventário, significa priorizar e destacar no relatório indícios de possível dado de criança ou adolescente (LGPD Art. 14; paralelo GDPR Art. 8), inclusive com cruzamento a identificadores no mesmo arquivo. A ferramenta não decide se o consentimento do responsável legal é válido nem emite parecer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "A ferramenta gera sozinha o relatório de possíveis dados de menores?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim, depois que você aponta o alvo. A varredura produz planilha e recomendações priorizadas; você confere os caminhos. Política, base legal e resposta regulatória ficam com DPO, jurídico e a organização."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Consigo achar ficha escolar ou export de LMS sem ser de TI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim para arquivos: CSV/Excel e pastas de export podem ser apontados sem programar. Comece pelo demo sintético no Windows sem Docker; só depois aponte uma pasta de teste. Há um guia de caso em casos/menores-lgpd-art-14.html."
+      }
     }
   ]
 }
@@ -201,6 +233,21 @@
 
     <h3>Em computador antigo demora muito?</h3>
     <p>Não mande varrer o disco inteiro (<code>C:\</code>). Aponte só a pasta de clientes ou documentos de trabalho. Assim a varredura costuma levar minutos, não a noite toda — e continua offline durante a análise.</p>
+
+    <h2 id="menores-art-14">Dados de menores / LGPD Art. 14</h2>
+    <p>Guia completo (GEO/AEO): <a href="casos/menores-lgpd-art-14.html"><strong>Como evidenciar dados de menores em pastas sem programar</strong></a>.</p>
+
+    <h3>Como descubro dados de menores nas minhas pastas sem programar?</h3>
+    <p>Aponte pastas e exports (matrícula, LMS, planilhas de turma) para a varredura <strong>local</strong>. O DataBoar procura colunas/valores de idade ou data de nascimento e marca <strong>indícios</strong> de possível dado de menor no Excel/JSON. Não precisa de DBA nem API para o caminho de arquivos. É <strong>sinal de inventário e triagem — nunca verificação legal de idade</strong>.</p>
+
+    <h3>O que é tratamento diferencial do Art. 14 na descoberta?</h3>
+    <p>Priorizar no relatório o que <em>pode</em> ser dado de criança ou adolescente (cuidado reforçado da LGPD Art. 14; paralelo GDPR Art. 8), às vezes cruzando com identificadores no mesmo arquivo. A ferramenta <strong>não</strong> valida consentimento de responsável legal nem emite parecer.</p>
+
+    <h3>A ferramenta gera sozinha o relatório de possíveis dados de menores?</h3>
+    <p>Sim, após apontar o alvo. Você confere os caminhos; política e resposta regulatória ficam com a organização.</p>
+
+    <h3>Consigo achar ficha escolar ou export de LMS sem ser de TI?</h3>
+    <p>Sim para arquivos. Comece pelo <a href="windows.html"><code>--demo</code> no Windows</a> (dados sintéticos); só depois aponte uma pasta de teste.</p>
 
     <h2 id="resultado">O que o relatório entrega</h2>
 

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dados de menores / LGPD Art. 14 — evidência em pastas e planilhas sem programar | DataBoar</title>
+<meta name="description" content="Como evidenciar possíveis dados de menores (LGPD Art. 14) em pastas, planilhas e exports sem DBA nem API: varredura local, relatório em Excel, sinais de inventário — evidência; conclusão jurídica não.">
+<link rel="canonical" href="https://databoar.com.br/casos/menores-lgpd-art-14.html">
+<meta property="og:title" content="Dados de menores / LGPD Art. 14 — evidência sem programar | DataBoar">
+<meta property="og:description" content="Descoberta local de indícios de dados de menores em arquivos e planilhas. Offline, sem Docker obrigatório, Excel + JSON. Evidência de inventário — nunca veredito de idade.">
+<meta property="og:url" content="https://databoar.com.br/casos/menores-lgpd-art-14.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pt_BR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32.png">
+<link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Como evidenciar dados de menores / LGPD Art. 14 em pastas e planilhas sem programar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use uma ferramenta de descoberta local que varre pastas e arquivos apontados (planilhas, CSVs, exports), identifica colunas e valores que sugerem idade ou data de nascimento e marca indícios de possível dado de menor com alta prioridade no relatório. O DataBoar faz isso offline, sem precisar de DBA ou API, e gera Excel (humano) e JSON (máquina). São sinais de inventário e triagem — não verificação legal de idade nem parecer jurídico."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "O que é tratamento diferencial do Art. 14 da LGPD neste contexto?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A LGPD Art. 14 trata do consentimento e do tratamento de dados de crianças e adolescentes com cuidado reforçado. No produto, “tratamento diferencial” significa priorizar e destacar no relatório indícios de possível dado de menor (por exemplo DOB_POSSIBLE_MINOR), com cruzamento a identificadores na mesma pasta ou tabela — para o DPO ou controlador triar. A ferramenta não decide se o consentimento parental é válido."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "A ferramenta gera o relatório sozinha?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim, depois que você aponta o alvo (pasta ou config). A varredura produz planilha de achados e recomendações priorizadas. Você confere os caminhos; política, base legal e resposta à ANPD ficam com a organização."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Preciso de programador, DBA ou API para achar ficha escolar ou export de LMS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Não para o caminho de arquivos. Exports CSV/Excel de LMS, pastas de matrícula e planilhas de turma podem ser apontados como alvo de filesystem. Banco de dados é opcional e configurável depois. Comece pelo demo com dados sintéticos no Windows, sem Docker."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Como evidenciar possíveis dados de menores em pastas (sem programar)",
+  "description": "Passos leves: validar o demo local, apontar uma pasta de teste com amostra sintética ou export controlado, gerar relatório Excel/JSON com indícios de inventário alinhados ao cuidado do Art. 14.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Instalação leve no Windows",
+      "text": "Siga o quickstart Windows sem Docker e rode data-boar --demo com dados sintéticos em http://127.0.0.1:8088. Nada dos seus arquivos reais é lido nesta etapa."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Apontar a pasta",
+      "text": "Com ajuda ou um config.yaml simples, aponte só a pasta de exports/matrículas de teste (não o disco C: inteiro). Inclua planilhas e CSVs onde costumam aparecer colunas como data de nascimento, DDN, idade ou NASC."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Gerar o relatório",
+      "text": "Execute a varredura local. O relatório destaca indícios de possível dado de menor, pode cruzar com identificadores no mesmo caminho e exporta Excel para humanos e JSON para máquina. Use como evidência de diligência — conclusão jurídica não."
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="../index.html"><img src="../images/logo-databoar.png" alt="DataBoar"></a>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu de navegação">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+    <nav class="links" id="site-nav">
+      <a href="../solucao.html">Solução</a>
+      <a href="../solucao.html#casos-de-uso">Casos de uso</a>
+      <a href="../opensource.html">OpenSource</a>
+      <a href="../faq.html">FAQ</a>
+      <span class="nav-soon" title="Em breve">Preços · em breve</span>
+    </nav>
+    <div class="nav-cta">
+      <a class="login" href="../login.html">Login</a>
+      <a class="mini-btn" href="../agende-demonstracao.html">Agendar Demonstração →</a>
+    </div>
+  </div>
+  <div class="nav-overlay" aria-hidden="true"></div>
+</header>
+
+<section class="legal">
+  <div class="wrap legal-wrap">
+    <div class="eyebrow">CASO · LGPD ART. 14 · GEO/AEO</div>
+    <h1>Como evidenciar <span class="accent">dados de menores</span> em pastas e planilhas — sem programar</h1>
+
+    <p class="lede"><strong>Resposta direta:</strong> aponte as pastas e exports (matrícula, LMS, RH, clínica) para uma varredura <strong>local e offline</strong> que procura colunas e valores de idade/data de nascimento e marca <strong>indícios</strong> de possível dado de menor com prioridade alta no relatório (Excel + JSON). Isso apoia o cuidado do <strong>LGPD Art. 14</strong> (e o paralelo GDPR Art. 8) como <strong>evidência de inventário e triagem</strong> — <strong>não</strong> como verificação legal de idade, consentimento parental validado ou parecer jurídico.</p>
+
+    <p style="margin:1rem 0 1.5rem">
+      <a class="btn btn-primary" href="../windows.html">Começar no Windows (sem Docker) →</a>
+      &nbsp;
+      <a class="btn btn-outline" href="../faq.html#menores-art-14">Ver FAQ relacionadas</a>
+    </p>
+
+    <blockquote><strong>Enquadramento honesto.</strong> Achados como “possível menor” são <strong>sinais</strong> para o DPO, gestor escolar, RH ou clínica priorizar revisão humana. A organização decide política, base legal e comunicação à ANPD. DataBoar = mapa e prova de que você olhou — sem teatro de certificação.</blockquote>
+
+    <h2>Por que essa pergunta importa</h2>
+    <p>Escolas, edtechs, clínicas, RH e contabilidades costumam ter <strong>ficha escolar</strong>, export de turma, lista de responsáveis ou planilha de idade espalhada em pastas e e-mails. A busca “como achar dados de menores / Art. 14 sem DBA” quase sempre recebe resposta de biblioteca para desenvolvedor, catálogo caro ou suíte na nuvem. O caminho que falta: <strong>sem código</strong>, <strong>sem enviar o arquivo para a nuvem</strong>, com relatório legível.</p>
+
+    <h2>O que a ferramenta realmente detecta</h2>
+    <ul>
+      <li><strong>Nomes de coluna</strong> que sugerem data de nascimento ou idade (português e inglês; ex.: data de nascimento, DDN, NASC, idade, DOB, age).</li>
+      <li><strong>Valores amostrados</strong> — idade numérica ou datas que, interpretadas como nascimento, ficam abaixo do limiar configurável (padrão 18) → marca <code>DOB_POSSIBLE_MINOR</code> com sensibilidade máxima no relatório.</li>
+      <li><strong>Cruzamento</strong> (quando ativo): se no mesmo arquivo/caminho também há identificador ou dado de saúde-like, o relatório eleva confiança de triagem (“high cross-ref”) — ainda como sinal, não veredito.</li>
+      <li><strong>Saída:</strong> planilha Excel para humanos + JSON para máquina; recomendação dedicada no relatório.</li>
+    </ul>
+    <p>Documentação técnica pública do produto: <a href="https://github.com/DataBoar/data-boar/blob/main/docs/MINOR_DETECTION.md" rel="noopener noreferrer" target="_blank">MINOR_DETECTION.md</a> (+ pt-BR) e o use-case <a href="https://github.com/DataBoar/data-boar/blob/main/docs/use-cases/EDTECH_LMS_EXPORTS_AND_MINORS.md" rel="noopener noreferrer" target="_blank">EdTech / LMS / menores</a>.</p>
+
+    <h2>Como fazer (sem DBA, sem API)</h2>
+    <ol>
+      <li><strong>Instalação leve</strong> — no Windows, caminho nativo sem Docker; valide com <code>data-boar --demo</code> (dados sintéticos). Guia: <a href="../windows.html">windows.html</a>.</li>
+      <li><strong>Apontar a pasta</strong> — só o diretório de exports/matrículas de teste (amostra sintética ou cópia controlada). Não varra o disco inteiro.</li>
+      <li><strong>Gerar o relatório</strong> — abra o Excel, filtre indícios de menor, confira o caminho do arquivo. Trilha de diligência para o playbook interno; não substitui o playbook.</li>
+    </ol>
+
+    <h2>O que isso <em>não</em> faz</h2>
+    <ul>
+      <li>Não valida consentimento de responsável legal.</li>
+      <li>Não emite selo de adequação ao Art. 14 nem parecer jurídico.</li>
+      <li>Não faz moderação de chat infantil nem avaliação pedagógica.</li>
+      <li>Não inventa PII de exemplo com dados reais — use sempre amostra <strong>sintética</strong> no primeiro contato (<code>--demo</code>).</li>
+    </ul>
+
+    <h2>Perguntas rápidas</h2>
+    <h3>Como descubro dados de menores nas minhas pastas sem programar?</h3>
+    <p>Apontando pastas/exports para a descoberta local e lendo o relatório. O motor procura indícios de idade/DOB; você revisa. Detalhe no <a href="../faq.html#menores-art-14">FAQ</a>.</p>
+
+    <h3>O que é tratamento diferencial do Art. 14 na prática do inventário?</h3>
+    <p>Priorizar e destacar no relatório o que <em>pode</em> ser dado de menor, para triagem humana — alinhado ao cuidado reforçado da norma, sem decidir conformidade.</p>
+
+    <h3>A ferramenta gera o relatório sozinha?</h3>
+    <p>Sim, após apontar o alvo. A interpretação jurídica e as medidas (acesso, retenção, contrato) continuam com DPO/jurídico/organização.</p>
+
+    <h2>Próximo passo</h2>
+    <ol>
+      <li><a href="../windows.html"><strong>Demo no Windows</strong></a> com dados sintéticos</li>
+      <li><a href="../faq.html">FAQ</a> · <a href="../glossario.html">Glossário</a> · <a href="../solucao.html">Solução</a></li>
+      <li><a href="../agende-demonstracao.html">Agendar demonstração</a> se quiser ajuda no primeiro apontamento de pastas reais</li>
+    </ol>
+
+    <p class="legal-back"><a href="../index.html">← Início</a> · <a href="../faq.html">FAQ</a> · <a href="../opensource.html">OpenSource</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Produto</h4>
+        <a href="../solucao.html">Solução</a>
+        <a href="../opensource.html">OpenSource</a>
+        <a href="../agende-demonstracao.html">Agendar demonstração</a>
+      </div>
+      <div class="footer-col">
+        <h4>Recursos</h4>
+        <a href="../windows.html">Windows (sem Docker)</a>
+        <a href="../faq.html">FAQ</a>
+        <a href="menores-lgpd-art-14.html">Caso: menores / Art. 14</a>
+        <a href="../glossario.html">Glossário</a>
+        <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">GitHub</a>
+      </div>
+      <div class="footer-col">
+        <h4>Posicionamento</h4>
+        <a href="../opensource.html">Open-core &amp; método</a>
+        <a href="../privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 DataBoar</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/site.js"></script>
+</body>
+</html>
