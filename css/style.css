@@ -968,6 +968,12 @@
 .legal ul{margin:0 0 12px; padding-left:20px; color:var(--color-text); line-height:1.7;}
 .legal li{margin-bottom:6px;}
 .legal a{color:var(--color-accent); font-weight:600; text-decoration:underline;}
+/* .legal a (0,1,1) beats .btn-primary (0,1,0) — without this, primary CTAs become
+   gold-on-gold (invisible text) inside FAQ / case / SEO legal pages. */
+.legal a.btn{text-decoration:none; font-weight:700;}
+.legal a.btn-primary{color:var(--color-primary);}
+.legal a.btn-primary:hover{color:var(--color-primary);}
+.legal a.btn-outline{color:var(--color-primary);}
 .legal-back{margin-top:34px; padding-top:18px; border-top:1px solid var(--color-line);}
 
 
