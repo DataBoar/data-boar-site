@@ -73,6 +73,23 @@ class AntiRegression(unittest.TestCase):
         cname = _read(os.path.join(ROOT, "CNAME")).strip()
         self.assertEqual(cname, "databoar.com.br")
 
+    def test_footer_recursos_has_discovery_links(self):
+        """Every page footer Recursos column must expose FAQ + business SEO landings."""
+        required = (
+            "faq.html",
+            "inventario-dados-pessoais-lgpd.html",
+            "descobrir-dados-pessoais.html",
+            "data-discovery-contabilidade.html",
+            "menores-lgpd-art-14.html",
+        )
+        for name, txt in _html().items():
+            if "Recursos" not in txt:
+                continue
+            for href in required:
+                self.assertIn(
+                    href, txt, f"{name}: footer Recursos sem link {href}"
+                )
+
 
 class Security(unittest.TestCase):
     # Public, non-secret identifiers that are allowed to appear in source.
