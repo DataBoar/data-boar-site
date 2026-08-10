@@ -42,7 +42,7 @@ for f in glob.glob("js/*.js"):
     for a,b in (("{","}"),("(",")"),("[","]")):
         if s.count(a)!=s.count(b):
             print(f"  desbalanceado {a}{b} em {f}"); bad=1
-    sys.exit(bad)
+sys.exit(bad)
 PY
 fi
 
