@@ -10,7 +10,7 @@
 | `js/faro-config.js` | `enabled: true`, `mode: "production"`, Grafana Cloud collect URL for app **DataBoar Site** |
 | `js/faro.js` | Host allowlist + privacy scrub + opt-out; loads vendored SDK when enabled |
 | `js/vendor/faro-*.iife.js` | Faro **2.9.0** vendored (see `NOTICE.md`) |
-| Site HTML | Loads config + `faro.js` before `site.js` |
+| Site HTML | Loads config + `faro.js` (root, `casos/`, and `simple/index.html` wheelhouse entry) |
 
 Existing privacy-first pageview analytics (`js/analytics.js`, #58) remain separate and also off by default.
 
