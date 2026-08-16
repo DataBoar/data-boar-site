@@ -143,7 +143,9 @@
       return value;
     }
     if (typeof value === "string") {
-      return scrubString(stripUrl(value) === value ? scrubString(value) : stripUrl(value));
+      // Never stripUrl() here — relative tokens like "true" (session isSampled)
+      // become https://origin/true and Faro's session hook drops every event.
+      return scrubString(value);
     }
     if (Array.isArray(value)) {
       return value.map(function (v) {
@@ -159,6 +161,23 @@
           out[k] = "[redacted]";
           return;
         }
+        // URL-shaped fields only — do not treat arbitrary strings as URLs
+        if (
+          lk === "href" ||
+          lk === "url" ||
+          lk === "page_url" ||
+          lk === "document_uri" ||
+          lk === "blockeduri" ||
+          lk === "sourcefile"
+        ) {
+          var uv = value[k];
+          if (typeof uv === "string") {
+            out[k] = scrubString(stripUrl(uv));
+          } else {
+            out[k] = "[redacted]";
+          }
+          return;
+        }
         if (
           lk === "cookie" ||
           lk === "cookies" ||
@@ -167,17 +186,11 @@
           lk === "email" ||
           lk === "username" ||
           lk.indexOf("query") !== -1 ||
-          lk === "search" ||
-          lk === "href" ||
-          lk === "url" ||
-          lk === "page_url" ||
-          lk === "document_uri" ||
-          lk === "blockeduri" ||
-          lk === "sourcefile"
+          lk === "search"
         ) {
           var v = value[k];
           if (typeof v === "string") {
-            out[k] = scrubString(stripUrl(v));
+            out[k] = scrubString(v);
           } else {
             out[k] = "[redacted]";
           }
