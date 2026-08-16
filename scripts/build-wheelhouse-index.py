@@ -4,9 +4,15 @@
 The wheels live as assets of a GitHub Release on this same repo
 (DataBoar/data-boar-site, tag wheelhouse-x86-64-v1-*). This script reads that
 release, groups the .whl by normalized project name, and emits a static
-simple/ tree that GitHub Pages can serve so the wheels are pip-installable:
+simple/ tree that GitHub Pages can serve so the wheels are pip-installable.
 
-    pip install --extra-index-url https://databoar.com.br/simple/ numpy
+**Install from this index only** (exclusive — replaces PyPI for that invoke).
+Never document ``--extra-index-url`` here: that merges PyPI + this index and
+enables dependency confusion if a higher version of a private name (e.g.
+``boar-fast-filter``) appears on PyPI (#69)::
+
+    pip install --index-url https://databoar.com.br/simple/ boar-fast-filter
+    pip install --index-url https://databoar.com.br/simple/ numpy
 
 Regenerate after every wheelhouse release (or wire into CI). Requires `gh`
 authenticated. Deterministic output — no timestamps — so re-runs are no-ops

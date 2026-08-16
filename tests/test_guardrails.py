@@ -59,6 +59,20 @@ class AntiRegression(unittest.TestCase):
             cfg, r"demoFormGuid:\s*['\"][0-9a-f-]{20,}['\"]", "demoFormGuid vazio/ausente"
         )
 
+    def test_wheelhouse_docs_use_exclusive_index_url(self):
+        """#69: never recommend --extra-index-url (dependency confusion with PyPI)."""
+        src = _read(os.path.join(ROOT, "scripts", "build-wheelhouse-index.py"))
+        self.assertNotRegex(
+            src,
+            r"pip\s+install\s+[^\n]*--extra-index-url",
+            "install examples must not use --extra-index-url (merges PyPI)",
+        )
+        self.assertRegex(
+            src,
+            r"pip\s+install\s+--index-url\s+https://databoar\.com\.br/simple/",
+        )
+        self.assertIn("dependency confusion", src.lower())
+
     def test_bilingual_panels_present(self):
         for name, txt in _html().items():
             if name in ("privacidade.html", "opensource.html", "login.html",
