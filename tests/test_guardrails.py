@@ -59,6 +59,22 @@ class AntiRegression(unittest.TestCase):
             cfg, r"demoFormGuid:\s*['\"][0-9a-f-]{20,}['\"]", "demoFormGuid vazio/ausente"
         )
 
+    def test_pages_deploy_queues_and_avoids_unquoted_secret_heredoc(self):
+        """#22 race + #68 JS injection: never cancel mid-inject; never <<EOF with secrets."""
+        wf = _read(os.path.join(ROOT, ".github", "workflows", "pages-deploy.yml"))
+        self.assertRegex(
+            wf,
+            r"cancel-in-progress:\s*false",
+            "pages concurrency must queue (#22) — cancel mid-inject published empty form-config",
+        )
+        self.assertNotRegex(
+            wf,
+            r"<<EOF\b",
+            "unquoted heredoc expands secrets into JS (#68) — use json.dumps / <<'PY'",
+        )
+        self.assertIn("json.dumps", wf)
+        self.assertIn("refusing deploy", wf)
+
     def test_wheelhouse_docs_use_exclusive_index_url(self):
         """#69: never recommend --extra-index-url (dependency confusion with PyPI)."""
         src = _read(os.path.join(ROOT, "scripts", "build-wheelhouse-index.py"))
