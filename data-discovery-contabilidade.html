@@ -61,19 +61,34 @@
       <span class="nav-toggle-bar" aria-hidden="true"></span>
     </button>
     <nav class="links" id="site-nav">
-      <a href="solucao.html">Solução</a>
+      <a href="solucao.html" data-lang-panel="pt-BR">Solução</a>
+      <a href="solucao.html" data-lang-panel="en" hidden>Solution</a>
       <a href="faq.html">FAQ</a>
       <a href="opensource.html">OpenSource</a>
-      <span class="nav-soon" title="Em breve">Preços · em breve</span>
+      <span class="nav-soon" title="Em breve" data-lang-panel="pt-BR">Preços · em breve</span>
+      <span class="nav-soon" title="Coming soon" data-lang-panel="en" hidden>Pricing · coming soon</span>
     </nav>
     <div class="nav-cta">
       <a class="login" href="login.html">Login</a>
-      <a class="mini-btn" href="agende-demonstracao.html">Agendar Demonstração →</a>
+      <a class="mini-btn" href="agende-demonstracao.html" data-lang-panel="pt-BR">Agendar Demonstração →</a>
+      <a class="mini-btn" href="agende-demonstracao.html" data-lang-panel="en" hidden>Book a demo →</a>
+      <div class="lang-switch">
+        <button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false">
+          <span class="lang-flag">🇧🇷</span>
+          <span class="lang-code">PT-BR</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="lang-menu">
+          <a href="#" class="lang-option selected" data-lang="pt-BR" data-flag="🇧🇷">🇧🇷 Português (Brasil)</a>
+          <a href="#" class="lang-option" data-lang="en" data-flag="🇺🇸">🇺🇸 English</a>
+        </div>
+      </div>
     </div>
   </div>
   <div class="nav-overlay" aria-hidden="true"></div>
 </header>
 
+<div data-lang-panel="pt-BR">
 <section class="legal">
   <div class="wrap legal-wrap">
     <div class="eyebrow">CONTABILIDADE · PME · PROFISSIONAL LIBERAL</div>
@@ -116,6 +131,52 @@
     <p class="legal-back"><a href="index.html">← Início</a></p>
   </div>
 </section>
+</div>
+
+<div data-lang-panel="en" hidden>
+<section class="legal">
+  <div class="wrap legal-wrap">
+    <div class="eyebrow">ACCOUNTING · SMB · SOLO PRACTICE</div>
+    <h1>LGPD data discovery for <span class="accent">accounting firms</span></h1>
+    <p class="lede"><strong>Straight answer:</strong> accounting already handles personal data all day. What many firms lack is knowing <strong>which folder and spreadsheet</strong> still hold it — including former clients. A <strong>local</strong> discovery tool with an Excel report helps without needing an IT team or sending a client’s tax return to a vendor cloud.</p>
+
+    <p><strong>Important:</strong> the entry wedge is LGPD, but DataBoar is <strong>not only</strong> for finding personal/sensitive data. The same engine helps map <strong>tax and financial patterns</strong> (CNPJ, bank details, etc.) and produce <strong>evidence</strong> aligned with other frameworks — always inventory/triage, <strong>not</strong> legal advice. See also the <a href="faq.html">FAQ</a>: “Is it only for LGPD…?”.</p>
+
+    <p style="margin:1rem 0 1.5rem">
+      <a class="btn btn-primary" href="windows.html">Windows demo (no Docker) →</a>
+      &nbsp;
+      <a class="btn btn-outline" href="agende-demonstracao.html">Book a demo</a>
+    </p>
+
+    <h2>Typical firm pain</h2>
+    <ul>
+      <li>“Where’s that 2018 client folder?”</li>
+      <li>Tax-return ZIPs scattered on USB drives and the network</li>
+      <li>Payroll spreadsheet with more CPF than needed</li>
+      <li>Fear of a cloud tool touching fiscal documents</li>
+    </ul>
+
+    <h2>What DataBoar does (and does not)</h2>
+    <p><strong>Helps:</strong> scan pointed folders; look inside ZIPs; flag patterns (CPF, email, bank details, etc.); produce an auditable Excel; run offline on the PC.</p>
+    <p><strong>Does not replace:</strong> legal advice, CRC/client retention policy, the firm’s IAM/MFA, or a compliance “seal.” Technical evidence for you to decide.</p>
+
+    <h2>Start without drama</h2>
+    <ol>
+      <li>Follow <a href="windows.html">Data Boar on Windows — NO Docker</a>.</li>
+      <li>Run <code>data-boar --demo</code> (synthetic data).</li>
+      <li>Only then point at a test folder — never the whole disk on day one.</li>
+    </ol>
+
+    <h2>Related</h2>
+    <ul>
+      <li><a href="inventario-dados-pessoais-lgpd.html">LGPD personal-data inventory</a></li>
+      <li><a href="descobrir-dados-pessoais.html">How to find where the data is</a></li>
+      <li><a href="faq.html">FAQ</a> · <a href="opensource.html">Open source &amp; method</a></li>
+    </ul>
+    <p class="legal-back"><a href="index.html">← Home</a></p>
+  </div>
+</section>
+</div>
 
 <footer>
   <div class="wrap">
