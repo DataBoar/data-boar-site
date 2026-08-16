@@ -124,7 +124,7 @@ class AntiRegression(unittest.TestCase):
         m = nav_re.search(pages["index.html"])
         self.assertIsNotNone(m, "index.html: sem #site-nav")
         canon = self._normalize_chrome("index.html", m.group(0))
-        self.assertIn("verticais.html", canon)
+        self.assertNotIn("verticais.html", canon, "Verticais fica no footer Recursos, não no #site-nav")
         self.assertIn("faq.html", canon)
         self.assertIn("casos-de-uso-en", canon)
 
