@@ -19,6 +19,7 @@ import glob
 import os
 import re
 import subprocess
+import sys
 import unittest
 from typing import ClassVar
 
@@ -73,41 +74,84 @@ class AntiRegression(unittest.TestCase):
         cname = _read(os.path.join(ROOT, "CNAME")).strip()
         self.assertEqual(cname, "databoar.com.br")
 
+    def _normalize_chrome(self, rel: str, block: str) -> str:
+        """Strip casos/ ``../`` prefix so nested pages compare equal to root."""
+        if rel.startswith("casos/"):
+            block = block.replace('href="../', 'href="').replace('src="../', 'src="')
+        return block
+
     def test_footer_block_identical_across_pages(self):
         """Single canonical <footer> — fails on structural drift (no build pipeline).
 
         Nested pages (casos/) may use a ``../`` prefix on relative href/src; that is
         stripped before comparison. Absolute URLs and panel markup must match.
+        Source of truth: partials/site-chrome/footer.html (+ sync-site-chrome.py).
         """
         footer_re = re.compile(r"<footer\b[^>]*>.*?</footer>", re.DOTALL | re.IGNORECASE)
 
-        def normalize(rel: str, html: str) -> str:
-            m = footer_re.search(html)
-            self.assertIsNotNone(m, f"{rel}: sem <footer>")
-            block = m.group(0)
-            if rel.startswith("casos/"):
-                block = block.replace('href="../', 'href="').replace('src="../', 'src="')
-            return block
-
         pages = _html()
         self.assertIn("index.html", pages)
-        canon = normalize("index.html", pages["index.html"])
+        m = footer_re.search(pages["index.html"])
+        self.assertIsNotNone(m, "index.html: sem <footer>")
+        canon = self._normalize_chrome("index.html", m.group(0))
         self.assertIn("docs/MAP.pt_BR.md", canon, "Documentação pt-BR deve apontar para MAP.pt_BR.md")
         self.assertIn("docs/MAP.md", canon, "Docs en deve apontar para MAP.md")
         self.assertNotIn("docs/README.md", canon)
         self.assertIn("footer-brand", canon, "canônico inclui coluna logo/blurb")
         self.assertIn("casos-de-uso", canon)
-        self.assertIn('href="casos/menores-lgpd-art-14.html"', canon)
+        self.assertIn('href="verticais.html"', canon, "footer Recursos deve apontar Verticais")
 
         for rel, html in sorted(pages.items()):
             if "<footer" not in html.lower():
                 continue
-            got = normalize(rel, html)
+            fm = footer_re.search(html)
+            self.assertIsNotNone(fm, f"{rel}: sem <footer>")
+            got = self._normalize_chrome(rel, fm.group(0))
             self.assertEqual(
                 got,
                 canon,
-                f"{rel}: <footer> diverge do canônico (index.html)",
+                f"{rel}: <footer> diverge do canônico (index.html / partials)",
             )
+
+    def test_nav_links_identical_across_pages(self):
+        """Single canonical #site-nav — sector pages under Verticais, not one-off links."""
+        nav_re = re.compile(
+            r'<nav\s+class="links"\s+id="site-nav"\s*>.*?</nav>',
+            re.DOTALL | re.IGNORECASE,
+        )
+        pages = _html()
+        self.assertIn("index.html", pages)
+        m = nav_re.search(pages["index.html"])
+        self.assertIsNotNone(m, "index.html: sem #site-nav")
+        canon = self._normalize_chrome("index.html", m.group(0))
+        self.assertIn("verticais.html", canon)
+        self.assertIn("faq.html", canon)
+        self.assertIn("casos-de-uso-en", canon)
+
+        for rel, html in sorted(pages.items()):
+            nm = nav_re.search(html)
+            self.assertIsNotNone(nm, f"{rel}: sem #site-nav")
+            got = self._normalize_chrome(rel, nm.group(0))
+            self.assertEqual(
+                got,
+                canon,
+                f"{rel}: #site-nav diverge do canônico (rode sync-site-chrome.py)",
+            )
+
+    def test_site_chrome_sync_check(self):
+        """Wrapper must report clean — partials are the only chrome source of truth."""
+        proc = subprocess.run(
+            [sys.executable, os.path.join(ROOT, "scripts", "sync-site-chrome.py"), "--check"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(
+            proc.returncode,
+            0,
+            f"site-chrome drift:\n{proc.stdout}\n{proc.stderr}",
+        )
 
     def test_legal_section_btn_primary_keeps_readable_color(self):
         """`.legal a` must not paint `.btn-primary` gold-on-gold (specificity trap)."""
@@ -129,6 +173,9 @@ class AntiRegression(unittest.TestCase):
             "inventario-dados-pessoais-lgpd.html",
             "descobrir-dados-pessoais.html",
             "data-discovery-contabilidade.html",
+            "data-discovery-advocacia.html",
+            "data-discovery-condominios.html",
+            "verticais.html",
             "faq.html",
         ):
             txt = pages[rel]

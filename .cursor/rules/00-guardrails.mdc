@@ -14,3 +14,4 @@ Canonical: `docs/adr/ADR-0001` (Proposed → only the HITL Accepts) and `AGENTS.
 - **No LLM decides findings** — the product is deterministic / no generative LLM on the critical path; keep that in the copy.
 - **Supply chain:** pin GitHub Actions to a full SHA; allowlist external resources; the form posts only to `api.hsforms.com`.
 - **Bilingual pt-BR ↔ en-US**, idiomatic (never mechanical); EN overclaim-safe. Sacred taxonomy exact; minors' data first-class ("inventory & triage signals, never age verification").
+- **Site chrome:** never hand-edit one page’s `#site-nav` / `<footer>` — edit `partials/site-chrome/` and run `scripts/sync-site-chrome.py` (see `01-site-chrome.mdc`).

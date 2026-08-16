@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Data discovery LGPD para escritórios de contabilidade | DataBoar</title>
-<meta name="description" content="Scanner de dados pessoais para escritório de contabilidade e profissionais liberais: local, open source, Excel, ZIP, sem Docker. Descubra onde estão CPF e dados fiscais dos clientes.">
-<link rel="canonical" href="https://databoar.com.br/data-discovery-contabilidade.html">
-<meta property="og:title" content="Data discovery LGPD para contabilidade | DataBoar">
-<meta property="og:description" content="Ferramenta de descoberta de dados pessoais para contadores — local-first, sem enviar arquivos de cliente para a nuvem.">
-<meta property="og:url" content="https://databoar.com.br/data-discovery-contabilidade.html">
-<meta property="og:type" content="article">
+<title>Verticais — data discovery LGPD por setor | DataBoar</title>
+<meta name="description" content="Hub de verticais DataBoar: contabilidade, advocacia, condomínios e tema de menores (Art. 14). Descoberta local de dados pessoais e padrões sensíveis — evidência, não parecer.">
+<link rel="canonical" href="https://databoar.com.br/verticais.html">
+<meta property="og:title" content="Verticais — data discovery LGPD por setor | DataBoar">
+<meta property="og:description" content="Mesma ferramenta local, setores diferentes: contabilidade, advocacia, condomínios e guia de menores.">
+<meta property="og:url" content="https://databoar.com.br/verticais.html">
+<meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,38 +17,6 @@
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Contabilidade precisa de inventário / data discovery LGPD?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Escritórios tratam CPF, IR, folha e dados bancários por obrigação. O risco prático é arquivo solto, pasta compartilhada ou ex-cliente antigo. Descoberta técnica ajuda a enxergar onde isso está; organizar acesso e retenção continua sendo trabalho do escritório."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Existe scanner de dados pessoais sem enviar arquivos para a nuvem?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Sim. O DataBoar é local-first e open-core: a varredura roda no ambiente do escritório e gera relatório Excel. Comece pelo demo no Windows sem Docker, com dados sintéticos."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Serve para profissional liberal ou só para grandes empresas?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "O núcleo open source serve para começar em escritórios menores. Suites GRC caras fazem sentido em programas maduros; para mapear pastas e planilhas, o caminho leve costuma bastar."
-      }
-    }
-  ]
-}
-</script>
 </head>
 <body>
 
@@ -95,13 +63,11 @@
 <div data-lang-panel="pt-BR">
 <section class="legal">
   <div class="wrap legal-wrap">
-    <div class="eyebrow">CONTABILIDADE · PME · PROFISSIONAL LIBERAL</div>
-    <h1>Data discovery LGPD para <span class="accent">escritórios de contabilidade</span></h1>
-    <p class="lede"><strong>Resposta direta:</strong> contabilidade já trata dados pessoais o dia inteiro. O que falta em muitos escritórios é <strong>saber em qual pasta e planilha</strong> isso ainda vive — inclusive de ex-cliente. Uma ferramenta de descoberta <strong>local</strong>, com relatório em Excel, ajuda sem exigir equipe de TI nem enviar IRPF de cliente para a nuvem de um fornecedor.</p>
+    <div class="eyebrow">VERTICAIS · SETORES · PME</div>
+    <h1>Data discovery LGPD por <span class="accent">vertical</span></h1>
+    <p class="lede"><strong>Resposta direta:</strong> a ferramenta é a mesma — varredura <strong>local</strong>, relatório em Excel, sem enviar o arquivo do cliente para a nuvem de um fornecedor. O que muda é a <strong>dor do setor</strong>: pasta de cliente, processo, unidade do condomínio. Sempre <strong>inventário e triagem</strong>, nunca parecer jurídico nem selo de conformidade.</p>
 
-    <p><strong>Importante:</strong> no dia a dia do escritório, o mesmo scan que acha CPF também marca <strong>CNPJ, dados bancários e rastros fiscais</strong> em pastas e ZIPs — útil para inventário LGPD <strong>e</strong> para enxergar onde mora informação sensível ao negócio. Continua sendo <strong>descoberta e evidência</strong>, não selo de conformidade nem parecer. Detalhe no <a href="faq.html">FAQ</a>: «Serve só para LGPD…?».</p>
-
-    <p><strong>Alinhamento singular:</strong> o risco que o inventário “só de PII” costuma perder — <strong>folha e ZIP fiscal de vários clientes no mesmo share</strong>, com CNPJ/banco misturados a CPF. Muitos escritórios se preparam para “dado do titular”, não para o <strong>mapa fiscal-financeiro entre pastas</strong>. YAML + (se fizer sentido) consultoria/suporte comercial ajudam a afinar esses padrões.</p>
+    <p><strong>Além do PII:</strong> o DataBoar <strong>não se limita</strong> a dado pessoal/LGPD. Via <strong>ajustes de configuração (YAML)</strong>, o mesmo motor mapeia outros padrões discoverables úteis a inventários e evidência alinhados a outros marcos — flexível por desenho. Para encaixar na realidade de cada organização, há <strong>consultoria</strong> e, em contrato comercial, <strong>suporte</strong> para adequar a configuração. Continua sendo descoberta técnica, <strong>não</strong> parecer.</p>
 
     <p style="margin:1rem 0 1.5rem">
       <a class="btn btn-primary" href="windows.html">Demo no Windows (sem Docker) →</a>
@@ -109,34 +75,26 @@
       <a class="btn btn-outline" href="agende-demonstracao.html">Agendar demonstração</a>
     </p>
 
-    <h2>Dor típica do escritório</h2>
+    <h2>Guias no site</h2>
+    <p>Cada vertical traz ao menos um <strong>alinhamento singular</strong> — dor ou risco típico daquele setor que o inventário “genérico de PII” costuma deixar de lado.</p>
     <ul>
-      <li>“Cadê a pasta daquele cliente de 2018?”</li>
-      <li>ZIP de declaração espalhado em pendrive e rede</li>
-      <li>Planilha de folha com CPF além do necessário</li>
-      <li>Medo de ferramenta na nuvem com documento fiscal</li>
+      <li><a href="data-discovery-contabilidade.html"><strong>Contabilidade</strong></a> — singular: folha/ZIP fiscal de <em>vários clientes no mesmo share</em> (CNPJ/banco + CPF), não só “cadê o CPF”.</li>
+      <li><a href="data-discovery-advocacia.html"><strong>Advocacia</strong></a> — singular: indícios de categoria sensível (ex. natureza criminal) e partes em PST de caso encerrado — sem classificar privilégio.</li>
+      <li><a href="data-discovery-condominios.html"><strong>Condomínios / imobiliária</strong></a> — singular: pasta de <em>ex-inquilino + fiador + renda</em> que sobrou após a troca de unidade.</li>
+      <li><a href="casos/menores-lgpd-art-14.html"><strong>Menores / LGPD Art. 14</strong></a> — singular: idade/DOB cruzada com identificador no mesmo export — sinal de triagem, nunca verificação de idade.</li>
     </ul>
 
-    <h2>O que o DataBoar faz (e o que não faz)</h2>
-    <p><strong>Ajuda:</strong> varrer pastas apontadas; olhar dentro de ZIP; marcar padrões (CPF, e-mail, dados bancários etc.); gerar Excel auditável; rodar offline no PC.</p>
-    <p><strong>Não substitui:</strong> assessoria jurídica, política de retenção do CRC/cliente, IAM/MFA do escritório, nem “selo” de conformidade. Evidência técnica para você decidir.</p>
-
-    <h2>Começar sem drama</h2>
-    <ol>
-      <li>Siga <a href="windows.html">Data Boar no Windows — SEM Docker</a>.</li>
-      <li>Rode <code>data-boar --demo</code> (dados sintéticos).</li>
-      <li>Só então aponte uma pasta de teste — nunca o disco inteiro no primeiro dia.</li>
-    </ol>
+    <h2>Outras verticais (storyboards do produto)</h2>
+    <p>No repositório do DataBoar há storyboards de oficina para EdTech, seguros, RPO/folha, MSP e outros — úteis para pré-vendas e POC, ainda sem página dedicada neste site.</p>
+    <p><a href="https://github.com/DataBoar/data-boar/blob/main/docs/use-cases/README.pt_BR.md" rel="noopener noreferrer" target="_blank">docs/use-cases no GitHub →</a></p>
 
     <h2>Relacionado</h2>
     <ul>
-      <li><a href="verticais.html">Hub de verticais</a></li>
-      <li><a href="data-discovery-advocacia.html">Advocacia</a> · <a href="data-discovery-condominios.html">Condomínios</a></li>
       <li><a href="inventario-dados-pessoais-lgpd.html">Inventário de dados pessoais LGPD</a></li>
       <li><a href="descobrir-dados-pessoais.html">Como descobrir onde estão os dados</a></li>
-      <li><a href="faq.html">FAQ</a> · <a href="opensource.html">Open source &amp; método</a></li>
+      <li><a href="faq.html">FAQ</a> · <a href="solucao.html#casos-de-uso">Casos de uso (capacidades)</a></li>
     </ul>
-    <p class="legal-back"><a href="verticais.html">← Verticais</a> · <a href="index.html">Início</a></p>
+    <p class="legal-back"><a href="index.html">← Início</a></p>
   </div>
 </section>
 </div>
@@ -144,13 +102,11 @@
 <div data-lang-panel="en" hidden>
 <section class="legal">
   <div class="wrap legal-wrap">
-    <div class="eyebrow">ACCOUNTING · SMB · SOLO PRACTICE</div>
-    <h1>LGPD data discovery for <span class="accent">accounting firms</span></h1>
-    <p class="lede"><strong>Straight answer:</strong> accounting already handles personal data all day. What many firms lack is knowing <strong>which folder and spreadsheet</strong> still hold it — including former clients. A <strong>local</strong> discovery tool with an Excel report helps without needing an IT team or sending a client’s tax return to a vendor cloud.</p>
+    <div class="eyebrow">VERTICALS · SECTORS · SMB</div>
+    <h1>LGPD data discovery by <span class="accent">vertical</span></h1>
+    <p class="lede"><strong>Straight answer:</strong> the tool is the same — a <strong>local</strong> scan, Excel report, no sending the client’s file to a vendor cloud. What changes is the <strong>sector pain</strong>: client folder, matter file, condo unit. Always <strong>inventory and triage</strong>, never legal advice or a compliance seal.</p>
 
-    <p><strong>Important:</strong> in day-to-day firm work, the same scan that finds CPF also flags <strong>CNPJ, bank details, and tax trails</strong> in folders and ZIPs — useful for LGPD inventory <strong>and</strong> for seeing where business-sensitive information lives. Still <strong>discovery and evidence</strong>, not a compliance seal or legal opinion. Detail in the <a href="faq.html">FAQ</a>: “Is it only for LGPD…?”.</p>
-
-    <p><strong>Singular alignment:</strong> the risk a “PII-only” inventory often misses — <strong>payroll and tax ZIPs for several clients on the same share</strong>, with CNPJ/bank mixed with CPF. Many firms prepare for “data-subject PII,” not for a <strong>fiscal-financial map across folders</strong>. YAML plus (when it fits) consulting/commercial support helps tune those patterns.</p>
+    <p><strong>Beyond PII:</strong> DataBoar is <strong>not limited</strong> to personal data / LGPD. Through <strong>YAML configuration</strong>, the same engine can map other discoverable patterns useful for inventories and evidence aligned with other frameworks — flexible by design. To fit each organization’s reality, there is <strong>consulting</strong> and, under a commercial contract, <strong>support</strong> to tune the configuration. Still technical discovery, <strong>not</strong> legal advice.</p>
 
     <p style="margin:1rem 0 1.5rem">
       <a class="btn btn-primary" href="windows.html">Windows demo (no Docker) →</a>
@@ -158,34 +114,26 @@
       <a class="btn btn-outline" href="agende-demonstracao.html">Book a demo</a>
     </p>
 
-    <h2>Typical firm pain</h2>
+    <h2>Guides on this site</h2>
+    <p>Each vertical includes at least one <strong>singular alignment</strong> — a sector-specific pain or risk that a generic “PII inventory” often misses.</p>
     <ul>
-      <li>“Where’s that 2018 client folder?”</li>
-      <li>Tax-return ZIPs scattered on USB drives and the network</li>
-      <li>Payroll spreadsheet with more CPF than needed</li>
-      <li>Fear of a cloud tool touching fiscal documents</li>
+      <li><a href="data-discovery-contabilidade.html"><strong>Accounting</strong></a> — singular: payroll/tax ZIPs for <em>several clients on the same share</em> (CNPJ/bank + CPF), not only “where’s the CPF.”</li>
+      <li><a href="data-discovery-advocacia.html"><strong>Law firms</strong></a> — singular: signals of sensitive categories (e.g. criminal-nature material) and parties in PSTs from closed matters — without classifying privilege.</li>
+      <li><a href="data-discovery-condominios.html"><strong>Condo / real estate</strong></a> — singular: leftover <em>former-tenant + guarantor + income</em> folders after a unit turnover.</li>
+      <li><a href="casos/menores-lgpd-art-14.html"><strong>Minors / LGPD Art. 14</strong></a> — singular: age/DOB crossed with an identifier in the same export — triage signal, never age verification.</li>
     </ul>
 
-    <h2>What DataBoar does (and does not)</h2>
-    <p><strong>Helps:</strong> scan pointed folders; look inside ZIPs; flag patterns (CPF, email, bank details, etc.); produce an auditable Excel; run offline on the PC.</p>
-    <p><strong>Does not replace:</strong> legal advice, CRC/client retention policy, the firm’s IAM/MFA, or a compliance “seal.” Technical evidence for you to decide.</p>
-
-    <h2>Start without drama</h2>
-    <ol>
-      <li>Follow <a href="windows.html">Data Boar on Windows — NO Docker</a>.</li>
-      <li>Run <code>data-boar --demo</code> (synthetic data).</li>
-      <li>Only then point at a test folder — never the whole disk on day one.</li>
-    </ol>
+    <h2>Other verticals (product storyboards)</h2>
+    <p>The DataBoar repo has workshop storyboards for EdTech, insurance, RPO/payroll, MSP, and more — useful for pre-sales and POCs, without a dedicated page on this site yet.</p>
+    <p><a href="https://github.com/DataBoar/data-boar/blob/main/docs/use-cases/README.md" rel="noopener noreferrer" target="_blank">docs/use-cases on GitHub →</a></p>
 
     <h2>Related</h2>
     <ul>
-      <li><a href="verticais.html">Verticals hub</a></li>
-      <li><a href="data-discovery-advocacia.html">Law firms</a> · <a href="data-discovery-condominios.html">Condos</a></li>
       <li><a href="inventario-dados-pessoais-lgpd.html">LGPD personal-data inventory</a></li>
       <li><a href="descobrir-dados-pessoais.html">How to find where the data is</a></li>
-      <li><a href="faq.html">FAQ</a> · <a href="opensource.html">Open source &amp; method</a></li>
+      <li><a href="faq.html">FAQ</a> · <a href="solucao.html#casos-de-uso-en">Use cases (capabilities)</a></li>
     </ul>
-    <p class="legal-back"><a href="verticais.html">← Verticals</a> · <a href="index.html">Home</a></p>
+    <p class="legal-back"><a href="index.html">← Home</a></p>
   </div>
 </section>
 </div>
