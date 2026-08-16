@@ -3,18 +3,57 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Glossário &amp; Cobertura — DataBoar</title>
-<meta name="description" content="A taxonomia do DataBoar (Data Sniffing, Deep Boring, Safe-Hold, Audit Trail) e os frameworks que ajudamos a evidenciar: LGPD, GDPR, CCPA, HIPAA, PIPL e CMMC/CUI.">
+<title>Data discovery LGPD para condomínios e imobiliárias | DataBoar</title>
+<meta name="description" content="Scanner local de dados pessoais para administradora de condomínio e imobiliária: inquilinos, proprietários, contratos e pastas de ex-ocupante. Excel, sem nuvem de fornecedor.">
+<link rel="canonical" href="https://databoar.com.br/data-discovery-condominios.html">
+<meta property="og:title" content="Data discovery LGPD para condomínios | DataBoar">
+<meta property="og:description" content="Descoberta local em pastas por unidade e contratos — inventário e triagem, sem selo de conformidade.">
+<meta property="og:url" content="https://databoar.com.br/data-discovery-condominios.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pt_BR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Administradora de condomínio precisa de data discovery LGPD?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Contratos, cópias de documento, planilhas de consumo e pastas por unidade acumulam PII. O risco prático é pasta de ex-inquilino ou ex-proprietário que ninguém arquivou. Descoberta local ajuda a enxergar onde isso está; retenção e acesso continuam com a administradora."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Dá para varrer sem enviar contratos para a nuvem?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim. O DataBoar é local-first: a varredura roda no ambiente da empresa e gera relatório Excel. Comece pelo demo no Windows sem Docker, com dados sintéticos."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Serve para imobiliária pequena ou só para grandes gestoras?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "O núcleo open source serve para começar em operações menores com muita pasta por unidade. Suites GRC caras fazem sentido em programas maduros; para mapear filesystem e planilhas, o caminho leve costuma bastar."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
 <header>
+  <!-- NAV_SYNC -->
   <div class="wrap nav">
     <a class="brand" href="index.html"><img src="images/logo-databoar.png" alt="DataBoar"></a>
     <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu de navegação">
@@ -57,32 +96,44 @@
 <div data-lang-panel="pt-BR">
 <section class="legal">
   <div class="wrap legal-wrap">
-    <div class="eyebrow">GLOSSÁRIO</div>
-    <h1>Glossário &amp; Cobertura</h1>
-    <p>A linguagem do DataBoar — a taxonomia do produto e os frameworks que ajudamos a evidenciar. Versão curta; o glossário completo (engenharia, compliance e procurement) vive no <a href="https://github.com/DataBoar/data-boar/blob/main/docs/MAP.pt_BR.md" rel="noopener noreferrer" target="_blank">mapa de documentação</a>.</p>
+    <div class="eyebrow">CONDOMÍNIOS · IMOBILIÁRIA · LOCAÇÃO</div>
+    <h1>Data discovery LGPD para <span class="accent">condomínios e imobiliárias</span></h1>
+    <p class="lede"><strong>Resposta direta:</strong> contratos, cópias de documento e planilhas por unidade acumulam dado pessoal o ano inteiro. O que falta em muitas operações é <strong>saber qual pasta de ex-inquilino ou ex-proprietário</strong> ainda vive no share. Uma descoberta <strong>local</strong>, com Excel, ajuda sem equipe de TI nem enviar contrato para a nuvem de um fornecedor.</p>
 
-    <h2>Taxonomia</h2>
+    <p><strong>Importante:</strong> o mesmo motor marca <strong>CPF, telefone, e-mail e rastros de endereço</strong> em PDFs e planilhas — útil para inventário LGPD e para enxergar densidade de PII por unidade. Continua sendo <strong>descoberta e evidência</strong>, não parecer de direito locatício nem selo de conformidade.</p>
+
+    <p style="margin:1rem 0 1.5rem">
+      <a class="btn btn-primary" href="windows.html">Demo no Windows (sem Docker) →</a>
+      &nbsp;
+      <a class="btn btn-outline" href="agende-demonstracao.html">Agendar demonstração</a>
+    </p>
+
+    <h2>Dor típica da operação</h2>
     <ul>
-      <li><strong>Data Sniffing</strong> — Fase passiva de detecção de tipos de dados: os conectores mapeiam a estrutura, leem trechos limitados e rodam a detecção de sensibilidade sobre os alvos configurados. Achados de <strong>metadados</strong>, sem exfiltração.</li>
-      <li><strong>Deep Boring</strong> — Amostragem ativa de PII em nível de coluna, com a evidência estruturada da mesma execução: planilhas de achados, alinhamento a normas e controles, heatmap opcional e recomendações. É <strong>insumo para a decisão do DPO ou controlador — nunca um parecer jurídico</strong>.</li>
-      <li><strong>Safe-Hold</strong> — Freio de emergência: para todas as operações e reporta o bloqueio ao operador.</li>
-      <li><strong>Audit Trail</strong> — Registro imutável de operações.</li>
-      <li><strong>Sopa de dados</strong> / <strong>Ingredientes escondidos</strong> — As fontes heterogêneas por onde o javali fuça (bancos, arquivos, APIs, Power BI, Dataverse, SharePoint, SMB/NFS) e o que costuma passar batido: extensões trocadas (<em>magic bytes</em>), contêineres com senha, bases legadas e texto em mídia rica.</li>
+      <li>“Cadê a pasta da unidade 302 / inquilino antigo?”</li>
+      <li>PDF de contrato e comprovante espalhados com nome opaco</li>
+      <li>Planilha de consumo ou inadimplência com mais PII do que o necessário</li>
+      <li>Medo de ferramenta na nuvem com documento de morador</li>
     </ul>
 
-    <h2 id="frameworks">Frameworks que ajudamos a evidenciar</h2>
-    <p>O DataBoar apoia a <strong>evidência</strong> para trabalhos de adequação — inventário, triagem e mapeamento de dados pessoais e sensíveis. <strong>Não emite certificação, não faz assessment legal e não substitui o DPO ou o controlador</strong>: a decisão é sempre do responsável.</p>
-    <ul>
-      <li><strong>LGPD</strong> (Brasil) — descoberta e inventário de dados pessoais e sensíveis; insumos para RoPA, para o RIPD e para o atendimento a titulares.</li>
-      <li><strong>GDPR</strong> (União Europeia) — mapeamento de dados pessoais; insumos para o ROPA (Art. 30) e para a DPIA (Art. 35).</li>
-      <li><strong>CCPA / CPRA</strong> (Califórnia) — inventário de informação pessoal por categoria.</li>
-      <li><strong>HIPAA</strong> (EUA · saúde) — sinais de descoberta de PHI (informação de saúde protegida).</li>
-      <li><strong>PIPL</strong> (China) — inventário de informação pessoal e sensível.</li>
-      <li><strong>CMMC / CUI</strong> (EUA · defesa) — sinais de inventário e triagem de CUI (<em>Controlled Unclassified Information</em>): marcações e banners, rótulos de categoria, controles de disseminação e sinais ITAR/EAR.</li>
-    </ul>
-    <p>Marcos como NIS2, DORA e o AI Act são atendidos como <strong>evidência</strong> de descoberta de dados — não como um <em>sample</em> de detecção próprio.</p>
+    <h2>O que o DataBoar faz (e o que não faz)</h2>
+    <p><strong>Ajuda:</strong> varrer pastas apontadas; olhar dentro de ZIP; marcar padrões (CPF, contato, etc.); gerar Excel auditável; rodar offline no PC.</p>
+    <p><strong>Não substitui:</strong> software de gestão predial, assessoria locatícia, política de retenção do condomínio/imobiliária, IAM/MFA, nem “selo” de conformidade.</p>
 
-    <p class="legal-back"><a href="solucao.html#casos-de-uso">← Casos de uso</a></p>
+    <h2>Começar sem drama</h2>
+    <ol>
+      <li>Siga <a href="windows.html">Data Boar no Windows — SEM Docker</a>.</li>
+      <li>Rode <code>data-boar --demo</code> (dados sintéticos).</li>
+      <li>Só então aponte uma pasta de teste — nunca o disco inteiro no primeiro dia.</li>
+    </ol>
+
+    <h2>Relacionado</h2>
+    <ul>
+      <li><a href="verticais.html">Hub de verticais</a></li>
+      <li><a href="data-discovery-contabilidade.html">Contabilidade</a> · <a href="data-discovery-advocacia.html">Advocacia</a></li>
+      <li><a href="casos/menores-lgpd-art-14.html">Menores / Art. 14</a> · <a href="faq.html">FAQ</a></li>
+    </ul>
+    <p class="legal-back"><a href="verticais.html">← Verticais</a> · <a href="index.html">Início</a></p>
   </div>
 </section>
 </div>
@@ -90,32 +141,44 @@
 <div data-lang-panel="en" hidden>
 <section class="legal">
   <div class="wrap legal-wrap">
-    <div class="eyebrow">GLOSSARY</div>
-    <h1>Glossary &amp; Coverage</h1>
-    <p>The DataBoar vocabulary — the product taxonomy and the frameworks we help you evidence. Short version; the full glossary (engineering, compliance, and procurement) lives in the <a href="https://github.com/DataBoar/data-boar/blob/main/docs/MAP.md" rel="noopener noreferrer" target="_blank">documentation map</a>.</p>
+    <div class="eyebrow">CONDOS · REAL ESTATE · LEASING</div>
+    <h1>LGPD data discovery for <span class="accent">condos and real-estate firms</span></h1>
+    <p class="lede"><strong>Straight answer:</strong> contracts, ID copies, and per-unit spreadsheets accumulate personal data all year. What many operations lack is knowing <strong>which former-tenant or former-owner folder</strong> still lives on the share. A <strong>local</strong> discovery tool with Excel helps without an IT team or sending a lease to a vendor cloud.</p>
 
-    <h2>Taxonomy</h2>
+    <p><strong>Important:</strong> the same engine flags <strong>CPF, phone, email, and address-like trails</strong> in PDFs and spreadsheets — useful for LGPD inventory and for seeing PII density per unit. Still <strong>discovery and evidence</strong>, not landlord-tenant legal advice or a compliance seal.</p>
+
+    <p style="margin:1rem 0 1.5rem">
+      <a class="btn btn-primary" href="windows.html">Windows demo (no Docker) →</a>
+      &nbsp;
+      <a class="btn btn-outline" href="agende-demonstracao.html">Book a demo</a>
+    </p>
+
+    <h2>Typical operational pain</h2>
     <ul>
-      <li><strong>Data Sniffing</strong> — Passive data-type detection phase: connectors map the structure, read limited excerpts, and run sensitivity detection over the configured targets. <strong>Metadata</strong> findings, no exfiltration.</li>
-      <li><strong>Deep Boring</strong> — Active column-level PII sampling, with the structured evidence from the same run: findings workbooks, norm and control alignment, optional heatmap, and recommendations. It is <strong>input for the DPO or controller's decision — never a legal opinion</strong>.</li>
-      <li><strong>Safe-Hold</strong> — Emergency brake: stop all operations and report the blocker to the operator.</li>
-      <li><strong>Audit Trail</strong> — Immutable operation log.</li>
-      <li><strong>Data soup</strong> / <strong>Hidden ingredients</strong> — The heterogeneous sources the boar roots through (databases, files, APIs, Power BI, Dataverse, SharePoint, SMB/NFS) and what usually slips past: renamed extensions (<em>magic bytes</em>), password-protected containers, legacy stores, and text in rich media.</li>
+      <li>“Where’s unit 302 / the old tenant folder?”</li>
+      <li>Contract PDFs and income proofs with opaque filenames</li>
+      <li>Consumption or arrears spreadsheets with more PII than needed</li>
+      <li>Fear of a cloud tool touching resident documents</li>
     </ul>
 
-    <h2 id="frameworks-en">Frameworks we help you evidence</h2>
-    <p>DataBoar supports the <strong>evidence</strong> for compliance work — inventory, triage, and mapping of personal and sensitive data. <strong>It does not issue certification, does not perform a legal assessment, and does not replace your DPO or controller</strong>: the decision always belongs to the accountable party.</p>
-    <ul>
-      <li><strong>LGPD</strong> (Brazil) — discovery and inventory of personal and sensitive data; inputs for RoPA, the RIPD, and data-subject requests.</li>
-      <li><strong>GDPR</strong> (European Union) — personal-data mapping; inputs for the ROPA (Art. 30) and the DPIA (Art. 35).</li>
-      <li><strong>CCPA / CPRA</strong> (California) — personal-information inventory by category.</li>
-      <li><strong>HIPAA</strong> (US · healthcare) — PHI (protected health information) discovery signals.</li>
-      <li><strong>PIPL</strong> (China) — personal and sensitive information inventory.</li>
-      <li><strong>CMMC / CUI</strong> (US · defense) — inventory and triage signals for CUI (<em>Controlled Unclassified Information</em>): markings and banners, category labels, dissemination controls, and ITAR/EAR signals.</li>
-    </ul>
-    <p>Frameworks like NIS2, DORA, and the AI Act are served as <strong>evidence</strong> of data discovery — not as a detection <em>sample</em> of their own.</p>
+    <h2>What DataBoar does (and does not)</h2>
+    <p><strong>Helps:</strong> scan pointed folders; look inside ZIPs; flag patterns (CPF, contact, etc.); produce auditable Excel; run offline on the PC.</p>
+    <p><strong>Does not replace:</strong> property-management software, leasing counsel, condo/agency retention policy, IAM/MFA, or a compliance “seal.”</p>
 
-    <p class="legal-back"><a href="solucao.html#casos-de-uso-en">← Use cases</a></p>
+    <h2>Start without drama</h2>
+    <ol>
+      <li>Follow <a href="windows.html">Data Boar on Windows — NO Docker</a>.</li>
+      <li>Run <code>data-boar --demo</code> (synthetic data).</li>
+      <li>Only then point at a test folder — never the whole disk on day one.</li>
+    </ol>
+
+    <h2>Related</h2>
+    <ul>
+      <li><a href="verticais.html">Verticals hub</a></li>
+      <li><a href="data-discovery-contabilidade.html">Accounting</a> · <a href="data-discovery-advocacia.html">Law firms</a></li>
+      <li><a href="casos/menores-lgpd-art-14.html">Minors / Art. 14</a> · <a href="faq.html">FAQ</a></li>
+    </ul>
+    <p class="legal-back"><a href="verticais.html">← Verticals</a> · <a href="index.html">Home</a></p>
   </div>
 </section>
 </div>
@@ -176,7 +239,6 @@
     </div>
   </div>
 </footer>
-
 <script src="js/faro-config.js"></script>
 <script src="js/faro.js" defer></script>
 <script src="js/site.js"></script>
