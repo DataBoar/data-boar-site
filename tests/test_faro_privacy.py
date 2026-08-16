@@ -184,5 +184,58 @@ class FaroDocsAndPrivacyCopy(unittest.TestCase):
         self.assertIn("persists", txt.lower())
 
 
+class WheelhouseFaroGeneration(unittest.TestCase):
+    """Faro must survive wheelhouse regen on root only (Bugbot #72)."""
+
+    def test_write_html_root_includes_faro_package_does_not(self):
+        import importlib.util
+        import tempfile
+        from pathlib import Path
+
+        spec = importlib.util.spec_from_file_location(
+            "build_wheelhouse_index",
+            os.path.join(ROOT, "scripts", "build-wheelhouse-index.py"),
+        )
+        mod = importlib.util.module_from_spec(spec)
+        assert spec.loader is not None
+        spec.loader.exec_module(mod)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "index.html"
+            pkg = Path(tmp) / "numpy" / "index.html"
+            mod.write_html(
+                root,
+                "data BOAR wheelhouse — PEP 503 index",
+                ['<a href="numpy/">numpy</a><br>'],
+                include_faro=True,
+            )
+            mod.write_html(
+                pkg,
+                "Links for numpy",
+                ['<a href="https://example.com/numpy.whl">numpy.whl</a><br>'],
+            )
+            root_txt = root.read_text(encoding="utf-8")
+            pkg_txt = pkg.read_text(encoding="utf-8")
+
+        self.assertIn('src="../js/faro-config.js"', root_txt)
+        self.assertIn('src="../js/faro.js"', root_txt)
+        self.assertIn('meta name="pypi:repository-version"', root_txt)
+        self.assertIn(mod.FARO_ROOT_SCRIPTS.strip(), root_txt)
+        self.assertNotIn("faro", pkg_txt.lower())
+        self.assertNotIn("<script", pkg_txt.lower())
+        self.assertIn('meta name="pypi:repository-version"', pkg_txt)
+
+    def test_committed_simple_tree_matches_faro_policy(self):
+        root = _read(os.path.join(ROOT, "simple", "index.html"))
+        self.assertIn("../js/faro-config.js", root)
+        self.assertIn("../js/faro.js", root)
+        # Package stubs must stay JS-free for pip/pipx
+        for path in glob.glob(os.path.join(ROOT, "simple", "*", "index.html")):
+            rel = os.path.relpath(path, ROOT).replace("\\", "/")
+            txt = _read(path)
+            self.assertNotIn("<script", txt.lower(), f"{rel}: unexpected script tag")
+            self.assertNotIn("faro", txt.lower(), f"{rel}: unexpected faro reference")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

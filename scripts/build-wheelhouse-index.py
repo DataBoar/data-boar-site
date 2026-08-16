@@ -10,7 +10,9 @@ simple/ tree that GitHub Pages can serve so the wheels are pip-installable:
 
 Regenerate after every wheelhouse release (or wire into CI). Requires `gh`
 authenticated. Deterministic output — no timestamps — so re-runs are no-ops
-unless the release changed.
+unless the release changed. The root ``simple/index.html`` also embeds the
+site Faro loader (browser RUM); per-package PEP 503 stubs stay JS-free for
+pip/pipx parsers.
 
 Usage:
     python3 scripts/build-wheelhouse-index.py [--repo OWNER/REPO] [--tag TAG] [--out simple]
@@ -27,6 +29,13 @@ from pathlib import Path
 DEFAULT_REPO = "DataBoar/data-boar-site"
 # Keep in sync with scripts/docker/apply_wheelhouse_v1.sh in the data-boar repo.
 DEFAULT_TAG = "wheelhouse-x86-64-v1-2026-07-29"
+
+# Browser RUM on the published wheelhouse *entry* only (not per-package PEP 503 stubs).
+# Paths are relative to simple/index.html → /js/ on GitHub Pages.
+FARO_ROOT_SCRIPTS = (
+    '<script src="../js/faro-config.js"></script>\n'
+    '<script src="../js/faro.js" defer></script>\n'
+)
 
 
 def normalize(name: str) -> str:
@@ -55,15 +64,24 @@ def sha256_fragment(digest: str | None) -> str:
     return ""
 
 
-def write_html(path: Path, title: str, links: list[str]) -> None:
+def write_html(
+    path: Path,
+    title: str,
+    links: list[str],
+    *,
+    include_faro: bool = False,
+) -> None:
+    """Write a PEP 503 HTML index. Faro scripts only when include_faro=True (root)."""
     path.parent.mkdir(parents=True, exist_ok=True)
     body = "\n".join(links)
+    trailer = FARO_ROOT_SCRIPTS if include_faro else ""
     html = (
         "<!DOCTYPE html>\n"
         '<html lang="en">\n<head>\n<meta charset="UTF-8">\n'
         '<meta name="pypi:repository-version" content="1.0">\n'
         f"<title>{html_escape(title)}</title>\n</head>\n<body>\n"
-        f"<h1>{html_escape(title)}</h1>\n{body}\n</body>\n</html>\n"
+        f"<h1>{html_escape(title)}</h1>\n{body}\n"
+        f"{trailer}</body>\n</html>\n"
     )
     path.write_text(html, encoding="utf-8")
 
@@ -92,11 +110,16 @@ def main() -> int:
     out = Path(args.out)
     names = sorted(packages)
 
-    # Root index: one link per project.
+    # Root index: one link per project + Faro (browser entry only).
     root_links = [f'<a href="{n}/">{n}</a><br>' for n in names]
-    write_html(out / "index.html", "data BOAR wheelhouse — PEP 503 index", root_links)
+    write_html(
+        out / "index.html",
+        "data BOAR wheelhouse — PEP 503 index",
+        root_links,
+        include_faro=True,
+    )
 
-    # Per-project index: one link per wheel, with #sha256=.
+    # Per-project index: one link per wheel, with #sha256=. No Faro / no JS.
     for n in names:
         links = []
         for w in sorted(packages[n], key=lambda x: x["name"]):
