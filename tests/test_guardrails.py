@@ -138,6 +138,72 @@ class AntiRegression(unittest.TestCase):
                 f"{rel}: #site-nav diverge do canônico (rode sync-site-chrome.py)",
             )
 
+    def test_announce_and_nav_cta_contract(self):
+        """Brown .announce on every page; Agendar only there; .nav-cta = Login + lang."""
+        pages = _html()
+        self.assertIn("index.html", pages)
+
+        def class_block(html: str, class_name: str) -> str | None:
+            open_re = re.compile(
+                r'<div\b[^>]*\bclass=(["\'])([^"\']*)\1[^>]*>',
+                re.IGNORECASE,
+            )
+            start = pos = None
+            for m in open_re.finditer(html):
+                if class_name in m.group(2).split():
+                    start, pos = m.start(), m.end()
+                    break
+            if start is None:
+                return None
+            depth = 1
+            token_re = re.compile(r"</?div\b[^>]*>", re.IGNORECASE)
+            for tm in token_re.finditer(html, pos):
+                tok = tm.group(0)
+                if tok.startswith("</"):
+                    depth -= 1
+                    if depth == 0:
+                        return html[start : tm.end()]
+                elif not tok.rstrip().endswith("/>"):
+                    depth += 1
+            return None
+
+        ann_canon = self._normalize_chrome(
+            "index.html", class_block(pages["index.html"], "announce")
+        )
+        cta_canon = self._normalize_chrome(
+            "index.html", class_block(pages["index.html"], "nav-cta")
+        )
+        self.assertIsNotNone(ann_canon)
+        self.assertIsNotNone(cta_canon)
+        self.assertIn("mini-btn", ann_canon)
+        self.assertNotIn("mini-btn", cta_canon)
+        self.assertIn("lang-switch", cta_canon)
+
+        for rel, html in sorted(pages.items()):
+            ann = class_block(html, "announce")
+            cta = class_block(html, "nav-cta")
+            self.assertIsNotNone(ann, f"{rel}: sem .announce")
+            self.assertIsNotNone(cta, f"{rel}: sem .nav-cta")
+            self.assertEqual(
+                self._normalize_chrome(rel, ann),
+                ann_canon,
+                f"{rel}: .announce diverge do canônico",
+            )
+            self.assertEqual(
+                self._normalize_chrome(rel, cta),
+                cta_canon,
+                f"{rel}: .nav-cta diverge do canônico",
+            )
+            header = re.search(
+                r"<header\b.*?>(.*?)</header>", html, re.DOTALL | re.IGNORECASE
+            )
+            self.assertIsNotNone(header, f"{rel}: sem <header>")
+            self.assertNotIn(
+                "mini-btn",
+                header.group(1),
+                f"{rel}: Agendar vazou para o <header>",
+            )
+
     def test_site_chrome_sync_check(self):
         """Wrapper must report clean — partials are the only chrome source of truth."""
         proc = subprocess.run(
