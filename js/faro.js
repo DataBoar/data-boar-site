@@ -10,6 +10,7 @@
  *   - explicit disable + localStorage / ?faro=0 opt-out (?faro=0 persists the flag)
  *   - CSP violation instrumentation OFF by default (no inline sample export)
  *   - local mode: ConsoleTransport only (no collector send)
+ *   - non-invasive diag: window.__DATABOAR_FARO_DIAG__ (+ optional ?faro=diag)
  *
  * Vendored SDK (js/vendor/) — no third-party CDN dependency.
  */
@@ -22,6 +23,84 @@
   function warn(msg) {
     if (typeof console !== "undefined" && console.warn) {
       console.warn("[databoar-faro] " + msg);
+    }
+  }
+
+  function diagRequested() {
+    if (cfg.diag === true) {
+      return true;
+    }
+    try {
+      return /[?&]faro=diag(?:&|$)/.test(location.search || "");
+    } catch (_e) {
+      return false;
+    }
+  }
+
+  function collectorHostOnly(raw) {
+    var u = String(raw || "").trim();
+    if (!u || u.indexOf("REPLACE-WITH-") === 0) {
+      return "";
+    }
+    try {
+      return new URL(u).host || "";
+    } catch (_e) {
+      return "";
+    }
+  }
+
+  function setDiag(patch) {
+    var prev = window.__DATABOAR_FARO_DIAG__ || {};
+    var next = {};
+    var k;
+    for (k in prev) {
+      if (Object.prototype.hasOwnProperty.call(prev, k)) {
+        next[k] = prev[k];
+      }
+    }
+    for (k in patch) {
+      if (Object.prototype.hasOwnProperty.call(patch, k)) {
+        next[k] = patch[k];
+      }
+    }
+    // Never put full collector URL / tokens in the diag object (screenshot-safe)
+    if ("collectorUrl" in next) {
+      delete next.collectorUrl;
+    }
+    window.__DATABOAR_FARO_DIAG__ = next;
+    if (diagRequested() && typeof console !== "undefined" && console.info) {
+      console.info(
+        "[databoar-faro] diag",
+        "skipReason=" + (next.skipReason || "none"),
+        "initialized=" + !!next.initialized,
+        "sessionSampled=" + String(next.sessionSampled),
+        "expectNetworkSend=" + !!next.expectNetworkSend,
+        "collectorHost=" + (next.collectorHost || ""),
+        "samplingRate=" + String(next.samplingRate)
+      );
+    }
+  }
+
+  function readSessionSampled(faro) {
+    try {
+      var metas = faro && faro.metas && faro.metas.value;
+      var session = metas && metas.session;
+      if (!session) {
+        return null;
+      }
+      if (typeof session.isSampled === "boolean") {
+        return session.isSampled;
+      }
+      var attrs = session.attributes || {};
+      if (typeof attrs.isSampled === "boolean") {
+        return attrs.isSampled;
+      }
+      if (typeof attrs.isSampled === "string") {
+        return attrs.isSampled === "true";
+      }
+      return null;
+    } catch (_e) {
+      return null;
     }
   }
 
@@ -189,14 +268,31 @@
   function samplingRate() {
     var n = Number(cfg.samplingRate);
     if (!(n >= 0 && n <= 1)) {
-      return 0.2;
+      return 1;
     }
     return n;
   }
 
   function initFaro(mode) {
     var sdk = window.GrafanaFaroWebSdk;
+    var rate = samplingRate();
+    var host = collectorHostOnly(cfg.collectorUrl);
+
+    setDiag({
+      enabled: !!cfg.enabled,
+      mode: mode,
+      samplingRate: rate,
+      collectorConfigured: !!host,
+      collectorHost: host,
+      sdkLoaded: !!(sdk && typeof sdk.initializeFaro === "function"),
+      initialized: false,
+      sessionSampled: null,
+      expectNetworkSend: false,
+      skipReason: "",
+    });
+
     if (!sdk || typeof sdk.initializeFaro !== "function") {
+      setDiag({ skipReason: "sdk_missing" });
       warn("SDK global missing after load");
       return;
     }
@@ -220,7 +316,7 @@
       app: app,
       instrumentations: instrumentations,
       sessionTracking: {
-        samplingRate: samplingRate(),
+        samplingRate: rate,
         // Anonymous session id only; we never call setUser with PII
         persistent: false,
       },
@@ -241,6 +337,7 @@
     } else {
       var url = String(cfg.collectorUrl || "").trim();
       if (!url || url.indexOf("REPLACE-WITH-") === 0) {
+        setDiag({ skipReason: "collector_unconfigured" });
         warn("production mode requires collectorUrl — skipping (operator blocker)");
         return;
       }
@@ -267,6 +364,15 @@
     }
 
     window.__DATABOAR_FARO__ = faro;
+
+    var sampled = readSessionSampled(faro);
+    var expectSend = mode === "production" && sampled !== false;
+    setDiag({
+      initialized: true,
+      sessionSampled: sampled,
+      expectNetworkSend: expectSend,
+      skipReason: sampled === false ? "session_not_sampled" : "",
+    });
 
     if (cfg.tracingEnabled) {
       loadTracing(faro);
@@ -298,27 +404,57 @@
   }
 
   // --- gate ---
+  setDiag({
+    enabled: !!cfg.enabled,
+    mode: String(cfg.mode || "off"),
+    samplingRate: samplingRate(),
+    hostname: (function () {
+      try {
+        return location.hostname || "";
+      } catch (_e) {
+        return "";
+      }
+    })(),
+    hostAllowed: false,
+    optedOut: false,
+    collectorConfigured: !!collectorHostOnly(cfg.collectorUrl),
+    collectorHost: collectorHostOnly(cfg.collectorUrl),
+    sdkLoaded: false,
+    initialized: false,
+    sessionSampled: null,
+    expectNetworkSend: false,
+    skipReason: "",
+  });
+
   if (!cfg.enabled || cfg.mode === "off") {
+    setDiag({ skipReason: "disabled" });
     return;
   }
 
   if (isOptedOut()) {
+    setDiag({ optedOut: true, skipReason: "opt_out" });
     warn("opt-out active (localStorage or ?faro=0) — not initializing");
     return;
   }
 
   var mode = String(cfg.mode || "off").toLowerCase();
   if (mode !== "local" && mode !== "production") {
+    setDiag({ skipReason: "unknown_mode" });
     warn("unknown mode '" + mode + "' — skipping");
     return;
   }
 
   if (mode === "production") {
     var hosts = cfg.allowedHosts || ["databoar.com.br", "www.databoar.com.br"];
-    if (!hostAllowed(hosts)) {
+    var allowed = hostAllowed(hosts);
+    setDiag({ hostAllowed: allowed, mode: mode });
+    if (!allowed) {
       // Local file / preview hosts never send production telemetry
+      setDiag({ skipReason: "host_not_allowed" });
       return;
     }
+  } else {
+    setDiag({ hostAllowed: true, mode: mode });
   }
 
   var sdkSrc = cfg.sdkSrc || resolveScriptBase() + "vendor/faro-web-sdk.iife.js";
@@ -328,6 +464,7 @@
       initFaro(mode);
     },
     function () {
+      setDiag({ skipReason: "sdk_load_failed", sdkLoaded: false });
       warn("SDK bundle failed to load");
     }
   );

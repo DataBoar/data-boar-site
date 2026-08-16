@@ -38,9 +38,10 @@ If `mode: "production"` and `collectorUrl` is missing/placeholder, `faro.js` **s
 - CSP violation instrumentation **off** (`enableContentSecurityPolicyInstrumentation: false`); scrubber also redacts any residual `sample` field.
 - Ignore HubSpot / common analytics hosts for resource noise.
 - Never call `setUser` with email/name; no session replay instrumentation.
-- Sampling via `sessionTracking.samplingRate` (default **0.2**).
+- Sampling via `sessionTracking.samplingRate` (**1.0** / 100% while traffic is low).
 - Visitor opt-out: `localStorage.setItem('databoar_faro_opt_out','1')` or `?faro=0` (the query param **persists** the same localStorage flag).
 - Kill switch: `enabled: false` / `mode: "off"` in `faro-config.js`.
+- **Diag (no PII):** after load, inspect `window.__DATABOAR_FARO_DIAG__` (or open with `?faro=diag` for one console line). Fields distinguish skip reasons (`disabled`, `opt_out`, `host_not_allowed`, `session_not_sampled`, `collector_unconfigured`, `sdk_load_failed`) from `expectNetworkSend: true` (POST `/collect` should appear in Network).
 
 Disclosed on `privacidade.html` (pt-BR + en-US).
 
@@ -69,7 +70,11 @@ Grafana Cloud Frontend Observability CORS for app **DataBoar Site** allows origi
 1. **Local no-send:** set `enabled: true`, `mode: "local"`; open a page; confirm console Faro output and **no** requests to `grafana.net` / collector hosts (browser Network panel).
 2. **Production (after Pages deploy of this branch):** visit `https://databoar.com.br/` once; confirm Web Vitals / errors appear in Grafana Cloud Frontend Observability.
 3. **Opt-out:** `?faro=0` persists `databoar_faro_opt_out=1` → no init on later pages; clear the key to re-enable.
-4. **Gates:** `scripts/check-all.sh` green (includes Faro privacy static checks).
+4. **Diag / no POST in F12:** open `https://databoar.com.br/?faro=diag`, then in console check `window.__DATABOAR_FARO_DIAG__`:
+   - `skipReason: "session_not_sampled"` → sampling dropped the session (not a CSP/CORS failure).
+   - `expectNetworkSend: true` but no POST → transport/CSP/CORS/network failure (filter Network by `faro-collector`).
+   - `skipReason: "host_not_allowed"` / `opt_out` / `disabled` → loader never sent (expected).
+5. **Gates:** `scripts/check-all.sh` green (includes Faro privacy static checks).
 
 ## Rollback
 
