@@ -99,7 +99,7 @@
       <li><strong>Não coletamos:</strong> conteúdo de formulários, valores de query string, cookies, cabeçalhos de autorização, identificadores nominais, gravação de sessão (session replay) nem captura de teclas.</li>
       <li><strong>Amostragem:</strong> envio amostrado (configurável; padrão conservador).</li>
       <li><strong>Destino:</strong> coletor Grafana Cloud Frontend Observability configurado pelo operador (processamento fora do Brasil possível).</li>
-      <li><strong>Desativar:</strong> defina <code>localStorage.setItem('databoar_faro_opt_out','1')</code> no navegador, use <code>?faro=0</code> na URL, ou desligue o interruptor de produção em <code>js/faro-config.js</code> (<code>enabled: false</code> / <code>mode: "off"</code>).</li>
+      <li><strong>Desativar:</strong> defina <code>localStorage.setItem('databoar_faro_opt_out','1')</code> no navegador, ou use <code>?faro=0</code> na URL (isso grava o mesmo flag no <code>localStorage</code> e vale nas próximas páginas), ou desligue o interruptor de produção em <code>js/faro-config.js</code> (<code>enabled: false</code> / <code>mode: "off"</code>).</li>
     </ul>
     <p>Essa telemetria é independente da análise de borda da CDN e do formulário HubSpot descritos acima.</p>
 
@@ -162,7 +162,7 @@
       <li><strong>We do not collect:</strong> form field values, query-string values, cookies, authorization headers, nominal user identifiers, session replay, or keystroke/input capture.</li>
       <li><strong>Sampling:</strong> sampled export (configurable; conservative default).</li>
       <li><strong>Destination:</strong> the Grafana Cloud Frontend Observability collector configured by the operator (processing outside Brazil may occur).</li>
-      <li><strong>Opt out / disable:</strong> set <code>localStorage.setItem('databoar_faro_opt_out','1')</code> in the browser, use <code>?faro=0</code> in the URL, or turn off the production switch in <code>js/faro-config.js</code> (<code>enabled: false</code> / <code>mode: "off"</code>).</li>
+      <li><strong>Opt out / disable:</strong> set <code>localStorage.setItem('databoar_faro_opt_out','1')</code> in the browser, or use <code>?faro=0</code> in the URL (this persists the same flag in <code>localStorage</code> for later pages), or turn off the production switch in <code>js/faro-config.js</code> (<code>enabled: false</code> / <code>mode: "off"</code>).</li>
     </ul>
     <p>This telemetry is separate from CDN edge analytics and from the HubSpot form processing described above.</p>
 

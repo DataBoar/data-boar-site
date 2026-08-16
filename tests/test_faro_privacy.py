@@ -73,6 +73,19 @@ class FaroLoaderPrivacy(unittest.TestCase):
         self.assertIn("ConsoleTransport", self.src)
         self.assertIn("allowedHosts", self.src)
 
+    def test_faro0_persists_opt_out_flag(self):
+        self.assertIn("persistOptOut", self.src)
+        self.assertRegex(
+            self.src,
+            r"faro=0[\s\S]{0,200}persistOptOut\(\)|persistOptOut[\s\S]{0,200}setItem\(\s*OPT_OUT_KEY",
+        )
+        self.assertIn('setItem(OPT_OUT_KEY, "1")', self.src)
+
+    def test_csp_instrumentation_disabled_and_sample_scrubbed(self):
+        self.assertIn("enableContentSecurityPolicyInstrumentation: false", self.src)
+        self.assertIn('lk === "sample"', self.src)
+        self.assertIn('out[k] = "[redacted]"', self.src)
+
     def test_no_api_key_assignment_from_config(self):
         # Public collect URL only — never wire cfg.apiKey / Authorization request headers
         self.assertNotIn("cfg.apiKey", self.src)
@@ -146,6 +159,14 @@ class FaroDocsAndPrivacyCopy(unittest.TestCase):
         self.assertIn("databoar_faro_opt_out", txt)
         self.assertIn("Grafana Faro", txt)
         self.assertIn("session replay", txt.lower())
+        self.assertIn("localStorage", txt)
+        # ?faro=0 must be described as persisting the flag (Bugbot #71)
+        self.assertRegex(txt, r"faro=0[\s\S]{0,120}localStorage|grava o mesmo flag|persists the same flag")
+
+    def test_ops_doc_mentions_csp_off_and_persistent_opt_out(self):
+        txt = _read(os.path.join(ROOT, "docs", "ops", "FARO_FRONTEND_OBSERVABILITY.md"))
+        self.assertIn("enableContentSecurityPolicyInstrumentation: false", txt)
+        self.assertIn("persists", txt.lower())
 
 
 if __name__ == "__main__":

@@ -35,10 +35,11 @@ If `mode: "production"` and `collectorUrl` is missing/placeholder, `faro.js` **s
 ## Privacy controls
 
 - Scrub query/hash from URLs; redact authorization/cookie-like strings in payloads (`beforeSend`).
+- CSP violation instrumentation **off** (`enableContentSecurityPolicyInstrumentation: false`); scrubber also redacts any residual `sample` field.
 - Ignore HubSpot / common analytics hosts for resource noise.
 - Never call `setUser` with email/name; no session replay instrumentation.
 - Sampling via `sessionTracking.samplingRate` (default **0.2**).
-- Visitor opt-out: `localStorage.setItem('databoar_faro_opt_out','1')` or `?faro=0`.
+- Visitor opt-out: `localStorage.setItem('databoar_faro_opt_out','1')` or `?faro=0` (the query param **persists** the same localStorage flag).
 - Kill switch: `enabled: false` / `mode: "off"` in `faro-config.js`.
 
 Disclosed on `privacidade.html` (pt-BR + en-US).
@@ -67,7 +68,7 @@ Grafana Cloud Frontend Observability CORS for app **DataBoar Site** allows origi
 
 1. **Local no-send:** set `enabled: true`, `mode: "local"`; open a page; confirm console Faro output and **no** requests to `grafana.net` / collector hosts (browser Network panel).
 2. **Production (after Pages deploy of this branch):** visit `https://databoar.com.br/` once; confirm Web Vitals / errors appear in Grafana Cloud Frontend Observability.
-3. **Opt-out:** `?faro=0` or localStorage flag → no init.
+3. **Opt-out:** `?faro=0` persists `databoar_faro_opt_out=1` → no init on later pages; clear the key to re-enable.
 4. **Gates:** `scripts/check-all.sh` green (includes Faro privacy static checks).
 
 ## Rollback

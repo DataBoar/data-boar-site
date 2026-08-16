@@ -7,7 +7,8 @@
  *   - no form fields, cookies, Authorization headers, raw user ids, session replay,
  *     or keystroke/input capture
  *   - production send only on allowedHosts (databoar.com.br)
- *   - explicit disable + localStorage / ?faro=0 opt-out
+ *   - explicit disable + localStorage / ?faro=0 opt-out (?faro=0 persists the flag)
+ *   - CSP violation instrumentation OFF by default (no inline sample export)
  *   - local mode: ConsoleTransport only (no collector send)
  *
  * Vendored SDK (js/vendor/) — no third-party CDN dependency.
@@ -74,6 +75,11 @@
       var out = {};
       Object.keys(value).forEach(function (k) {
         var lk = k.toLowerCase();
+        // Drop CSP violation "sample" (may contain inline script / DOM excerpts)
+        if (lk === "sample") {
+          out[k] = "[redacted]";
+          return;
+        }
         if (
           lk === "cookie" ||
           lk === "cookies" ||
@@ -86,7 +92,9 @@
           lk === "href" ||
           lk === "url" ||
           lk === "page_url" ||
-          lk === "document_uri"
+          lk === "document_uri" ||
+          lk === "blockeduri" ||
+          lk === "sourcefile"
         ) {
           var v = value[k];
           if (typeof v === "string") {
@@ -114,9 +122,18 @@
     }
   }
 
+  function persistOptOut() {
+    try {
+      localStorage.setItem(OPT_OUT_KEY, "1");
+    } catch (_e) {
+      /* private mode / quota — query gate still applies this navigation */
+    }
+  }
+
   function isOptedOut() {
     try {
       if (/[?&]faro=0(?:&|$)/.test(location.search || "")) {
+        persistOptOut();
         return true;
       }
     } catch (_e) {
@@ -187,6 +204,8 @@
     var instrumentations = sdk.getWebInstrumentations
       ? sdk.getWebInstrumentations({
           captureConsole: true,
+          // OFF: CSP violation "sample" can carry inline script / page excerpts
+          enableContentSecurityPolicyInstrumentation: false,
           // Performance / Web Vitals included by default instrumentations
         })
       : [];
