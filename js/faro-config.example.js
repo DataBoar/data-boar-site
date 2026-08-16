@@ -21,12 +21,14 @@ window.DATABOAR_FARO = {
   appName: "databoar-com-br",
   appVersion: "site",
   environment: "production",
-  // Conservative default; raise only after privacy + volume review
-  samplingRate: 0.2,
-  // Keep false until Grafana Cloud app + sampling policy are confirmed
+  // 100% while traffic is low; lower after volume/privacy review if needed
+  samplingRate: 1.0,
+  // Keep false until Grafana Cloud app + sampling policy for traces are confirmed
   tracingEnabled: false,
   // databoar.com.br only — never data-boar.com / dashboard.net.br
   allowedHosts: ["databoar.com.br", "www.databoar.com.br"],
+  // Optional: non-invasive console diag (or use ?faro=diag)
+  // diag: true,
   // Optional: override vendored script paths (defaults under js/vendor/)
   // sdkSrc: "js/vendor/faro-web-sdk.iife.js",
   // tracingSrc: "js/vendor/faro-web-tracing.iife.js",

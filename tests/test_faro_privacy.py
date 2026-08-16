@@ -26,7 +26,7 @@ class FaroConfigSafe(unittest.TestCase):
             cfg,
             r'collectorUrl:\s*\n?\s*"https://faro-collector-prod-sa-east-1\.grafana\.net/collect/[0-9a-f]{32}"',
         )
-        self.assertRegex(cfg, r"samplingRate:\s*0\.2")
+        self.assertRegex(cfg, r"samplingRate:\s*1(?:\.0)?")
         self.assertRegex(cfg, r"tracingEnabled:\s*false")
         # Public collect path only — no write tokens / bearer headers
         self.assertIsNone(re.search(r"(?i)\bglc_[A-Za-z0-9]+", cfg))
@@ -96,6 +96,17 @@ class FaroLoaderPrivacy(unittest.TestCase):
     def test_tracing_off_unless_flag(self):
         self.assertIn("tracingEnabled", self.src)
         self.assertIn("faro-web-tracing.iife.js", self.src)
+
+    def test_diag_surface_distinguishes_sampling_from_send(self):
+        self.assertIn("__DATABOAR_FARO_DIAG__", self.src)
+        self.assertIn("expectNetworkSend", self.src)
+        self.assertIn("session_not_sampled", self.src)
+        self.assertIn("sessionSampled", self.src)
+        self.assertIn("collectorHost", self.src)
+        self.assertIn("faro=diag", self.src)
+        # Must not stash full collector URL on the diag object
+        self.assertIn('delete next.collectorUrl', self.src)
+        self.assertNotRegex(self.src, r"__DATABOAR_FARO_DIAG__[^=]*=[\s\S]{0,80}collectorUrl\s*:")
 
 
 def _published_html_pages():
