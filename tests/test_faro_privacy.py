@@ -134,8 +134,10 @@ class FaroDocsAndPrivacyCopy(unittest.TestCase):
         txt = _read(path)
         self.assertIn("collectorUrl", txt)
         self.assertIn("connect-src", txt)
-        self.assertIn("activation risk", txt.lower())
         self.assertIn("faro-collector-prod-sa-east-1.grafana.net", txt)
+        self.assertIn("verified", txt.lower())
+        self.assertNotIn("activation risk", txt.lower())
+        self.assertNotIn("does **not** yet include", txt)
         ex = _read(os.path.join(ROOT, "js", "faro-config.example.js"))
         self.assertIn("BLOCKER", ex)
 

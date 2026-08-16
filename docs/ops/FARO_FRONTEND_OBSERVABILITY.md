@@ -45,30 +45,28 @@ Disclosed on `privacidade.html` (pt-BR + en-US).
 
 ## CSP / CORS (operator edge — not edited in this repo)
 
-This repository does **not** change Cloudflare. Production Faro is enabled in `js/faro-config.js` for the Grafana Cloud app **DataBoar Site**, but the browser will only deliver telemetry after edge CSP and collector CORS allow it.
+This repository does **not** change Cloudflare. Edge CSP and Grafana Cloud CORS are operator-owned; the site only ships first-party Faro scripts + `connect` to the public collector URL.
 
-### Observed live CSP (databoar.com.br, 2026-08-16)
+### Verified live CSP (databoar.com.br, 2026-08-16)
 
-Cloudflare currently serves approximately:
+External check confirms `connect-src` includes the Faro collector origin, for example:
 
 ```
-connect-src 'self' https://api.hsforms.com https://forms.hsforms.com https://forms.hscollectedforms.net;
+connect-src 'self' https://api.hsforms.com https://forms.hsforms.com https://forms.hscollectedforms.net https://faro-collector-prod-sa-east-1.grafana.net;
 script-src 'self' 'unsafe-inline' https://js.hsforms.net;
 ```
 
-**Activation risk:** `connect-src` does **not** yet include `https://faro-collector-prod-sa-east-1.grafana.net`. Until the operator adds that origin (or the collect URL origin) to the edge CSP, Faro `fetch`/`sendBeacon` calls will be blocked in the browser. No Cloudflare edits are made from this repo.
+| Directive | Faro posture |
+| --------- | ------------ |
+| `script-src` | Vendored Faro under `/js/**` — covered by `'self'` |
+| `connect-src` | Includes `https://faro-collector-prod-sa-east-1.grafana.net` (verified) |
 
-| Directive | Required for Faro |
-| --------- | ----------------- |
-| `script-src` | first-party `/js/**` (vendored Faro) — already covered by `'self'` |
-| `connect-src` | add `https://faro-collector-prod-sa-east-1.grafana.net` |
-
-Grafana Cloud Frontend Observability CORS for app **DataBoar Site** must allow origins `https://databoar.com.br` and `https://www.databoar.com.br` (not `data-boar.com` / `dashboard.net.br`). Configure that in Grafana Cloud — **outside** this repo.
+Grafana Cloud Frontend Observability CORS for app **DataBoar Site** allows origins `https://databoar.com.br` and `https://www.databoar.com.br` (not `data-boar.com` / `dashboard.net.br`) — verified via collector OPTIONS preflight.
 
 ## Verification
 
 1. **Local no-send:** set `enabled: true`, `mode: "local"`; open a page; confirm console Faro output and **no** requests to `grafana.net` / collector hosts (browser Network panel).
-2. **Production (after collector URL):** deploy with real `collectorUrl`; visit `https://databoar.com.br/` once; confirm Web Vitals / errors appear in Grafana Cloud Frontend Observability.
+2. **Production (after Pages deploy of this branch):** visit `https://databoar.com.br/` once; confirm Web Vitals / errors appear in Grafana Cloud Frontend Observability.
 3. **Opt-out:** `?faro=0` or localStorage flag → no init.
 4. **Gates:** `scripts/check-all.sh` green (includes Faro privacy static checks).
 
