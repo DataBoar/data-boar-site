@@ -109,7 +109,9 @@ class ChromeSync(unittest.TestCase):
         )
         pages = _site_html()
         canon = _normalize_nested("index.html", nav_re.search(pages["index.html"]).group(0))
-        self.assertIn("verticais.html", canon)
+        self.assertNotIn("verticais.html", canon, "Verticais fica no footer, não no #site-nav")
+        self.assertIn("faq.html", canon)
+        self.assertIn("casos-de-uso-en", canon)
         for rel, html in sorted(pages.items()):
             m = nav_re.search(html)
             self.assertIsNotNone(m, f"{rel}: missing #site-nav")
