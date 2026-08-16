@@ -56,7 +56,7 @@
   <div class="wrap legal-wrap">
     <div class="eyebrow">PRIVACIDADE</div>
     <h1>Política de Privacidade</h1>
-    <p class="legal-meta">Vigência: 4 de agosto de 2026 · Última atualização: 4 de agosto de 2026</p>
+    <p class="legal-meta">Vigência: 4 de agosto de 2026 · Última atualização: 16 de agosto de 2026</p>
 
     <p>Esta Política descreve como a <strong>DataBoar</strong> (&ldquo;nós&rdquo;) coleta, utiliza, compartilha e protege os dados pessoais fornecidos por você (&ldquo;titular&rdquo;) ao interagir com nosso site <strong>databoar.com.br</strong> e formulários, em conformidade com a <strong>Lei nº 13.709/2018 (LGPD)</strong>.</p>
 
@@ -92,10 +92,21 @@
     <h2>7. Cookies</h2>
     <p>Utilizamos cookies estritamente necessários ao funcionamento do site e à segurança (fornecidos pela nossa rede de entrega/segurança). Não utilizamos cookies para publicidade de terceiros.</p>
 
-    <h2>8. Encarregado (DPO) e contato</h2>
+    <h2>8. Telemetria técnica do site (RUM)</h2>
+    <p>Quando habilitada pelo operador, o site pode enviar telemetria técnica de desempenho e erros de interface (Real User Monitoring) ao coletor Grafana Faro associado a <strong>databoar.com.br</strong>, para operação e qualidade do site institucional.</p>
+    <ul>
+      <li><strong>Categorias:</strong> caminho da página (pathname, sem query string), métricas de desempenho/Web Vitals, erros de JavaScript com pilhas redigidas, e registros de console seguros (sem conteúdo de formulários).</li>
+      <li><strong>Não coletamos:</strong> conteúdo de formulários, valores de query string, cookies, cabeçalhos de autorização, identificadores nominais, gravação de sessão (session replay) nem captura de teclas.</li>
+      <li><strong>Amostragem:</strong> envio amostrado (configurável; padrão conservador).</li>
+      <li><strong>Destino:</strong> coletor Grafana Cloud Frontend Observability configurado pelo operador (processamento fora do Brasil possível).</li>
+      <li><strong>Desativar:</strong> defina <code>localStorage.setItem('databoar_faro_opt_out','1')</code> no navegador, use <code>?faro=0</code> na URL, ou desligue o interruptor de produção em <code>js/faro-config.js</code> (<code>enabled: false</code> / <code>mode: "off"</code>).</li>
+    </ul>
+    <p>Essa telemetria é independente da análise de borda da CDN e do formulário HubSpot descritos acima.</p>
+
+    <h2>9. Encarregado (DPO) e contato</h2>
     <p>Para exercer seus direitos ou tirar dúvidas sobre esta Política, entre em contato com nosso Encarregado pelo tratamento de dados: <a href="mailto:privacidade@databoar.com.br">privacidade@databoar.com.br</a>.</p>
 
-    <h2>9. Alterações</h2>
+    <h2>10. Alterações</h2>
     <p>Podemos atualizar esta Política periodicamente. A versão vigente estará sempre disponível nesta página, com a data de última atualização.</p>
 
     <p class="legal-back"><a href="agende-demonstracao.html">← Voltar ao agendamento</a></p>
@@ -108,7 +119,7 @@
   <div class="wrap legal-wrap">
     <div class="eyebrow">PRIVACY</div>
     <h1>Privacy Policy</h1>
-    <p class="legal-meta">Effective: August 4, 2026 · Last updated: August 4, 2026</p>
+    <p class="legal-meta">Effective: August 4, 2026 · Last updated: August 16, 2026</p>
 
     <p>This Policy describes how <strong>DataBoar</strong> (&ldquo;we&rdquo;) collects, uses, shares, and protects the personal data you (&ldquo;data subject&rdquo;) provide when interacting with our website <strong>databoar.com.br</strong> and forms, in accordance with Brazil&rsquo;s General Data Protection Law (<strong>LGPD, Law No. 13.709/2018</strong>).</p>
 
@@ -144,10 +155,21 @@
     <h2>7. Cookies</h2>
     <p>We use cookies strictly necessary for the website&rsquo;s operation and security (provided by our delivery/security network). We do not use third-party advertising cookies.</p>
 
-    <h2>8. Data Protection Officer (DPO) and contact</h2>
+    <h2>8. Site technical telemetry (RUM)</h2>
+    <p>When enabled by the operator, the site may send technical performance and front-end error telemetry (Real User Monitoring) to the Grafana Faro collector associated with <strong>databoar.com.br</strong>, for operating and improving the institutional site.</p>
+    <ul>
+      <li><strong>Categories:</strong> page path (pathname only — no query string), performance/Web Vitals metrics, JavaScript errors with redacted stacks, and safe console logs (no form contents).</li>
+      <li><strong>We do not collect:</strong> form field values, query-string values, cookies, authorization headers, nominal user identifiers, session replay, or keystroke/input capture.</li>
+      <li><strong>Sampling:</strong> sampled export (configurable; conservative default).</li>
+      <li><strong>Destination:</strong> the Grafana Cloud Frontend Observability collector configured by the operator (processing outside Brazil may occur).</li>
+      <li><strong>Opt out / disable:</strong> set <code>localStorage.setItem('databoar_faro_opt_out','1')</code> in the browser, use <code>?faro=0</code> in the URL, or turn off the production switch in <code>js/faro-config.js</code> (<code>enabled: false</code> / <code>mode: "off"</code>).</li>
+    </ul>
+    <p>This telemetry is separate from CDN edge analytics and from the HubSpot form processing described above.</p>
+
+    <h2>9. Data Protection Officer (DPO) and contact</h2>
     <p>To exercise your rights or ask questions about this Policy, contact our Data Protection Officer: <a href="mailto:privacy@databoar.com.br">privacy@databoar.com.br</a>.</p>
 
-    <h2>9. Changes</h2>
+    <h2>10. Changes</h2>
     <p>We may update this Policy from time to time. The current version will always be available on this page, with the last-updated date.</p>
 
     <p class="legal-back"><a href="agende-demonstracao.html">← Back to scheduling</a></p>
@@ -212,6 +234,8 @@
   </div>
 </footer>
 
+<script src="js/faro-config.js"></script>
+<script src="js/faro.js" defer></script>
 <script src="js/site.js"></script>
 </body>
 </html>
