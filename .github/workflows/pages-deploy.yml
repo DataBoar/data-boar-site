@@ -55,20 +55,26 @@ jobs:
               print("secrets incomplete — keeping committed js/form-config.js")
               sys.exit(0)
 
-          cfg = {
-              "hubspot": {
-                  "portalId": portal,
-                  "demoFormGuid": guid,
-                  "region": region,
-                  "marketingSubscriptionTypeId": sub,
-              },
+          cfg_values = {
+              "portalId": portal,
+              "demoFormGuid": guid,
+              "region": region,
+              "marketingSubscriptionTypeId": sub,
               "fallbackMailto": "contact@databoar.com.br",
           }
-          # Emit JS with JSON-safe string literals (no unquoted shell heredoc).
+          # json.dumps on values only — keys stay JS identifiers (matches committed style
+          # and the verify regex). Never interpolate secrets into an unquoted heredoc.
+          v = {k: json.dumps(val, ensure_ascii=True) for k, val in cfg_values.items()}
           body = (
-              "window.DATA_BOAR_FORM_CONFIG = "
-              + json.dumps(cfg, indent=2, ensure_ascii=True)
-              + ";\n"
+              "window.DATA_BOAR_FORM_CONFIG = {\n"
+              "  hubspot: {\n"
+              f"    portalId: {v['portalId']},\n"
+              f"    demoFormGuid: {v['demoFormGuid']},\n"
+              f"    region: {v['region']},\n"
+              f"    marketingSubscriptionTypeId: {v['marketingSubscriptionTypeId']},\n"
+              "  },\n"
+              f"  fallbackMailto: {v['fallbackMailto']},\n"
+              "};\n"
           )
           out.parent.mkdir(parents=True, exist_ok=True)
           out.write_text(body, encoding="utf-8")
@@ -80,11 +86,12 @@ jobs:
           python3 <<'PY'
           import pathlib, re, sys
           text = pathlib.Path("js/form-config.js").read_text(encoding="utf-8")
-          m = re.search(r"portalId\s*:\s*['\"]([^'\"]+)['\"]", text)
-          if not m or not m.group(1).strip():
+          # Accept committed style (portalId: '…') and inject style (portalId: "…").
+          m = re.search(r"""portalId\s*:\s*(['"])([^'"]+)\1""", text)
+          if not m or not m.group(2).strip():
               print("ERROR: portalId empty in js/form-config.js — refusing deploy", file=sys.stderr)
               sys.exit(1)
-          print(f"ok portalId={m.group(1)[:4]}…")
+          print(f"ok portalId={m.group(2)[:4]}…")
           PY
 
       - name: Upload Pages artifact
