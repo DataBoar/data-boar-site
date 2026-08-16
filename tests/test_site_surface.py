@@ -86,7 +86,7 @@ class FaroInstrumentation(unittest.TestCase):
 
 
 class ChromeSync(unittest.TestCase):
-    """#site-nav and <footer> identical across site pages (partials + sync wrapper)."""
+    """announce + #site-nav + nav-cta + footer identical (partials + sync wrapper)."""
 
     def test_sync_wrapper_check_is_clean(self):
         proc = subprocess.run(
@@ -101,6 +101,83 @@ class ChromeSync(unittest.TestCase):
             0,
             f"site-chrome drift — rode sync-site-chrome.py:\n{proc.stdout}\n{proc.stderr}",
         )
+
+    def _normalize(self, rel: str, block: str) -> str:
+        return _normalize_nested(rel, block)
+
+    def _class_block(self, html: str, class_name: str) -> str | None:
+        """Outer <div class="…class_name…">…</div> via depth count (same as sync)."""
+        open_re = re.compile(
+            r'<div\b[^>]*\bclass=(["\'])([^"\']*)\1[^>]*>',
+            re.IGNORECASE,
+        )
+        start = pos = None
+        for m in open_re.finditer(html):
+            if class_name in m.group(2).split():
+                start, pos = m.start(), m.end()
+                break
+        if start is None:
+            return None
+        depth = 1
+        token_re = re.compile(r"</?div\b[^>]*>", re.IGNORECASE)
+        for tm in token_re.finditer(html, pos):
+            tok = tm.group(0)
+            if tok.startswith("</"):
+                depth -= 1
+                if depth == 0:
+                    return html[start : tm.end()]
+            elif not tok.rstrip().endswith("/>"):
+                depth += 1
+        return None
+
+    def test_announce_identical_and_owns_agendar_cta(self):
+        pages = _site_html()
+        canon = self._normalize(
+            "index.html", self._class_block(pages["index.html"], "announce")
+        )
+        self.assertIsNotNone(canon)
+        self.assertIn("mini-btn", canon)
+        self.assertIn("agende-demonstracao.html", canon)
+        self.assertIn("Book a demo", canon)
+        for rel, html in sorted(pages.items()):
+            block = self._class_block(html, "announce")
+            self.assertIsNotNone(block, f"{rel}: missing .announce (brown top bar)")
+            self.assertEqual(
+                self._normalize(rel, block),
+                canon,
+                f"{rel}: .announce diverges from canonical",
+            )
+
+    def test_nav_cta_identical_without_agendar(self):
+        pages = _site_html()
+        canon = self._normalize(
+            "index.html", self._class_block(pages["index.html"], "nav-cta")
+        )
+        self.assertIsNotNone(canon)
+        self.assertIn("lang-switch", canon)
+        self.assertIn("login.html", canon)
+        self.assertNotIn(
+            "mini-btn",
+            canon,
+            "Agendar belongs only in .announce — not in header .nav-cta",
+        )
+        for rel, html in sorted(pages.items()):
+            block = self._class_block(html, "nav-cta")
+            self.assertIsNotNone(block, f"{rel}: missing .nav-cta")
+            self.assertEqual(
+                self._normalize(rel, block),
+                canon,
+                f"{rel}: .nav-cta diverges from canonical",
+            )
+            header = re.search(
+                r"<header\b.*?>(.*?)</header>", html, re.DOTALL | re.IGNORECASE
+            )
+            self.assertIsNotNone(header, f"{rel}: missing <header>")
+            self.assertNotIn(
+                "mini-btn",
+                header.group(1),
+                f"{rel}: Agendar mini-btn leaked into <header>",
+            )
 
     def test_nav_identical_across_site_pages(self):
         nav_re = re.compile(
