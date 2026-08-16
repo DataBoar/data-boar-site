@@ -10,9 +10,11 @@ permissions:
   pages: write
   id-token: write
 
+# Queue deploys — never cancel mid-inject (#22: cancelled run could publish
+# committed placeholders / a half-written form-config.js).
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -26,26 +28,64 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Inject HubSpot form config (secrets only — never commit keys)
+      # HubSpot portal/form IDs are PUBLIC (also committed in js/form-config.js).
+      # Still inject from secrets when present so ops can rotate without a content PR.
+      # Use json.dumps (not an unquoted heredoc) so values cannot break out of JS
+      # string literals (#68). If a secret is empty, keep the committed file.
+      - name: Inject HubSpot form config (safe JSON → JS)
         env:
           HUBSPOT_PORTAL_ID: ${{ secrets.HUBSPOT_PORTAL_ID }}
           HUBSPOT_DEMO_FORM_GUID: ${{ secrets.HUBSPOT_DEMO_FORM_GUID }}
           HUBSPOT_REGION: ${{ secrets.HUBSPOT_REGION }}
           HUBSPOT_MARKETING_SUBSCRIPTION_TYPE_ID: ${{ secrets.HUBSPOT_MARKETING_SUBSCRIPTION_TYPE_ID }}
         run: |
-          mkdir -p js
-          REGION="${HUBSPOT_REGION:-na1}"
-          cat > js/form-config.js <<EOF
-          window.DATA_BOAR_FORM_CONFIG = {
-            hubspot: {
-              portalId: "${HUBSPOT_PORTAL_ID}",
-              demoFormGuid: "${HUBSPOT_DEMO_FORM_GUID}",
-              region: "${REGION}",
-              marketingSubscriptionTypeId: "${HUBSPOT_MARKETING_SUBSCRIPTION_TYPE_ID}",
-            },
-            fallbackMailto: "contact@databoar.com.br",
-          };
-          EOF
+          python3 <<'PY'
+          import json, os, pathlib, sys
+
+          portal = os.environ.get("HUBSPOT_PORTAL_ID", "").strip()
+          guid = os.environ.get("HUBSPOT_DEMO_FORM_GUID", "").strip()
+          region = os.environ.get("HUBSPOT_REGION", "").strip() or "na1"
+          sub = os.environ.get("HUBSPOT_MARKETING_SUBSCRIPTION_TYPE_ID", "").strip()
+          out = pathlib.Path("js/form-config.js")
+
+          if not portal or not guid:
+              if not out.is_file():
+                  print("ERROR: secrets empty and js/form-config.js missing", file=sys.stderr)
+                  sys.exit(1)
+              print("secrets incomplete — keeping committed js/form-config.js")
+              sys.exit(0)
+
+          cfg = {
+              "hubspot": {
+                  "portalId": portal,
+                  "demoFormGuid": guid,
+                  "region": region,
+                  "marketingSubscriptionTypeId": sub,
+              },
+              "fallbackMailto": "contact@databoar.com.br",
+          }
+          # Emit JS with JSON-safe string literals (no unquoted shell heredoc).
+          body = (
+              "window.DATA_BOAR_FORM_CONFIG = "
+              + json.dumps(cfg, indent=2, ensure_ascii=True)
+              + ";\n"
+          )
+          out.parent.mkdir(parents=True, exist_ok=True)
+          out.write_text(body, encoding="utf-8")
+          print(f"wrote {out} (portalId length={len(portal)})")
+          PY
+
+      - name: Verify form-config has a non-empty portalId
+        run: |
+          python3 <<'PY'
+          import pathlib, re, sys
+          text = pathlib.Path("js/form-config.js").read_text(encoding="utf-8")
+          m = re.search(r"portalId\s*:\s*['\"]([^'\"]+)['\"]", text)
+          if not m or not m.group(1).strip():
+              print("ERROR: portalId empty in js/form-config.js — refusing deploy", file=sys.stderr)
+              sys.exit(1)
+          print(f"ok portalId={m.group(1)[:4]}…")
+          PY
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
