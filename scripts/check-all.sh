@@ -8,6 +8,9 @@ fail=0
 
 run() { echo; echo "── $1 ──"; shift; if "$@"; then echo "  ✅ ok"; else echo "  ❌ FALHOU"; fail=1; fi; }
 
+# 0) Site chrome (nav + footer) must match partials/site-chrome — no silent drift
+run "site-chrome sync --check" python3 scripts/sync-site-chrome.py --check
+
 # 1) Guardrail suite (anti-regression · security · supply-chain · anti-overclaim · anti-llm · hitl)
 run "guardrails (unittest)" python3 -m unittest -q tests.test_guardrails
 

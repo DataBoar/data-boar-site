@@ -31,5 +31,10 @@ if grep -rniE "RIPD\s*\(Art\.?\s*30\)|DPIA\s*\(Art\.?\s*30\)" -- *.html >/dev/nu
   echo "❌ pre-commit: overclaim normativo 'RIPD/DPIA (Art. 30)' (ADR-0001 anti-overclaim)"; rc=1
 fi
 
+# 4) Header nav + footer must match partials (edit partials → sync-site-chrome.py).
+if ! python3 scripts/sync-site-chrome.py --check >/dev/null; then
+  echo "❌ pre-commit: site-chrome drift — rode python3 scripts/sync-site-chrome.py"; rc=1
+fi
+
 [ "$rc" = "0" ] && echo "✅ pre-commit ok" || echo "❌ pre-commit VERMELHO — commit bloqueado (rode scripts/check-all.sh)"
 exit "$rc"

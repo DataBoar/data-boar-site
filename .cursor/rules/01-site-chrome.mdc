@@ -1,0 +1,26 @@
+---
+description: Canonical header nav + footer must stay identical across all site HTML — edit partials, run sync-site-chrome, never hand-edit chrome on one page.
+globs: "**/*.html,partials/site-chrome/**,scripts/sync-site-chrome.py"
+alwaysApply: false
+---
+
+# Site chrome — nav + footer (add, never weaken)
+
+Static site, **no build pipeline**. Header `<nav class="links" id="site-nav">` and `<footer>` are **copied identically** on every page (root + `casos/`). Nested pages only differ by a `../` prefix on relative `href`/`src`.
+
+## Source of truth
+- `partials/site-chrome/nav-links.html` — links **inside** `#site-nav`
+- `partials/site-chrome/footer.html` — full `<footer>…</footer>`
+- Wrapper: `python3 scripts/sync-site-chrome.py` (write) · `--check` (CI / check-all)
+
+## Agent workflow
+1. **Edit the partial**, not a single page’s nav/footer.
+2. Run `python3 scripts/sync-site-chrome.py`.
+3. Confirm `python3 scripts/sync-site-chrome.py --check` is green.
+4. Do **not** invent a one-off Contabilidade / Caso link in the footer — sector pages live under **Verticais** (`verticais.html`).
+5. `nav-cta` (Login / Agendar / lang-switch) may differ per page; **do not** put unique links inside `#site-nav` or `<footer>`.
+
+## Guardrails
+- `tests/test_guardrails.py` — footer identical + nav identical + sync `--check`.
+- `scripts/check-all.sh` runs chrome `--check`.
+- Skill: `.claude/skills/site-chrome/SKILL.md` (and `.agents` mirror if present).
