@@ -248,5 +248,106 @@ class WheelhouseFaroGeneration(unittest.TestCase):
             self.assertNotIn("faro", txt.lower(), f"{rel}: unexpected faro reference")
 
 
+class FaroScrubIsSampledRegression(unittest.TestCase):
+    """Incident: scrubDeep(stripUrl) turned isSampled 'true' into origin/true → no POST."""
+
+    def test_source_does_not_stripurl_arbitrary_strings(self):
+        src = _read(os.path.join(ROOT, "js", "faro.js"))
+        # Generic string branch must return scrubString only (URL keys handled separately)
+        self.assertIn("return scrubString(value);", src)
+        self.assertIn('Never stripUrl() here', src)
+        # Old buggy pattern must stay gone
+        self.assertNotIn(
+            "scrubString(stripUrl(value) === value ? scrubString(value) : stripUrl(value))",
+            src,
+        )
+
+    def test_scrub_preserves_session_issampled_true(self):
+        """Executable regression against the live scrubDeep in js/faro.js."""
+        import subprocess
+        import textwrap
+
+        node_script = textwrap.dedent(
+            r"""
+            const fs = require('fs');
+            const path = require('path');
+            const src = fs.readFileSync(path.join(process.cwd(), 'js', 'faro.js'), 'utf8');
+
+            function extractFn(name) {
+              const start = src.indexOf('function ' + name + '(');
+              if (start < 0) throw new Error('missing ' + name);
+              let i = src.indexOf('{', start);
+              let depth = 0;
+              for (; i < src.length; i++) {
+                if (src[i] === '{') depth++;
+                else if (src[i] === '}') {
+                  depth--;
+                  if (depth === 0) return src.slice(start, i + 1);
+                }
+              }
+              throw new Error('unbalanced ' + name);
+            }
+
+            const code = [
+              extractFn('stripUrl'),
+              extractFn('scrubString'),
+              extractFn('scrubDeep'),
+              // stripUrl uses location.origin — stub for Node
+              'var location = { origin: "https://databoar.com.br", href: "https://databoar.com.br/?faro=diag", pathname: "/" };',
+              `
+              const item = {
+                type: "event",
+                payload: {
+                  name: "databoar_faro_smoke",
+                  attributes: { page: "/" },
+                  domain: "browser",
+                  timestamp: "2026-08-16T00:00:00.000Z"
+                },
+                meta: {
+                  app: { name: "databoar-com-br", version: "site", environment: "production" },
+                  page: { url: "https://databoar.com.br/?faro=diag&token=secret" },
+                  session: { id: "sess-test", attributes: { isSampled: "true" } }
+                }
+              };
+              const scrubbed = scrubDeep(item, 0);
+              if (scrubbed.meta.session.attributes.isSampled !== "true") {
+                console.error("FAIL isSampled=", JSON.stringify(scrubbed.meta.session.attributes.isSampled));
+                process.exit(1);
+              }
+              // Faro SessionInstrumentation gate
+              if (scrubbed.meta.session.attributes.isSampled !== "true") process.exit(1);
+              // URL fields still scrubbed
+              if (scrubbed.meta.page.url !== "https://databoar.com.br/") {
+                console.error("FAIL page.url=", scrubbed.meta.page.url);
+                process.exit(1);
+              }
+              console.log("OK");
+              `,
+            ].join("\n");
+
+            try {
+              // eslint-disable-next-line no-eval
+              eval(code);
+            } catch (e) {
+              console.error(e);
+              process.exit(1);
+            }
+            """
+        )
+        proc = subprocess.run(
+            ["node", "-e", node_script],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(
+            proc.returncode,
+            0,
+            f"scrub regression failed\nstdout={proc.stdout}\nstderr={proc.stderr}",
+        )
+        self.assertIn("OK", proc.stdout)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

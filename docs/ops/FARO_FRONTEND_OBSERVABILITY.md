@@ -35,6 +35,8 @@ If `mode: "production"` and `collectorUrl` is missing/placeholder, `faro.js` **s
 ## Privacy controls
 
 - Scrub query/hash from URLs; redact authorization/cookie-like strings in payloads (`beforeSend`).
+  URL stripping applies only to explicit URL fields (`url`/`href`/…)—never to arbitrary strings
+  such as Faro `session.attributes.isSampled` (`"true"` must stay `"true"` or the SDK drops all events).
 - CSP violation instrumentation **off** (`enableContentSecurityPolicyInstrumentation: false`); scrubber also redacts any residual `sample` field.
 - Ignore HubSpot / common analytics hosts for resource noise.
 - Never call `setUser` with email/name; no session replay instrumentation.
