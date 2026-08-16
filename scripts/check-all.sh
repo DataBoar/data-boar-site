@@ -11,6 +11,9 @@ run() { echo; echo "── $1 ──"; shift; if "$@"; then echo "  ✅ ok"; els
 # 0) Site chrome (nav + footer) must match partials/site-chrome — no silent drift
 run "site-chrome sync --check" python3 scripts/sync-site-chrome.py --check
 
+# 0b) Deterministic surface gates: Faro on every human page · chrome identical · contrast
+run "site surface (faro + chrome + contrast)" python3 -m unittest -q tests.test_site_surface
+
 # 1) Guardrail suite (anti-regression · security · supply-chain · anti-overclaim · anti-llm · hitl)
 run "guardrails (unittest)" python3 -m unittest -q tests.test_guardrails
 

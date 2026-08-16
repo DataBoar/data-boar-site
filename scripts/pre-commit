@@ -36,5 +36,10 @@ if ! python3 scripts/sync-site-chrome.py --check >/dev/null; then
   echo "❌ pre-commit: site-chrome drift — rode python3 scripts/sync-site-chrome.py"; rc=1
 fi
 
+# 5) Fast deterministic surface subset (Faro + chrome + contrast) — full suite in check-all.
+if ! python3 -m unittest -q tests.test_site_surface 2>/dev/null; then
+  echo "❌ pre-commit: site surface (Faro/chrome/contrast) — rode scripts/check-all.sh"; rc=1
+fi
+
 [ "$rc" = "0" ] && echo "✅ pre-commit ok" || echo "❌ pre-commit VERMELHO — commit bloqueado (rode scripts/check-all.sh)"
 exit "$rc"

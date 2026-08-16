@@ -21,6 +21,7 @@ Static site, **no build pipeline**. Header `<nav class="links" id="site-nav">` a
 5. `nav-cta` (Login / Agendar / lang-switch) may differ per page; **do not** put unique links inside `#site-nav` or `<footer>`.
 
 ## Guardrails
-- `tests/test_guardrails.py` — footer identical + nav identical + sync `--check`.
-- `scripts/check-all.sh` runs chrome `--check`.
-- Skill: `.claude/skills/site-chrome/SKILL.md` (and `.agents` mirror if present).
+- `tests/test_site_surface.py` — Faro on every human page, nav/footer identical, `.legal` CTA contrast
+- `tests/test_guardrails.py` — footer/nav (also) + sync `--check`
+- `scripts/check-all.sh` runs chrome `--check` **and** `tests.test_site_surface` before the full suite
+- Skill: `.claude/skills/site-chrome/SKILL.md` (and `.agents` mirror if present)

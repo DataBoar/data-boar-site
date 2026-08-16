@@ -11,7 +11,7 @@ Static HTML on GitHub Pages has no build pipeline. Header `#site-nav` and `<foot
 | Wrapper | `scripts/sync-site-chrome.py` (`--check` for CI) |
 | Rule | `.cursor/rules/01-site-chrome.mdc` |
 | Skill | `.agents/skills/site-chrome/SKILL.md` |
-| Tests | `test_footer_block_identical`, `test_nav_links_identical`, `test_site_chrome_sync_check` |
-| Gates | `scripts/pre-commit`, `scripts/check-all.sh` |
+| Tests | `tests/test_site_surface.py` (Faro + chrome + contrast) · also mirrored in `test_guardrails` |
+| Gates | `scripts/pre-commit`, `scripts/check-all.sh` (explicit `site surface` step) |
 
 **Agent habit:** edit partials → run sync → never hand-patch one page’s chrome.
