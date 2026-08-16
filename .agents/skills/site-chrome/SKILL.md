@@ -15,7 +15,9 @@ GitHub Pages static HTML has **no build**. Chrome must stay byte-identical acros
 2. Apply: `python3 scripts/sync-site-chrome.py`
 3. Verify: `python3 scripts/sync-site-chrome.py --check`
 4. New page: include `<nav class="links" id="site-nav">…</nav>` and either a `<footer>` or `<!-- FOOTER_PLACEHOLDER -->`, then run the sync script.
-5. Nested under `casos/`: sync adds `../` automatically — never hand-maintain a divergent footer.
+5. New page: include `<nav class="links" id="site-nav">…</nav>` and either a `<footer>` or `<!-- FOOTER_PLACEHOLDER -->`, then run the sync script.
+6. Nested under `casos/`: sync adds `../` automatically — never hand-maintain a divergent footer.
+7. **Verticais** lives in footer Recursos only — do **not** put it in top `#site-nav` (logo breathing room).
 
 ## Do not
 - Hand-edit footer/nav on one page “just for this PR”

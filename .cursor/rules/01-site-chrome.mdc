@@ -17,7 +17,7 @@ Static site, **no build pipeline**. Header `<nav class="links" id="site-nav">` a
 1. **Edit the partial**, not a single page’s nav/footer.
 2. Run `python3 scripts/sync-site-chrome.py`.
 3. Confirm `python3 scripts/sync-site-chrome.py --check` is green.
-4. Do **not** invent a one-off Contabilidade / Caso link in the footer — sector pages live under **Verticais** (`verticais.html`).
+4. Do **not** invent a one-off Contabilidade / Caso link in the footer — sector pages live under **Verticais** (`verticais.html` in footer Recursos only; **not** in top `#site-nav` — keeps logo breathing room).
 5. `nav-cta` (Login / Agendar / lang-switch) may differ per page; **do not** put unique links inside `#site-nav` or `<footer>`.
 
 ## Guardrails
