@@ -1,6 +1,6 @@
 # Site — Grafana Faro frontend RUM (databoar.com.br)
 
-**Status:** Implemented (opt-in; collector URL operator-blocked until supplied)
+**Status:** Implemented (production config enabled; edge CSP + collector CORS verified 2026-08-16)
 **Date:** 2026-08-16
 **Authors:** Fabio Leitao (HITL) — executor patch for review
 **Priority:** P2
@@ -22,22 +22,22 @@ Instrument **databoar.com.br** only with the **Grafana Faro Web SDK** (vendored 
 ## Constraints
 
 - No Grafana write tokens / Cloudflare tokens / private lab endpoints in the browser or git.
-- Collector URL + public app id are parameterized client config; production stub ships `enabled: false`.
+- Collector URL + public app id are public client config in `js/faro-config.js` (kill switch remains `enabled: false`).
 - Pathname-only URLs; scrub query/hash, auth, cookies; no form contents; no replay/keystrokes.
-- Tracing off until operator confirms Grafana Cloud app + sampling policy.
-- No Cloudflare / OCI / DNS / Grafana server edits from this repo.
+- Tracing off until operator confirms sampling policy for traces.
+- No Cloudflare / OCI / DNS / Grafana server edits from this repo (CSP updated by operator outside git).
 
 ## Implementation map
 
 | File | Role |
 | ---- | ---- |
-| `js/faro-config.js` | Tracked stub — Faro OFF |
+| `js/faro-config.js` | Production enablement for DataBoar Site collector |
 | `js/faro-config.example.js` | Operator template (placeholders) |
 | `js/faro.js` | Loader: gates, sampling, scrub, local no-send, optional tracing |
 | `js/vendor/faro-web-sdk.iife.js` | Pinned Faro 2.9.0 |
 | `js/vendor/faro-web-tracing.iife.js` | Pinned tracing 2.9.0 (loaded only if `tracingEnabled`) |
 | `js/vendor/NOTICE.md` | Pin + SHA-256 |
-| `docs/ops/FARO_FRONTEND_OBSERVABILITY.md` | Enablement, CSP/CORS, rollback, verification |
+| `docs/ops/FARO_FRONTEND_OBSERVABILITY.md` | Enablement, CSP/CORS (verified), rollback, verification |
 | `privacidade.html` | Honest RUM disclosure + opt-out |
 
 ## Roll-out / rollback
