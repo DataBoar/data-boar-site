@@ -11,6 +11,9 @@ run() { echo; echo "── $1 ──"; shift; if "$@"; then echo "  ✅ ok"; els
 # 1) Guardrail suite (anti-regression · security · supply-chain · anti-overclaim · anti-llm · hitl)
 run "guardrails (unittest)" python3 -m unittest -q tests.test_guardrails
 
+# 1b) Faro RUM privacy / config guards (issue #70)
+run "faro privacy (unittest)" python3 -m unittest -q tests.test_faro_privacy
+
 # 2) Ruff on tests/ — mirrors CI job py-ruff in .github/workflows/security.yml.
 #    Same availability pattern as tidy/node: use the tool when present; if missing,
 #    fail loudly (CI always installs ruff — a silent skip here would greenwash).
