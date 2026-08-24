@@ -18,6 +18,13 @@ concurrency:
 
 jobs:
   deploy:
+    # #87: workflow_dispatch has no branch picker filter, so a collaborator with
+    # contents:write could dispatch this from a forged non-main branch (e.g. a
+    # gh-pages branch never protected by main's signature/PR rules) and publish
+    # it unreviewed. Refuse to run unless the triggering ref really is main —
+    # belt-and-suspenders with the checkout pin below, since either alone still
+    # depends on the other not having a bug.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -26,6 +33,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
+          ref: main
           persist-credentials: false
 
       # HubSpot portal/form IDs are PUBLIC (also committed in js/form-config.js).
