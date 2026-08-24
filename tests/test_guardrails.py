@@ -92,7 +92,8 @@ class AntiRegression(unittest.TestCase):
     def test_bilingual_panels_present(self):
         for name, txt in _html().items():
             if name in ("privacidade.html", "opensource.html", "login.html",
-                        "solucao.html", "agende-demonstracao.html", "index.html"):
+                        "solucao.html", "agende-demonstracao.html", "index.html",
+                        "praticas-de-engenharia.html"):
                 self.assertIn('data-lang-panel="pt-BR"', txt, f"{name}: sem painel pt-BR")
                 self.assertIn('data-lang-panel="en"', txt, f"{name}: sem painel en")
 
