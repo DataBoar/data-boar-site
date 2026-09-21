@@ -304,6 +304,15 @@ class Security(unittest.TestCase):
                 m = re.search(pat, txt)
                 self.assertIsNone(m, f"possível segredo em {rel}: {pat}")
 
+    def test_security_txt_rfc9116_paths_match(self):
+        """RFC 9116: /.well-known/security.txt plus optional root copy for Pages."""
+        root = _read(os.path.join(ROOT, "security.txt"))
+        well = _read(os.path.join(ROOT, ".well-known", "security.txt"))
+        self.assertEqual(root, well)
+        self.assertRegex(root, r"(?m)^Contact:\s+mailto:security@databoar\.com\.br\s*$")
+        self.assertRegex(root, r"(?m)^Expires:\s+\d{4}-\d{2}-\d{2}T")
+        self.assertIn("Canonical: https://databoar.com.br/.well-known/security.txt", root)
+
     def test_external_links_have_noopener(self):
         for name, txt in _html().items():
             for tag in re.findall(r"<a\b[^>]*target=\"_blank\"[^>]*>", txt):
