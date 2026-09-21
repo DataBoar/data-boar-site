@@ -74,6 +74,24 @@ class AntiRegression(unittest.TestCase):
         )
         self.assertIn("json.dumps", wf)
         self.assertIn("refusing deploy", wf)
+
+    def test_security_yml_osv_scanner_job_is_sha256_pinned(self):
+        """#91: osv-scanner v2.6.0 checksum pin (keen-platypus / issue comment)."""
+        wf = _read(os.path.join(ROOT, ".github", "workflows", "security.yml"))
+        self.assertIn("osv-scanner:", wf)
+        self.assertIn("2.6.0", wf)
+        self.assertIn(
+            "ca69b3d3cd08f889a49dc0a383122f71cc528b83803671df5fd874d97485b108",
+            wf,
+        )
+        self.assertIn("--allow-no-lockfiles", wf)
+        chk = _read(os.path.join(ROOT, "scripts", "check-all.sh"))
+        self.assertIn("--skip-osv-scanner", chk)
+        self.assertIn("--allow-no-lockfiles", chk)
+
+    def test_pages_deploy_rejects_unpinned_upload_pages_artifact_v3(self):
+        """Keep Pages SHA-pin regression next to the concurrency test above."""
+        wf = _read(os.path.join(ROOT, ".github", "workflows", "pages-deploy.yml"))
         # Transitive pin: v3.0.1 composite used upload-artifact@v4 (org policy fail).
         self.assertNotIn(
             "56afc609e74202658d3ffba0e8f6dda462b719fa",
