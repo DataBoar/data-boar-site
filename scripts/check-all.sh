@@ -87,8 +87,17 @@ ensure_osv_scanner() {
   fi
   echo "check-all: baixando osv-scanner v${OSV_VER} para ${OSV_CACHE}..." >&2
   curl -sSfL "https://github.com/google/osv-scanner/releases/download/v${OSV_VER}/osv-scanner_linux_amd64" \
-    -o "$OSV_CACHE/osv-scanner.download"
-  echo "${OSV_SHA256}  $OSV_CACHE/osv-scanner.download" | sha256sum -c -
+    -o "$OSV_CACHE/osv-scanner.download" || {
+    echo "check-all: download osv-scanner falhou" >&2
+    rm -f "$OSV_CACHE/osv-scanner.download"
+    return 1
+  }
+  # set -uo pipefail without -e: sha256sum -c must be checked or we mv a bad blob.
+  if ! echo "${OSV_SHA256}  $OSV_CACHE/osv-scanner.download" | sha256sum -c -; then
+    echo "check-all: sha256 osv-scanner nao bate — recusando o download (nao vai pro cache)" >&2
+    rm -f "$OSV_CACHE/osv-scanner.download"
+    return 1
+  fi
   mv "$OSV_CACHE/osv-scanner.download" "$OSV_CACHE/osv-scanner"
   chmod +x "$OSV_CACHE/osv-scanner"
   PATH="$OSV_CACHE:$PATH"
