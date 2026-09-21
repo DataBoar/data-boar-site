@@ -74,6 +74,15 @@ class AntiRegression(unittest.TestCase):
         )
         self.assertIn("json.dumps", wf)
         self.assertIn("refusing deploy", wf)
+        # Transitive pin: v3.0.1 composite used upload-artifact@v4 (org policy fail).
+        self.assertNotIn(
+            "56afc609e74202658d3ffba0e8f6dda462b719fa",
+            wf,
+            "upload-pages-artifact v3.0.1 calls unpinned upload-artifact@v4",
+        )
+        self.assertIn("fc324d3547104276b827a68afc52ff2a11cc49c9", wf)
+        self.assertIn("include-hidden-files: true", wf)
+        self.assertIn("bbbca2ddaa5d8feaa63e36b76fdaad77386f024f", wf)
 
     def test_wheelhouse_docs_use_exclusive_index_url(self):
         """#69: never recommend --extra-index-url (dependency confusion with PyPI)."""

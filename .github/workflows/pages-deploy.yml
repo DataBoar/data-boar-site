@@ -102,10 +102,16 @@ jobs:
           print(f"ok portalId={m.group(2)[:4]}…")
           PY
 
+      # v3.0.1 (56afc609) is SHA-pinned *here* but its composite still called
+      # actions/upload-artifact@v4 (floating tag). Org sha_pinning_required
+      # inspects transitive uses and blocked every Pages deploy since 2026-08-24.
+      # v5.0.0 pins upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f (v7.0.0).
+      # include-hidden-files: .well-known/security.txt (RFC 9116); .git/.github stay excluded.
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: .
+          include-hidden-files: true
 
       - name: Deploy to GitHub Pages
         id: deployment
