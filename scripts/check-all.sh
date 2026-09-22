@@ -2,9 +2,25 @@
 # check-all — FULL local gate for data-boar-site (run before opening a PR / before merge).
 # Mirrors the data-boar `check-all` discipline: green locally BEFORE push (ADR-0080 spirit).
 # NOT a toy project — this gate is inviolable (docs/adr/ADR-0001). Add checks, never remove.
+#   --skip-osv-scanner  skip OSV dependency scan (same flag as keen-platypus check-all)
 set -uo pipefail
 cd "$(dirname "$0")/.." || exit 2
 fail=0
+SKIP_OSV=0
+for arg in "$@"; do
+  case "$arg" in
+    --skip-osv-scanner) SKIP_OSV=1 ;;
+    -h|--help)
+      echo "uso: $0 [--skip-osv-scanner]"
+      exit 0
+      ;;
+    *)
+      echo "check-all: argumento desconhecido: $arg" >&2
+      echo "uso: $0 [--skip-osv-scanner]" >&2
+      exit 2
+      ;;
+  esac
+done
 
 run() { echo; echo "── $1 ──"; shift; if "$@"; then echo "  ✅ ok"; else echo "  ❌ FALHOU"; fail=1; fi; }
 
@@ -53,6 +69,55 @@ for f in glob.glob("js/*.js"):
             print(f"  desbalanceado {a}{b} em {f}"); bad=1
 sys.exit(bad)
 PY
+fi
+
+# 4) OSV dependency scan — mirrors CI job osv-scanner (#91). Pin = keen-platypus 2.6.0.
+OSV_VER="2.6.0"
+OSV_SHA256="ca69b3d3cd08f889a49dc0a383122f71cc528b83803671df5fd874d97485b108"
+OSV_CACHE="$(pwd)/scripts/.cache"
+ensure_osv_scanner() {
+  mkdir -p "$OSV_CACHE"
+  if command -v osv-scanner >/dev/null 2>&1 && osv-scanner --version 2>/dev/null | grep -qF "$OSV_VER"; then
+    return 0
+  fi
+  if [ -x "$OSV_CACHE/osv-scanner" ] && "$OSV_CACHE/osv-scanner" --version 2>/dev/null | grep -qF "$OSV_VER"; then
+    PATH="$OSV_CACHE:$PATH"
+    export PATH
+    return 0
+  fi
+  echo "check-all: baixando osv-scanner v${OSV_VER} para ${OSV_CACHE}..." >&2
+  curl -sSfL "https://github.com/google/osv-scanner/releases/download/v${OSV_VER}/osv-scanner_linux_amd64" \
+    -o "$OSV_CACHE/osv-scanner.download" || {
+    echo "check-all: download osv-scanner falhou" >&2
+    rm -f "$OSV_CACHE/osv-scanner.download"
+    return 1
+  }
+  # set -uo pipefail without -e: sha256sum -c must be checked or we mv a bad blob.
+  if ! echo "${OSV_SHA256}  $OSV_CACHE/osv-scanner.download" | sha256sum -c -; then
+    echo "check-all: sha256 osv-scanner nao bate — recusando o download (nao vai pro cache)" >&2
+    rm -f "$OSV_CACHE/osv-scanner.download"
+    return 1
+  fi
+  mv "$OSV_CACHE/osv-scanner.download" "$OSV_CACHE/osv-scanner"
+  chmod +x "$OSV_CACHE/osv-scanner"
+  PATH="$OSV_CACHE:$PATH"
+  export PATH
+}
+
+if [ "$SKIP_OSV" = "1" ]; then
+  echo
+  echo "── osv-scanner ──"
+  echo "  ⏭️  skip (--skip-osv-scanner)"
+else
+  if ensure_osv_scanner && command -v osv-scanner >/dev/null 2>&1; then
+    # Static site: no lockfiles today → --allow-no-lockfiles (CI same). Exit 128 without it.
+    run "osv-scanner scan source -r ." osv-scanner scan source -r . --allow-no-lockfiles
+  else
+    echo
+    echo "── osv-scanner ──"
+    echo "  ❌ FALHOU — osv-scanner v${OSV_VER} ausente (CI security.yml baixa e verifica sha256)"
+    fail=1
+  fi
 fi
 
 echo

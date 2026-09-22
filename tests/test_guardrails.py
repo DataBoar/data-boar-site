@@ -20,7 +20,9 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 import unittest
+from pathlib import Path
 from typing import ClassVar
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -74,6 +76,96 @@ class AntiRegression(unittest.TestCase):
         )
         self.assertIn("json.dumps", wf)
         self.assertIn("refusing deploy", wf)
+
+    def test_security_yml_osv_scanner_job_is_sha256_pinned(self):
+        """#91: osv-scanner v2.6.0 checksum pin (keen-platypus / issue comment)."""
+        wf = _read(os.path.join(ROOT, ".github", "workflows", "security.yml"))
+        self.assertIn("osv-scanner:", wf)
+        self.assertIn("2.6.0", wf)
+        self.assertIn(
+            "ca69b3d3cd08f889a49dc0a383122f71cc528b83803671df5fd874d97485b108",
+            wf,
+        )
+        self.assertIn("--allow-no-lockfiles", wf)
+        chk = _read(os.path.join(ROOT, "scripts", "check-all.sh"))
+        self.assertIn("--skip-osv-scanner", chk)
+        self.assertIn("--allow-no-lockfiles", chk)
+
+    def test_ensure_osv_scanner_does_not_promote_binary_on_bad_sha256(self):
+        """PR #94: checksum fail must return 1 before mv into scripts/.cache/osv-scanner."""
+        src = _read(os.path.join(ROOT, "scripts", "check-all.sh"))
+        ver = re.search(r'^OSV_VER="([^"]+)"', src, flags=re.MULTILINE)
+        sha = re.search(r'^OSV_SHA256="([^"]+)"', src, flags=re.MULTILINE)
+        self.assertTrue(ver and sha)
+        start = src.index("ensure_osv_scanner() {")
+        end = src.index('\nif [ "$SKIP_OSV"', start)
+        fn = src[start:end]
+        body = fn[fn.index("{") + 1 :].rstrip().removesuffix("}")
+        idx_if = body.rfind("if ! echo")
+        idx_sum = body.rfind("sha256sum -c -")
+        idx_mv = body.find('mv "$OSV_CACHE/osv-scanner.download"')
+        self.assertGreater(idx_if, -1)
+        self.assertGreater(idx_sum, idx_if)
+        self.assertGreater(idx_mv, idx_sum)
+        between = body[idx_if:idx_mv]
+        self.assertIn("return 1", between)
+        self.assertRegex(between, r"if !")
+
+        with tempfile.TemporaryDirectory() as td:
+            cache = Path(td) / "cache"
+            bindir = Path(td) / "bin"
+            cache.mkdir()
+            bindir.mkdir()
+            curl = bindir / "curl"
+            curl.write_text(
+                "#!/bin/sh\n"
+                "out=\n"
+                "while [ $# -gt 0 ]; do\n"
+                '  if [ "$1" = "-o" ]; then shift; out=$1; fi\n'
+                "  shift\n"
+                "done\n"
+                'printf "tampered-not-osv\\n" > "$out"\n',
+                encoding="utf-8",
+            )
+            curl.chmod(0o755)
+            # Must shadow a real /usr/bin/osv-scanner so we actually hit curl+sha256.
+            fake_osv = bindir / "osv-scanner"
+            fake_osv.write_text(
+                '#!/bin/sh\necho "osv-scanner version: 0.0.0-not-pinned"\n',
+                encoding="utf-8",
+            )
+            fake_osv.chmod(0o755)
+            wrapper = Path(td) / "run.sh"
+            wrapper.write_text(
+                "#!/usr/bin/env bash\n"
+                "set -uo pipefail\n"
+                f"OSV_VER={ver.group(1)!r}\n"
+                f"OSV_SHA256={sha.group(1)!r}\n"
+                f"OSV_CACHE={str(cache)!r}\n"
+                "ensure_osv_scanner() {\n"
+                f"{body}\n"
+                "}\n"
+                "ensure_osv_scanner\n"
+                "exit $?\n",
+                encoding="utf-8",
+            )
+            env = os.environ.copy()
+            env["PATH"] = f"{bindir}{os.pathsep}/usr/bin{os.pathsep}/bin"
+            proc = subprocess.run(
+                ["bash", str(wrapper)],
+                cwd=td,
+                env=env,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertNotEqual(proc.returncode, 0, proc.stderr)
+            self.assertFalse((cache / "osv-scanner").exists())
+            self.assertFalse((cache / "osv-scanner").is_file())
+
+    def test_pages_deploy_rejects_unpinned_upload_pages_artifact_v3(self):
+        """Keep Pages SHA-pin regression next to the concurrency test above."""
+        wf = _read(os.path.join(ROOT, ".github", "workflows", "pages-deploy.yml"))
         # Transitive pin: v3.0.1 composite used upload-artifact@v4 (org policy fail).
         self.assertNotIn(
             "56afc609e74202658d3ffba0e8f6dda462b719fa",

@@ -42,6 +42,36 @@ jobs:
       - run: pip install ruff
       - run: ruff check tests/
 
+  osv-scanner:
+    # maestro#14 / data-boar-site#91: dependency vulns (osv-scanner or trivy) on every repo.
+    # Binary pin + sha256 copied from keen-platypus security.yml job osv-scanner (v2.6.0).
+    # Default branch confirmed: main.
+    # Checkout SHA matches the other jobs in this file (and KP production), not the
+    # drifted actions/checkout@v6 pin that landed in the 2026-09-16 issue comment.
+    # Site has no lockfiles today: `scan source -r .` exits 128 ("No package sources
+    # found"). --allow-no-lockfiles makes that OK; when a manifest appears, scan runs.
+    name: OSV dependency scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Download and verify osv-scanner
+        run: |
+          set -euo pipefail
+          VER="2.6.0"
+          BIN="osv-scanner_linux_amd64"
+          EXPECTED_SHA256="ca69b3d3cd08f889a49dc0a383122f71cc528b83803671df5fd874d97485b108"
+          BASE="https://github.com/google/osv-scanner/releases/download/v${VER}"
+          curl -sSfL "${BASE}/${BIN}" -o osv-scanner
+          echo "${EXPECTED_SHA256}  osv-scanner" | sha256sum -c -
+          chmod +x ./osv-scanner
+
+      - name: Scan dependency manifests
+        run: ./osv-scanner scan source -r . --allow-no-lockfiles
+
 # CodeQL (JavaScript/TypeScript) is enabled via GitHub's managed **default setup**
 # (Settings → Code security), NOT a committed workflow — no Action SHA to verify/maintain.
 # Free on this public repo. See docs/adr/ADR-0001.
