@@ -94,15 +94,13 @@ class AntiRegression(unittest.TestCase):
     def test_ensure_osv_scanner_does_not_promote_binary_on_bad_sha256(self):
         """PR #94: checksum fail must return 1 before mv into scripts/.cache/osv-scanner."""
         src = _read(os.path.join(ROOT, "scripts", "check-all.sh"))
-        ver = re.search(r'^OSV_VER="([^"]+)"', src, flags=re.M)
-        sha = re.search(r'^OSV_SHA256="([^"]+)"', src, flags=re.M)
+        ver = re.search(r'^OSV_VER="([^"]+)"', src, flags=re.MULTILINE)
+        sha = re.search(r'^OSV_SHA256="([^"]+)"', src, flags=re.MULTILINE)
         self.assertTrue(ver and sha)
         start = src.index("ensure_osv_scanner() {")
         end = src.index('\nif [ "$SKIP_OSV"', start)
         fn = src[start:end]
-        body = fn[fn.index("{") + 1 :].rstrip()
-        if body.endswith("}"):
-            body = body[:-1]
+        body = fn[fn.index("{") + 1 :].rstrip().removesuffix("}")
         idx_if = body.rfind("if ! echo")
         idx_sum = body.rfind("sha256sum -c -")
         idx_mv = body.find('mv "$OSV_CACHE/osv-scanner.download"')
