@@ -96,14 +96,25 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--repo", default=DEFAULT_REPO)
     ap.add_argument("--tag", default=DEFAULT_TAG)
+    ap.add_argument("--tags", nargs="*", default=None,
+                    help="Multiple tags to merge (mutually exclusive with --tag)")
     ap.add_argument("--out", default="simple")
     args = ap.parse_args()
 
-    assets = fetch_assets(args.repo, args.tag)
-    wheels = [a for a in assets if a["name"].endswith(".whl")]
-    if not wheels:
-        print(f"error: no .whl assets on {args.repo}@{args.tag}", file=sys.stderr)
+    tags = args.tags if args.tags else [args.tag]
+    all_wheels = []
+    for tag in tags:
+        assets = fetch_assets(args.repo, tag)
+        wheels = [a for a in assets if a["name"].endswith(".whl")]
+        if not wheels:
+            print(f"error: no .whl assets on {args.repo}@{tag}", file=sys.stderr)
+            return 1
+        all_wheels.extend(wheels)
+
+    if not all_wheels:
+        print("error: no .whl assets found in any tag", file=sys.stderr)
         return 1
+    wheels = all_wheels
 
     # Group by normalized project name. In a wheel filename the distribution is
     # the first '-'-separated field (PEP 427: internal '-' become '_'), so
