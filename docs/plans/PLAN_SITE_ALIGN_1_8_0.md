@@ -53,7 +53,7 @@ Platform wording rule for any touched copy: **only Linux is supported**; Haiku/B
 
 ## Decisions pending (HITL)
 
-- **D1 — DECIDED (a), generic wording:**  naming one language is inaccurate (HITL: there are several sidecars) and has no public source (0 `.clj` in the public tree). Options: (a) generic wording backed by the code above, e.g. "emits a metadata manifest (no raw values) for external sidecar modules, which are separate from the open-core", naming no language, component or count — **recommended**; (b) remove the mention; (c) keep a specific claim only with a verifiable public reference. Whatever is chosen, no sidecar is described as part of the open-core scanner unless the public docs say so.
+- **D1 — DECIDED (a), generic wording. REVISED 2026-11-11 by the HITL: the original Clojure sidecar mention was restored on `index.html`, `solucao.html` and `opensource.html`.** Original discussion:  naming one language is inaccurate (HITL: there are several sidecars) and has no public source (0 `.clj` in the public tree). Options: (a) generic wording backed by the code above, e.g. "emits a metadata manifest (no raw values) for external sidecar modules, which are separate from the open-core", naming no language, component or count — **recommended**; (b) remove the mention; (c) keep a specific claim only with a verifiable public reference. Whatever is chosen, no sidecar is described as part of the open-core scanner unless the public docs say so.
 - **D2 — DECIDED:** one epic PR (`Closes #96`).
 - **D3 — DECIDED:** P2 goes in the same PR as P1 and P3.
 
