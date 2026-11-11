@@ -116,7 +116,12 @@
       <div class="diff-card">
         <div class="diff-icon c3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
         <h3>Integridade verificada, não presumida</h3>
-        <p>Antes de confiar num artefato — um pacote publicado, um binário, a própria ferramenta de build — a integridade dele é conferida primeiro: hash e assinatura, não confiança implícita. É o mesmo princípio por trás do digest de build e do manifesto assinado que publicamos em cada release: <a href="https://github.com/DataBoar/data-boar/blob/main/docs/RELEASE_INTEGRITY.md" rel="noopener noreferrer" target="_blank">docs/RELEASE_INTEGRITY.md</a>.</p>
+        <p>Antes de confiar num artefato — um pacote publicado, um binário, a própria ferramenta de build — a integridade dele é conferida primeiro: hash e assinatura, não confiança implícita. É o mesmo princípio por trás do digest de build e dos SBOMs (CycloneDX) que publicamos em cada release: <a href="https://github.com/DataBoar/data-boar/blob/main/docs/RELEASE_INTEGRITY.md" rel="noopener noreferrer" target="_blank">docs/RELEASE_INTEGRITY.md</a>.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M10.8 12.2L20 3M16 7l3 3"/></svg></div>
+        <h3>Endurecimento da 1.8.0, com fonte pública</h3>
+        <p>Mudanças de segurança da versão 1.8.0 que você confere nas notas da release: licença com assinatura <b>híbrida</b> (Ed25519 + ML-DSA-65), exigida no modo enforced; <code>GET /health</code> reduzido ao mínimo; bloqueio com <b>429</b> após 5 falhas de chave de API em 60 s, registradas na trilha de auditoria sem a chave; e cookie de sessão de 12 h com <code>SameSite=Strict</code>. Notas: <a href="https://github.com/DataBoar/data-boar/releases/tag/v1.8.0" rel="noopener noreferrer" target="_blank">release v1.8.0</a>.</p>
       </div>
       <div class="diff-card">
         <div class="diff-icon c4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M7 13h4M7 16h7"/></svg></div>
@@ -191,7 +196,12 @@
       <div class="diff-card">
         <div class="diff-icon c3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
         <h3>Integrity verified, not assumed</h3>
-        <p>Before trusting an artifact — a published package, a binary, the build tooling itself — its integrity is checked first: hash and signature, not implicit trust. Same principle behind the build digest and the signed manifest we publish with every release: <a href="https://github.com/DataBoar/data-boar/blob/main/docs/RELEASE_INTEGRITY.md" rel="noopener noreferrer" target="_blank">docs/RELEASE_INTEGRITY.md</a>.</p>
+        <p>Before trusting an artifact — a published package, a binary, the build tooling itself — its integrity is checked first: hash and signature, not implicit trust. Same principle behind the build digest and the SBOMs (CycloneDX) we publish with every release: <a href="https://github.com/DataBoar/data-boar/blob/main/docs/RELEASE_INTEGRITY.md" rel="noopener noreferrer" target="_blank">docs/RELEASE_INTEGRITY.md</a>.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M10.8 12.2L20 3M16 7l3 3"/></svg></div>
+        <h3>1.8.0 hardening, with a public source</h3>
+        <p>Security changes in version 1.8.0 you can check in the release notes: a <b>hybrid</b> license signature (Ed25519 + ML-DSA-65), required in enforced mode; <code>GET /health</code> reduced to the minimum; a <b>429</b> block after 5 failed API-key attempts in 60 s, recorded in the audit trail without the key; and a 12 h session cookie with <code>SameSite=Strict</code>. Notes: <a href="https://github.com/DataBoar/data-boar/releases/tag/v1.8.0" rel="noopener noreferrer" target="_blank">release v1.8.0</a>.</p>
       </div>
       <div class="diff-card">
         <div class="diff-icon c4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M7 13h4M7 16h7"/></svg></div>

@@ -5,6 +5,8 @@
 
 ## Aberto
 
+- [PLAN_SITE_ALIGN_1_8_0.md](PLAN_SITE_ALIGN_1_8_0.md) — alinhar o copy do site ao data-boar 1.8.0 GA (flag do Windows, claims, novidades; sem claim de plataforma sem evidência); issue [#96](https://github.com/DataBoar/data-boar-site/issues/96). Proposed — aguarda D1–D3 do HITL.
+
 ## Em andamento
 
 ## Concluído → mover o PLAN_*.md pra `completed/`
