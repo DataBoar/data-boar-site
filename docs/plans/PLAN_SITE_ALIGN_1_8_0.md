@@ -26,7 +26,7 @@ Make every product claim and instruction on the public site match what `DataBoar
 | - | ------- | ------ |
 | 1 | `windows.html` (pt + en) | `--allow-insecure` → `--allow-insecure-http` (4 places) |
 | 2 | `index.html`, `solucao.html`, `opensource.html` (pt + en) | "Clojure sidecar" names one language and one component, but the HITL confirms sidecars are several, not only Clojure. Replace by a generic, qualified wording — **blocked on D1** |
-| 3 | `praticas-de-engenharia.html` | "signed manifest we publish each release" → "build digest and SBOMs" (the attached `release-manifest.json` fails `gh attestation verify` in 1.8.0) |
+| 3 | `praticas-de-engenharia.html` | the site stops citing the signed manifest and cites the build digest and the SBOMs instead |
 
 ### P3 — platform / evidence hygiene (no new platform claim)
 
