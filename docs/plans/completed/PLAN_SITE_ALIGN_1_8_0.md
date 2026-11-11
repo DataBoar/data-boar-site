@@ -1,6 +1,6 @@
 # Site — align public copy with data-boar 1.8.0 GA
 
-**Status:** In progress (D1–D3 decided by the HITL 2026-11-10)
+**Status:** Done (shipped on `main` via #99 and #100, 2026-11-11)
 **Date:** 2026-11-10
 **Authors:** Fabio Leitao (HITL); drafted with Claude (toolkit)
 **Priority:** P2
@@ -25,7 +25,7 @@ Make every product claim and instruction on the public site match what `DataBoar
 | # | File(s) | Change |
 | - | ------- | ------ |
 | 1 | `windows.html` (pt + en) | `--allow-insecure` → `--allow-insecure-http` (4 places) |
-| 2 | `index.html`, `solucao.html`, `opensource.html` (pt + en) | "Clojure sidecar" names one language and one component, but the HITL confirms sidecars are several, not only Clojure. Replace by a generic, qualified wording — **blocked on D1** |
+| 2 | `index.html`, `solucao.html`, `opensource.html` (pt + en) | Sidecar mention: the HITL ordered the original Clojure wording kept (restored via #100); `opensource.html` also carries the generic, code-backed sentence about the metadata manifest for external sidecar modules |
 | 3 | `praticas-de-engenharia.html` | the site stops citing the signed manifest and cites the build digest and the SBOMs instead |
 
 ### P3 — platform / evidence hygiene (no new platform claim)
@@ -65,9 +65,9 @@ Platform wording rule for any touched copy: **only Linux is supported**; Haiku/B
 
 ## Acceptance criteria
 
-- [ ] No `--allow-insecure` without `-http` in `*.html`.
-- [ ] D1 applied consistently in pt and en on all three pages.
-- [ ] No sentence implies support beyond Linux; no Homebrew mention.
-- [ ] `praticas-de-engenharia.html` no longer claims a signed release manifest.
-- [ ] Anti-overclaim tests and `scripts/check-all.sh` green.
-- [ ] `PLANS_TODO.md` updated; plan moved to `completed/` when #96 closes.
+- [x] No `--allow-insecure` without `-http` in `*.html`.
+- [x] D1 applied consistently in pt and en on all three pages.
+- [x] No sentence implies support beyond Linux; no Homebrew mention.
+- [x] `praticas-de-engenharia.html` no longer claims a signed release manifest.
+- [x] Anti-overclaim tests and `scripts/check-all.sh` green.
+- [x] `PLANS_TODO.md` updated; plan moved to `completed/` when #96 closes.
