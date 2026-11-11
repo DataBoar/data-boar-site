@@ -46,7 +46,7 @@ Platform wording rule for any touched copy: **only Linux is supported**; Haiku/B
 
 ### Out of scope
 
-- Wheelhouse version refresh (item 9) — next wheelhouse round, separate PR.
+- Wheelhouse version refresh (item 9) — **dependency: [DataBoar/data-boar#2218](https://github.com/DataBoar/data-boar/issues/2218)** (open). The hosted wheelhouse lags the 1.8.0 `requirements.txt` (numpy 2.5.1 on the Release vs 2.5.4 pinned; the full delta is still to be measured there). `simple/` is generated from Release assets, so it is **not** edited until the new Release exists; then regenerate with `scripts/build-wheelhouse-index.py --tag <new-tag>`, in a separate PR.
 - Naming non-public apps/integrations (site must stay clean of private satellites, partners, clients, prices).
 - Any 1.7.4 vs 1.8.0 performance statement (not measured). Only citable figure remains the isolated Rust filter **4.69x**.
 - Item 10 ("current version" badge): static text only if the HITL wants it; no external badge hosts without an ADR-0001 allowlist entry.
