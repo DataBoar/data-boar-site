@@ -5,6 +5,8 @@ Release: <https://github.com/DataBoar/data-boar-site/releases/tag/wheelhouse-x86
 
 The downloadable **`README.md`** on that release is bilingual and is the user-facing install
 guide. This page keeps the **in-repo** inventory aligned with what the tag actually contains.
+The Haiku, FreeBSD, NetBSD and OpenBSD lab wheelhouses are inventoried in
+[`WHEELHOUSE_BSD_HAIKU.md`](WHEELHOUSE_BSD_HAIKU.md).
 
 ---
 

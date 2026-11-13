@@ -190,6 +190,21 @@ class AntiRegression(unittest.TestCase):
         )
         self.assertIn("dependency confusion", src.lower())
 
+    def test_wheelhouse_install_pages_use_exclusive_index_url(self):
+        """#69 applies to the per-OS install notes too, not only to the script."""
+        for rel in ("opensource.html", os.path.join("docs", "WHEELHOUSE_BSD_HAIKU.md")):
+            txt = _read(os.path.join(ROOT, rel))
+            self.assertNotRegex(
+                txt,
+                r"pip\s+install\s+[^\n]*--extra-index-url",
+                f"{rel}: install examples must not use --extra-index-url",
+            )
+            self.assertRegex(
+                txt,
+                r"pip\s+install\s+--index-url\s+https://databoar\.com\.br/simple/",
+                f"{rel}: expected the exclusive --index-url install example",
+            )
+
     def test_bilingual_panels_present(self):
         for name, txt in _html().items():
             if name in ("privacidade.html", "opensource.html", "login.html",

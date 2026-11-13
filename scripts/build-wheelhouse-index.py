@@ -60,6 +60,26 @@ def fetch_assets(repo: str, tag: str) -> list[dict]:
     return json.loads(out)
 
 
+def dedupe_by_filename(wheels: list[dict]) -> tuple[list[dict], list[str]]:
+    """Keep one link per wheel filename (PEP 503: a project page must not list the
+    same filename twice). Pure-Python wheels such as ``odfpy`` are built once per
+    platform release, so the same filename can carry different digests. The first
+    tag passed on the command line wins; a differing digest is reported, never
+    silently merged.
+    """
+    seen: dict[str, dict] = {}
+    notes: list[str] = []
+    for w in wheels:
+        prev = seen.get(w["name"])
+        if prev is None:
+            seen[w["name"]] = w
+        elif prev.get("digest") != w.get("digest"):
+            notes.append(
+                f"duplicate filename with a different digest, kept the first: {w['name']}"
+            )
+    return list(seen.values()), notes
+
+
 def html_escape(s: str) -> str:
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
@@ -114,7 +134,9 @@ def main() -> int:
     if not all_wheels:
         print("error: no .whl assets found in any tag", file=sys.stderr)
         return 1
-    wheels = all_wheels
+    wheels, dup_notes = dedupe_by_filename(all_wheels)
+    for note in dup_notes:
+        print(f"warning: {note}", file=sys.stderr)
 
     # Group by normalized project name. In a wheel filename the distribution is
     # the first '-'-separated field (PEP 427: internal '-' become '_'), so

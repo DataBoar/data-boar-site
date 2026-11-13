@@ -21,5 +21,8 @@ Pausa: não
 | "Só Linux é suportado" em `solucao.html` e `faq.html` (visível e JSON-LD) | Fala de nível de suporte, não de onde roda. Manter ou trocar por "suporte oficial: Linux; validado em laboratório (VM): …" |
 | "SaaS nosso" em `opensource.html` | Está no roadmap, em construção. Manter ou escrever "em construção" |
 | Regra do Cursor `execution-priority-and-pr-batching.mdc` | Commit assinado local, nunca publicado. Publicar por PR ou descartar |
+| Wheels do Haiku fora do GitHub Release | O GitHub troca `~` por `.` no nome do asset e o pip do Haiku não acha a tag (#104, tarefa 4.6). Hospedar no Pages (~71 MB no repo) ou manter o passo manual documentado |
+
+Registro: em 13/nov/2026 o operador mandou o PM criar a Release `wheelhouse-haiku-2026-11-04` (exceção pontual à regra de que o upload de Release é do operador). A Release antiga `wheelhouse-haiko-2026-11-04` só sai depois de a PR mesclar.
 
 Ver o plano de gestão em [plano.md](plano.md).
