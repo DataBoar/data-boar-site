@@ -1,0 +1,3 @@
+- [Estado do wheelhouse e do plano](project_wheelhouse_state.md) — #104 mesclada, haiko removida, pendências 4.7/2/3 e decisão do Haiku
+- [Regras de trabalho do operador](feedback_site_workflow.md) — PR pronta + vai, main só por PR, index-url exclusivo, sem trailers
+- [Armadilhas de infra](reference_infra_gotchas.md) — Cloudflare 403 no urllib, `~` vira `.`, issue de registro #103
