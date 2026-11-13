@@ -99,8 +99,10 @@ resolved with the Haiku tag). Installing on the real VMs was **not** repeated in
   [`ops/WHEELHOUSE_REFRESH_2026-11.md`](ops/WHEELHOUSE_REFRESH_2026-11.md).
 - **scikit-learn `cp314t` musllinux:** upstream publishes no such wheel and the automatic recipe
   does not cover the free-threaded interpreter.
-- **Release `wheelhouse-haiko-2026-11-04`** (typo in the tag) stays until the corrected index is
-  live, then is removed.
+- **Haiku wheels stay on the GitHub Release** (operator decision, 2026-11-13): no wheel is hosted
+  on Pages, so the manual download-rename-verify step above stays. The Release
+  `wheelhouse-haiko-2026-11-04` (typo in the tag) was removed on 2026-11-13, after the live index
+  pointed only to `wheelhouse-haiku-2026-11-04` and its 23 links returned 200 with matching hashes.
 
 ---
 
@@ -174,5 +176,8 @@ nesta tarefa.
   [`ops/WHEELHOUSE_REFRESH_2026-11.md`](ops/WHEELHOUSE_REFRESH_2026-11.md).
 - **scikit-learn `cp314t` musllinux:** o upstream não publica esse wheel e a receita automática
   não cobre o interpretador free-threaded.
-- **Release `wheelhouse-haiko-2026-11-04`** (typo na tag) fica até o índice corrigido estar no ar
-  e depois é removida.
+- **Os wheels do Haiku ficam na Release do GitHub** (decisão do operador, 13/nov/2026): nenhum
+  wheel é hospedado no Pages, então o passo manual de baixar, renomear e conferir o hash segue
+  valendo. A Release `wheelhouse-haiko-2026-11-04` (typo na tag) foi removida em 13/nov/2026,
+  depois de o índice no ar apontar só para `wheelhouse-haiku-2026-11-04` e os 23 links
+  responderem 200 com os hashes conferidos.
