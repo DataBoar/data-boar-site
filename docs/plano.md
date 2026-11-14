@@ -10,6 +10,7 @@ Site público https://databoar.com.br (GitHub Pages): site comercial, `images/` 
 | 2 | Refresh do wheelhouse x86-64-v1 para os pins do 1.8.0 (numpy 2.5.4 e demais) | [data-boar#2218](https://github.com/DataBoar/data-boar/issues/2218), PR própria (a abrir quando as células existirem) | Em andamento (wheels perdidos no reboot de 11/nov; recompilação); ver [ops/WHEELHOUSE_REFRESH_2026-11.md](ops/WHEELHOUSE_REFRESH_2026-11.md) |
 | 3 | Regra de leitura completa de thread no `AGENTS.md` | [#95](https://github.com/DataBoar/data-boar-site/issues/95) | Aberto |
 | 4 | Wheelhouses de laboratório Haiku, FreeBSD, NetBSD e OpenBSD no `simple/`, com instalação por SO | [#104](https://github.com/DataBoar/data-boar-site/issues/104), PR #101 (mesclada em 13/nov) | Concluído, exceto a 4.7 (illumos); inventário em [WHEELHOUSE_BSD_HAIKU.md](WHEELHOUSE_BSD_HAIKU.md) |
+| 5 | Bestiais no site (Sage Remora, Faithful Ferret, Stealthy Stoat, Keen Platypus): o que faz hoje × o que vem, pt/en, só o que a doc dos repos prova | [#106](https://github.com/DataBoar/data-boar-site/issues/106), PR única | Em revisão do operador; prazo seg. 16/nov 14h |
 
 ## Tarefas do entregável 2
 
@@ -36,5 +37,15 @@ Site público https://databoar.com.br (GitHub Pages): site comercial, `images/` 
 
 ## Fora do escopo
 
-- Citar satélites privados, parceiros, clientes, preços ou planos comerciais.
+- Citar satélites privados, parceiros, clientes, preços ou planos comerciais. Exceção por ordem do operador (14/nov/2026): os quatro bestiais do entregável 5, sem link para os repos privados e sem detalhe interno.
 - Qualquer número de desempenho 1.7.4 contra 1.8.0 (não medido). O único número citável é o do filtro Rust isolado (4,69×).
+
+## Tarefas do entregável 5
+
+| ID | Tarefa | Dono | Status |
+| --- | --- | --- | --- |
+| 5.1 | Conferir cada afirmação no `origin/main` dos 4 repos (nada de memória); o que não tem prova vai para a lista "sem prova" | PM | Feito (14/nov) |
+| 5.2 | Seção "Os bestiais" em `opensource.html` (pt/en) e ponteiro em `index.html` e `solucao.html` | PM | Feito (local) |
+| 5.3 | Guardrail `BestiaryCopy`: sem link para repo privado, sem termo interno ou jurídico, com rótulo de simulado/sintético | PM | Feito (local) |
+| 5.4 | `check-all` 0 no SHA exato, diff ao operador, "vai" e PR única | PM / Operador | Aguarda o "vai" |
+| 5.5 | Decidir os itens da lista "sem prova" (o que entra depois da conferência do dono de cada repo) | Operador | Pendente |

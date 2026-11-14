@@ -10,7 +10,7 @@ Pausa: não
 - **Só o operador mescla** (`gh pr merge <n> --merge`, nunca squash). Agentes abrem a PR e entregam o veredito.
 - **Mostrar o escopo antes de abrir a PR**; uma PR epic por tema, com `Closes #N` só quando a PR realmente fecha a issue.
 - **Commits assinados (SSH)**, sem `Co-Authored-By` nem trailer de sessão de ferramenta; PR-only para o `main`; `scripts/check-all.sh` verde antes de abrir PR (doutrina em `AGENTS.md` e `docs/adr/ADR-0001`).
-- **Honestidade comercial**: evidência, não conclusão jurídica; nenhuma capacidade ou plataforma afirmada sem evidência pública; o site é público (sem nomes de satélites privados, parceiros, clientes, preços ou planos comerciais).
+- **Honestidade comercial**: evidência, não conclusão jurídica; nenhuma capacidade ou plataforma afirmada sem evidência pública; o site é público (sem nomes de satélites privados, parceiros, clientes, preços ou planos comerciais). **Exceção por ordem do operador (14/nov/2026): os bestiais Sage Remora, Faithful Ferret, Stealthy Stoat e Keen Platypus podem ser nomeados, só com o que a documentação dos repos prova, sem link para os repos (privados), sem detalhe interno, sem nome de parceiro e sem texto jurídico; o que é simulado ou de demonstração vem rotulado.**
 - **Nunca rascunho**, em PR nem em issue (ordem do operador, 12/nov/2026): a PR só abre pronta, com `check-all` de saída 0 no SHA exato e o "vai" do operador; trabalho em andamento fica em commit local.
 - **Custo de CI**: cada PR reroda o pipeline inteiro; agrupar o trabalho de um tema numa PR só.
 - **Implantação**: o site publica pelo GitHub Pages ao mesclar no `main`; a publicação de Releases de wheels (upload de assets) é ato do operador.
