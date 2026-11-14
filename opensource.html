@@ -246,6 +246,46 @@
   </div>
 </section>
 
+<section class="diff-section" id="bestiais">
+  <div class="wrap">
+    <div class="section-head center">
+      <h2>Os bestiais: <span class="accent">o que faz hoje × o que vem</span></h2>
+      <p>Ferramentas irmãs do Data Boar, cada uma com um escopo. Aqui está o que o código e a documentação já provam — e o que ainda é plano. Nenhuma tem versão publicada; o que é simulado ou de demonstração vem rotulado.</p>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3>Sage Remora (Sage)</h3>
+        <p><b>Hoje:</b> lê só o manifesto de achados do Boar — metadado, nunca o valor. Infere risco de reidentificação (identificadores indiretos, cruzamento entre tabelas), decide política (o que tokenizar, quem pode ver o quê) e pede confirmação quando precisa de mais evidência. Recusa manifesto que traga valor cru e não executa nada sobre o conteúdo. Cada decisão traz a justificativa que a sustenta.</p>
+        <p><b>Rótulo:</b> as regras atuais são conteúdo ilustrativo de prova de conceito, não um conjunto de regras validado.</p>
+        <p><b>Vem:</b> memória do que já foi decidido ao longo do tempo (planejado; hoje cada execução lê um manifesto e responde).</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3>Faithful Ferret (Ferret)</h3>
+        <p><b>Hoje:</b> só entra com autorização explícita (grant) por despacho, limitada às colunas autorizadas; sem grant, não roda. Mede, sobre as linhas que recebeu, quão únicos são os registros (k-anonimato) e devolve a medição como evidência, com as limitações — não como veredito. Não se conecta a banco: recebe as linhas já entregues. É efêmera, registra o que fez e recusa uma saída que contenha o valor.</p>
+        <p><b>Rótulo:</b> exercitada hoje só com dados sintéticos, em modo de desenvolvimento; os limiares são de prova de conceito, não uma metodologia certificada.</p>
+        <p><b>Vem:</b> outras missões (hoje em rascunho), limite de tempo por despacho (ainda não aplicado), atestado de destruição assinado por quem despacha (hoje não assinado) e linhas alinhadas por registro direto do Boar (ainda só proposta).</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3>Stealthy Stoat (Stoat)</h3>
+        <p><b>Hoje:</b> troca o valor sensível por um token no lugar, sem exfiltrar. O degrau de software usa FF1 (NIST SP 800-38G) em Rust, verificado contra os vetores de amostra do NIST; não tem validação CAVP/FIPS e não é um HSM. Valores curtos demais para a cifra são recusados.</p>
+        <p><b>Rótulo:</b> roda como demonstração, só com valores sintéticos. O cliente de HSM tem transporte <b>simulado</b>: nunca foi testado contra um HSM real. TPM e KMS são só interfaces, ainda não ligadas.</p>
+        <p><b>Vem:</b> HSM real com vazão medida (hoje não há número medido) e validação CAVP/FIPS — planejado, sem data.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3>Keen Platypus (Platypus)</h3>
+        <p><b>Hoje:</b> assistente de DevSecOps local: reconhecimento autorizado e varredura de vulnerabilidades, revisão de código e da cadeia de suprimentos, e correlação de pentest só na fase 1 (reconhecimento e correlação — não é um pentest completo). A revisão de código tem um nível determinístico que fecha sem nenhuma chamada a modelo de linguagem; quando há um modelo, é o do próprio usuário, e um modelo sozinho nunca confirma um achado. É uma ferramenta à parte: o Data Boar segue sem LLM no caminho que decide o que é dado sensível.</p>
+        <p><b>Rótulo:</b> os testes automatizados do módulo de código usam dublês de scanner, e os limites estão declarados na documentação do projeto.</p>
+        <p><b>Vem:</b> confirmação de ataque ao vivo, ponte red → blue, exportação SARIF para ferramentas de GRC e integração com a Ferret (tudo planejado, nada disso existe hoje); reescrita poliglota em andamento, ainda incompleta.</p>
+      </div>
+    </div>
+    <p><b>Ordem no pipe:</b> Boar → Sage → Ferret; a Sage também alimenta o Stoat (<code>boar | sage &gt; stoat</code>). As saídas são evidência técnica para uma pessoa decidir, não um veredito. Os repositórios são privados.</p>
+  </div>
+</section>
+
 <section class="cta-banner-wrap">
   <div class="wrap">
     <div class="cta-bar">
@@ -443,6 +483,46 @@
         <p>Machine-readable output (JSON, Excel, evidence manifests), honest exit codes, config-driven. The boar plugs into your CI, your SIEM, your GRC — it doesn’t force you to live inside our UI.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="diff-section" id="beasts">
+  <div class="wrap">
+    <div class="section-head center">
+      <h2>The beasts: <span class="accent">what they do today × what's next</span></h2>
+      <p>Sister tools of Data Boar, one scope each. Here is what the code and docs already prove — and what is still a plan. None has a published release; anything simulated or demo-only is labeled.</p>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3>Sage Remora (Sage)</h3>
+        <p><b>Today:</b> reads only the Boar findings manifest — metadata, never the value. It infers re-identification risk (indirect identifiers, cross-table linkage), decides policy (what to tokenize, who may see what) and asks for confirmation when it needs more evidence. It refuses a manifest that carries a raw value and executes nothing on the content. Every decision carries the reasoning behind it.</p>
+        <p><b>Label:</b> the current rules are illustrative proof-of-concept content, not a validated ruleset.</p>
+        <p><b>Next:</b> a memory of what was decided over time (planned; today each run reads one manifest and answers).</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3>Faithful Ferret (Ferret)</h3>
+        <p><b>Today:</b> runs only with an explicit per-dispatch grant, limited to the authorized columns; no grant, no run. Over the rows it receives, it measures how unique the records are (k-anonymity) and returns the measurement as evidence, with its limitations — not as a verdict. It does not connect to a database: it receives rows already delivered. It is ephemeral, logs what it did and refuses an output that contains the value.</p>
+        <p><b>Label:</b> exercised so far only with synthetic data, in development mode; thresholds are proof-of-concept, not a certified methodology.</p>
+        <p><b>Next:</b> more missions (draft today), a time limit per dispatch (not enforced yet), a destruction attestation signed by the dispatcher (unsigned today) and record-aligned rows straight from the Boar (still a proposal).</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3>Stealthy Stoat (Stoat)</h3>
+        <p><b>Today:</b> swaps the sensitive value for a token in place, without exfiltrating it. The software rung uses FF1 (NIST SP 800-38G) in Rust, checked against the NIST sample vectors; it is not CAVP/FIPS validated and it is not an HSM. Values too short for the cipher are refused.</p>
+        <p><b>Label:</b> runs as a demo, with synthetic values only. The HSM client uses a <b>simulated</b> transport: it has never been tested against a real HSM. TPM and KMS are interfaces only, not wired yet.</p>
+        <p><b>Next:</b> a real HSM with measured throughput (there is no measured number today) and CAVP/FIPS validation — planned, no date.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3>Keen Platypus (Platypus)</h3>
+        <p><b>Today:</b> a local DevSecOps assistant: authorized recon and vulnerability scanning, code and supply-chain review, and pentest correlation in phase 1 only (recon and correlation — not a full pentest). Code review has a deterministic tier that closes with no call to a language model; when a model is used, it is the user's own, and a model alone never confirms a finding. It is a separate tool: Data Boar stays LLM-free on the path that decides what is sensitive data.</p>
+        <p><b>Label:</b> the code module's automated tests use scanner stand-ins, and the limits are declared in the project documentation.</p>
+        <p><b>Next:</b> live attack confirmation, a red → blue bridge, SARIF export to GRC tools and integration with the Ferret (all planned, none of it exists today); a polyglot rewrite is in progress and incomplete.</p>
+      </div>
+    </div>
+    <p><b>Order in the pipe:</b> Boar → Sage → Ferret; the Sage also feeds the Stoat (<code>boar | sage &gt; stoat</code>). Outputs are technical evidence for a person to decide on, not a verdict. The repositories are private.</p>
   </div>
 </section>
 

@@ -500,6 +500,65 @@ class SupplyChain(unittest.TestCase):
             )
 
 
+class BestiaryCopy(unittest.TestCase):
+    """Order of 2026-11-14: the beasts section says only what the repos' docs prove.
+
+    The source repos are private: no link to them, no internal detail, nothing simulated
+    presented as product, and no legal wording in this section.
+    """
+
+    SECTIONS: ClassVar[tuple[str, ...]] = ("bestiais", "beasts")
+    FORBIDDEN: ClassVar[list[str]] = [
+        r"github\.com/DataBoar/(faithful-ferret|sage-remora|stealthy-stoat|keen-platypus)",
+        r"ttl[_-]seconds",
+        r"\bL3\b",
+        r"futurex",
+        r"ADR-\d{4}",
+        r"\b(LGPD|RGPD|GDPR|DPO|encarregad|titular)\w*",
+        r"conclus(ão|ao)\s+jur(í|i)dica",
+        r"legal\s+(conclusion|ruling)",
+        r"CAVP[- ]validated\b",
+        r"FIPS[- ]140",
+    ]
+
+    def _sections(self):
+        txt = _read(os.path.join(ROOT, "opensource.html"))
+        out = []
+        for sid in self.SECTIONS:
+            m = re.search(
+                rf'<section class="diff-section" id="{sid}">(.*?)</section>', txt, re.DOTALL
+            )
+            self.assertIsNotNone(m, f"opensource.html: section #{sid} missing")
+            out.append((sid, m.group(1)))
+        return out
+
+    def test_beasts_section_has_no_internal_or_legal_detail(self):
+        for sid, body in self._sections():
+            for pat in self.FORBIDDEN:
+                m = re.search(pat, body, re.IGNORECASE)
+                self.assertIsNone(m, f"#{sid}: forbidden /{pat}/ -> {m.group(0) if m else ''}")
+
+    def test_beasts_section_labels_what_is_simulated(self):
+        for sid, body in self._sections():
+            low = body.lower()
+            self.assertTrue(
+                "simulad" in low or "simulated" in low, f"#{sid}: HSM must be labeled simulated"
+            )
+            self.assertTrue(
+                "sint" in low or "synthetic" in low, f"#{sid}: demo data must be labeled synthetic"
+            )
+            self.assertTrue(
+                "versão publicada" in low or "published release" in low,
+                f"#{sid}: must say no release is published",
+            )
+
+    def test_pointers_from_home_and_solution_reach_the_section(self):
+        for rel in ("index.html", "solucao.html"):
+            txt = _read(os.path.join(ROOT, rel))
+            self.assertIn('href="opensource.html#bestiais"', txt, rel)
+            self.assertIn('href="opensource.html#beasts"', txt, rel)
+
+
 class AntiOverclaim(unittest.TestCase):
     FORBIDDEN: ClassVar[list[str]] = [
         r"garante[m]?\s+(a\s+)?conformidade",
