@@ -28,4 +28,4 @@ Ver o plano de gestão em [plano.md](plano.md).
 
 ## Decisões já tomadas
 
-- **"Só Linux é suportado" saiu do site (14/nov/2026, ordem do operador):** o Windows tem caminho nativo por PyPI (`pipx install data-boar`, guia `windows.html`); só o MSI e o macOS estão em construção. O texto diz "instalação disponível" e não promete nível de suporte. A regra de redação do `PLAN_SITE_ALIGN_1_8_0.md` que dizia o contrário está superada.
+- **"Só Linux é suportado" saiu do site (14/nov/2026, ordem do operador):** o Windows tem caminho nativo por PyPI (`pipx install data-boar`, guia `windows.html`) e o macOS instala pelo PyPI; só o MSI está em construção. Evidência no CI do `data-boar`: job `test-windows` (suíte completa em `windows-latest` + smoke de `pip install`) e `homebrew-tap.yml` (instala e testa em `macos-15`; o CI não roda a suíte completa em macOS). O texto diz "instalação validada no CI" e não promete nível de suporte; Homebrew segue fora do site enquanto o data-boar#2156 estiver aberto. A regra de redação do `PLAN_SITE_ALIGN_1_8_0.md` que dizia o contrário está superada.
