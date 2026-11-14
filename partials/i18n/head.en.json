@@ -274,7 +274,7 @@
             "name": "What are the ways to install DataBoar?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "From PyPI: pip, pipx, or uvx data-boar --demo (a demo on synthetic data). There is also a Docker Hub image and native packages (deb, rpm, apk, pacman) attached to every release. Only Linux is supported today; the native Windows (MSI) and macOS paths are in progress."
+              "text": "From PyPI: pip, pipx, or uvx data-boar --demo (a demo on synthetic data); on Windows, the Windows without Docker guide walks through the pipx steps. There is also a Docker Hub image and native packages (deb, rpm, apk, pacman) attached to every release. The MSI installer for Windows and the macOS path are in progress."
             }
           },
           {
