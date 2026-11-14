@@ -22,6 +22,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from html.parser import HTMLParser
 from pathlib import Path
 from typing import ClassVar
 
@@ -557,6 +558,134 @@ class BestiaryCopy(unittest.TestCase):
             txt = _read(os.path.join(ROOT, rel))
             self.assertIn('href="opensource.html#bestiais"', txt, rel)
             self.assertIn('href="opensource.html#beasts"', txt, rel)
+
+
+_VOID = frozenset({"br", "img", "input", "meta", "link", "hr", "source", "col", "area",
+                   "base", "embed", "track", "wbr"})
+_SKIP = frozenset({"script", "style", "svg", "noscript", "head"})
+_CHROME = frozenset({"header", "footer", "nav"})
+
+
+class _PanelScan(HTMLParser):
+    """Collects the PT/EN language panels of a page and the visible text outside them."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.stack = []     # (tag, lang, element id)
+        self.records = []   # one dict per language panel, in document order
+        self.loose = []     # visible content text that sits outside every panel
+        self._open = []     # (stack depth, record) of the panels still open
+        self._seq = 0
+
+    def handle_starttag(self, tag, attrs):
+        if tag in _VOID:
+            return
+        lang = dict(attrs).get("data-lang-panel")
+        parent = self.stack[-1][2] if self.stack else 0
+        self._seq += 1
+        self.stack.append((tag, lang, self._seq))
+        if lang:
+            rec = {"lang": lang, "tag": tag, "parent": parent, "words": []}
+            self.records.append(rec)
+            self._open.append((len(self.stack), rec))
+
+    def handle_endtag(self, tag):
+        if tag in _VOID or tag not in [s[0] for s in self.stack]:
+            return
+        while self.stack:
+            depth = len(self.stack)
+            popped = self.stack.pop()
+            if self._open and self._open[-1][0] == depth:
+                self._open.pop()
+            if popped[0] == tag:
+                break
+
+    def handle_data(self, data):
+        words = data.split()
+        if not words:
+            return
+        tags = [s[0] for s in self.stack]
+        if any(tag in _SKIP for tag in tags):
+            return
+        if self._open:
+            for _, rec in self._open:
+                rec["words"].extend(words)
+            return
+        if any(tag in _CHROME for tag in tags):
+            return
+        if re.search(r"[^\W\d_]", data):  # ignore separators and punctuation
+            self.loose.append(" ".join(words))
+
+
+def _scan_panels(txt):
+    scan = _PanelScan()
+    scan.feed(txt)
+    return scan
+
+
+def _parity_problems(name, txt):
+    """Every way a page can leave one language without its counterpart."""
+    scan = _scan_panels(txt)
+    problems = [
+        f"{name}: texto de conteudo fora de painel de idioma: {text[:70]!r}"
+        for text in scan.loose
+    ]
+    by_parent = {}
+    for rec in scan.records:
+        by_parent.setdefault(rec["parent"], []).append(rec)
+    total_pt = total_en = 0
+    for recs in by_parent.values():
+        for i, rec in enumerate(recs):
+            sample = " ".join(rec["words"][:6])
+            if rec["lang"] not in ("pt-BR", "en"):
+                problems.append(f"{name}: idioma de painel desconhecido {rec['lang']!r}")
+            elif rec["lang"] == "pt-BR":
+                twin = recs[i + 1] if i + 1 < len(recs) else None
+                if twin is None or twin["lang"] != "en" or twin["tag"] != rec["tag"]:
+                    problems.append(f"{name}: painel PT sem irmao EN logo apos: {sample!r}")
+                    continue
+                if not twin["words"]:
+                    problems.append(f"{name}: painel EN vazio para o PT {sample!r}")
+                    continue
+                total_pt += len(rec["words"])
+                total_en += len(twin["words"])
+                if len(rec["words"]) >= 15:
+                    ratio = len(twin["words"]) / len(rec["words"])
+                    if not 0.6 <= ratio <= 1.5:
+                        problems.append(
+                            f"{name}: razao de palavras EN/PT {ratio:.2f} fora de 0,6-1,5: {sample!r}"
+                        )
+            elif i == 0 or recs[i - 1]["lang"] != "pt-BR":
+                problems.append(f"{name}: painel EN sem PT antes: {sample!r}")
+    if total_pt and not 0.6 <= total_en / total_pt <= 1.5:
+        problems.append(f"{name}: razao de palavras da pagina {total_en / total_pt:.2f} fora de 0,6-1,5")
+    return problems
+
+
+class BilingualParity(unittest.TestCase):
+    """Every PT content block has a non-empty EN twin (text, not only nav). Faithful
+    translation is a human review; this gate only blocks a page that leaves a language out."""
+
+    def test_every_page_has_en_for_every_pt_block(self):
+        problems = []
+        for name, txt in _html().items():
+            problems.extend(_parity_problems(name, txt))
+        self.assertEqual(problems, [], "\n" + "\n".join(problems))
+
+    def test_scanner_catches_a_missing_translation(self):
+        base = '<body><div data-lang-panel="pt-BR"><p>{}</p></div>{}</body>'
+        long_pt = " ".join(["palavra"] * 20)
+        long_en = " ".join(["word"] * 20)
+        ok = base.format(long_pt, f'<div data-lang-panel="en" hidden><p>{long_en}</p></div>')
+        self.assertEqual(_parity_problems("ok.html", ok), [])
+        no_twin = base.format(long_pt, "")
+        self.assertTrue(any("sem irmao EN" in p for p in _parity_problems("a.html", no_twin)))
+        empty = base.format(long_pt, '<div data-lang-panel="en" hidden></div>')
+        self.assertTrue(any("EN vazio" in p for p in _parity_problems("b.html", empty)))
+        short = base.format(long_pt, '<div data-lang-panel="en" hidden><p>word</p></div>')
+        self.assertTrue(any("razao" in p for p in _parity_problems("c.html", short)))
+        loose = ok.replace("<body>", "<body><p>Texto solto em portugues</p>")
+        self.assertTrue(any("fora de painel" in p for p in _parity_problems("d.html", loose)))
 
 
 class AntiOverclaim(unittest.TestCase):

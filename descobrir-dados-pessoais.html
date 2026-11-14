@@ -97,6 +97,7 @@
   <div class="nav-overlay" aria-hidden="true"></div>
 </header>
 
+<div data-lang-panel="pt-BR">
 <section class="legal">
   <div class="wrap legal-wrap">
     <div class="eyebrow">DATA DISCOVERY · SEM TI</div>
@@ -140,6 +141,52 @@
     <p class="legal-back"><a href="index.html">← Início</a></p>
   </div>
 </section>
+</div>
+<div data-lang-panel="en" hidden>
+<section class="legal">
+  <div class="wrap legal-wrap">
+    <div class="eyebrow">DATA DISCOVERY · NO IT NEEDED</div>
+    <h1>How to find out where your company’s <span class="accent">personal data</span> is</h1>
+    <p class="lede"><strong>Direct answer:</strong> besides asking the departments, <strong>scan the folders and files</strong> where the business really works — PDF, Excel, Word, ZIP, CRM/ERP exports. A local <strong>LGPD data discovery</strong> tool flags patterns (CPF, e-mail, bank details, etc.) and produces a report. You do not need to be in IT for the Windows + demo path; databases can come later.</p>
+
+    <p style="margin:1rem 0 1.5rem">
+      <a class="btn btn-primary" href="windows.html">Windows without Docker — demo →</a>
+      &nbsp;
+      <a class="btn btn-outline" href="inventario-dados-pessoais-lgpd.html">Understand the LGPD inventory</a>
+    </p>
+
+    <h2>Where the data usually hides</h2>
+    <ul>
+      <li>Customer folders and the “dead archive”</li>
+      <li>Spreadsheets and system exports</li>
+      <li>Backup ZIPs and attachments saved outside e-mail</li>
+      <li>SharePoint / network folders / cloud synced on the PC</li>
+    </ul>
+
+    <h2>Step by step (no server jargon)</h2>
+    <ol>
+      <li><strong>Demo first</strong> — <code>data-boar --demo</code> with fake data. Guide: <a href="windows.html">windows.html</a>.</li>
+      <li><strong>Test folder</strong> — copy a few synthetic files or a controlled folder; never start with the whole disk.</li>
+      <li><strong>Report</strong> — Excel with path and finding type. You open the file and check.</li>
+      <li><strong>Human decision</strong> — restricting access, archiving or deleting what is already past its time limit is the office’s process.</li>
+    </ol>
+
+    <blockquote><strong>Local-first.</strong> The scan runs in your environment. The content of your clients’ documents is not the product to be sent to the vendor’s cloud — what you take away is the findings report.</blockquote>
+
+    <h2>LGPD solution without needing IT / without Docker</h2>
+    <p>Docker is optional for those who already use containers. For offices, SMBs and independent professionals, the native Windows path was built for people who have <strong>never used a terminal</strong>. Micro-businesses are often not required to appoint a DPO — they still need to know where the data is. See the <a href="faq.html">FAQ</a>.</p>
+
+    <h2>Read also</h2>
+    <ul>
+      <li><a href="verticais.html">Verticals (accounting, law, condominiums…)</a></li>
+      <li><a href="data-discovery-contabilidade.html">Data discovery for accounting firms</a></li>
+      <li><a href="casos/menores-lgpd-art-14.html">Minors’ data / Art. 14 without coding</a></li>
+      <li><a href="agende-demonstracao.html">Book a demo</a></li>
+    </ul>
+    <p class="legal-back"><a href="index.html">← Home</a></p>
+  </div>
+</section>
+</div>
 
 <footer>
   <div class="wrap">
@@ -167,7 +214,9 @@
         <a href="windows.html" data-lang-panel="en" hidden>Windows (no Docker)</a>
         <a href="faq.html">FAQ</a>
         <a href="inventario-dados-pessoais-lgpd.html" data-lang-panel="pt-BR">Inventário LGPD</a>
+        <a href="inventario-dados-pessoais-lgpd.html" data-lang-panel="en" hidden>LGPD inventory</a>
         <a href="descobrir-dados-pessoais.html" data-lang-panel="pt-BR">Descobrir dados pessoais</a>
+        <a href="descobrir-dados-pessoais.html" data-lang-panel="en" hidden>Find personal data</a>
         <a href="verticais.html" data-lang-panel="pt-BR">Verticais</a>
         <a href="verticais.html" data-lang-panel="en" hidden>Verticals</a>
         <a href="glossario.html" data-lang-panel="pt-BR">Glossário</a>

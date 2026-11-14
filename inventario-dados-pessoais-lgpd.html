@@ -101,6 +101,7 @@
   <div class="nav-overlay" aria-hidden="true"></div>
 </header>
 
+<div data-lang-panel="pt-BR">
 <section class="legal">
   <div class="wrap legal-wrap">
     <div class="eyebrow">LGPD · INVENTÁRIO · NEGÓCIO</div>
@@ -144,6 +145,52 @@
     <p class="legal-back"><a href="index.html">← Início</a></p>
   </div>
 </section>
+</div>
+<div data-lang-panel="en" hidden>
+<section class="legal">
+  <div class="wrap legal-wrap">
+    <div class="eyebrow">LGPD · INVENTORY · BUSINESS</div>
+    <h1>LGPD personal-data inventory: what it is, why it fails and how to automate it</h1>
+    <p class="lede"><strong>Direct answer:</strong> a personal-data inventory is the map of <em>which</em> data you process, <em>where</em> it is and <em>what for</em>. Most fail because the spreadsheet does not see the real file. Automate the <strong>technical discovery</strong> on your PC (local, no cloud) and use the Excel findings as input — evidence, not a legal opinion.</p>
+
+    <p style="margin:1rem 0 1.5rem">
+      <a class="btn btn-primary" href="windows.html">Start on Windows (no Docker) →</a>
+      &nbsp;
+      <a class="btn btn-outline" href="descobrir-dados-pessoais.html">How to find out where the data is</a>
+    </p>
+
+    <h2>What the LGPD expects (in office language)</h2>
+    <p>Controllers and processors need to know what they process. This shows up in the record of processing operations (Art. 37), in handling data-subject requests and, where applicable, in the RIPD (Data Protection Impact Report). Without a map, what is left is guesswork — and operational risk.</p>
+
+    <h2>Why the spreadsheet alone is not enough</h2>
+    <ul>
+      <li>Interviews record what the department <em>remembers</em>, not the 2019 PDF in the “dead archive” folder.</li>
+      <li>ZIPs, ERP exports and e-mail with attachments escape the checklist.</li>
+      <li>The ANPD spreadsheet helps on the administrative side; it <strong>does not scan the disk</strong>.</li>
+    </ul>
+
+    <h2>How to automate without turning it into an IT project</h2>
+    <ol>
+      <li>Validate the product with <code>data-boar --demo</code> (synthetic data) — <a href="windows.html">Windows guide</a>.</li>
+      <li>Point only at the customers/documents folder (not the whole <code>C:\</code>).</li>
+      <li>Read the Excel report: path + finding type (e.g. CPF). You check it and decide what to do.</li>
+      <li>Complete the formal inventory (purpose, legal basis, owners) with the DPO/legal — the tool does not do that for you.</li>
+    </ol>
+
+    <h2>Local-first open source vs an expensive suite</h2>
+    <p>If the office needs <strong>visibility</strong> and auditable evidence, without sending client documents to an inventory SaaS, the local open-core path is usually enough. Full GRC suites make sense in mature programs; for “where is the CPF?”, start light. More in <a href="opensource.html">OpenSource &amp; method</a>.</p>
+
+    <h2>Next steps</h2>
+    <ul>
+      <li><a href="descobrir-dados-pessoais.html">How to find out where the company’s personal data is</a></li>
+      <li><a href="verticais.html">Verticals (accounting, law, condominiums…)</a></li>
+      <li><a href="data-discovery-contabilidade.html">LGPD data discovery for accounting</a></li>
+      <li><a href="faq.html">FAQ</a> · <a href="agende-demonstracao.html">Book a demo</a></li>
+    </ul>
+    <p class="legal-back"><a href="index.html">← Home</a></p>
+  </div>
+</section>
+</div>
 
 <footer>
   <div class="wrap">
@@ -171,7 +218,9 @@
         <a href="windows.html" data-lang-panel="en" hidden>Windows (no Docker)</a>
         <a href="faq.html">FAQ</a>
         <a href="inventario-dados-pessoais-lgpd.html" data-lang-panel="pt-BR">Inventário LGPD</a>
+        <a href="inventario-dados-pessoais-lgpd.html" data-lang-panel="en" hidden>LGPD inventory</a>
         <a href="descobrir-dados-pessoais.html" data-lang-panel="pt-BR">Descobrir dados pessoais</a>
+        <a href="descobrir-dados-pessoais.html" data-lang-panel="en" hidden>Find personal data</a>
         <a href="verticais.html" data-lang-panel="pt-BR">Verticais</a>
         <a href="verticais.html" data-lang-panel="en" hidden>Verticals</a>
         <a href="glossario.html" data-lang-panel="pt-BR">Glossário</a>
