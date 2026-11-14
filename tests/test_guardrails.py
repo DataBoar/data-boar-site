@@ -33,15 +33,26 @@ HTML_FILES = sorted(
 )
 
 
+EN_FILES = sorted(
+    glob.glob(os.path.join(ROOT, "en", "*.html"))
+    + glob.glob(os.path.join(ROOT, "en", "casos", "*.html"))
+)
+
+
 def _read(path):
     with open(path, encoding="utf-8", errors="replace") as fh:
         return fh.read()
 
 
-def _html():
-    """Keys are paths relative to repo root (forward slashes)."""
+def _html(include_en=False):
+    """Keys are paths relative to repo root (forward slashes).
+
+    The generated English pages (en/) are left out by default: the structural tests
+    (chrome sync, bilingual parity) are about the PT source pages. The content tests
+    (overclaim, LLM, external links) ask for them with include_en=True.
+    """
     out = {}
-    for p in HTML_FILES:
+    for p in HTML_FILES + (EN_FILES if include_en else []):
         rel = os.path.relpath(p, ROOT).replace("\\", "/")
         out[rel] = _read(p)
     return out
@@ -431,7 +442,7 @@ class Security(unittest.TestCase):
         self.assertIn("Canonical: https://databoar.com.br/.well-known/security.txt", root)
 
     def test_external_links_have_noopener(self):
-        for name, txt in _html().items():
+        for name, txt in _html(include_en=True).items():
             for tag in re.findall(r"<a\b[^>]*target=\"_blank\"[^>]*>", txt):
                 self.assertIn("noopener", tag, f"{name}: target=_blank sem rel=noopener: {tag[:80]}")
 
@@ -469,7 +480,7 @@ class SupplyChain(unittest.TestCase):
             "stylesheet", "preconnect", "preload", "prefetch", "dns-prefetch",
             "icon", "apple-touch-icon", "mask-icon",
         )
-        for name, txt in _html().items():
+        for name, txt in _html(include_en=True).items():
             loaded = re.findall(r'\bsrc="(https?://[^"]+)"', txt)
             for tag in re.findall(r"<link\b[^>]*>", txt, flags=re.IGNORECASE):
                 href_m = re.search(r'\bhref="(https?://[^"]+)"', tag, flags=re.IGNORECASE)
@@ -688,6 +699,213 @@ class BilingualParity(unittest.TestCase):
         self.assertTrue(any("fora de painel" in p for p in _parity_problems("d.html", loose)))
 
 
+def _build_en():
+    """The generator module (scripts/build-en.py), loaded by path."""
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        "build_en", os.path.join(ROOT, "scripts", "build-en.py")
+    )
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def _ids(txt):
+    return set(re.findall(r'\b(?:id|name)="([^"]+)"', txt))
+
+
+def _links(txt):
+    body = re.sub(r"<script.*?</script>", "", txt, flags=re.DOTALL)
+    return re.findall(r'\b(?:href|src)="([^"]*)"', body)
+
+
+def _ld_blocks(txt):
+    import json
+
+    return [
+        json.loads(b)
+        for b in re.findall(r'<script type="application/ld\+json">\n(.*?)\n</script>', txt, re.DOTALL)
+    ]
+
+
+def _shape(obj, key=""):
+    """Structure of a JSON-LD value: keys, list lengths, @type/position kept, text erased."""
+    if isinstance(obj, dict):
+        return {k: _shape(v, k) for k, v in obj.items() if k not in ("inLanguage", "dateModified")}
+    if isinstance(obj, list):
+        return [_shape(v, key) for v in obj]
+    return obj if key in ("@context", "@type", "position") else "text"
+
+
+class EnglishSite(unittest.TestCase):
+    """/en/ is generated (scripts/build-en.py) and committed; hreflang, JSON-LD and dates agree."""
+
+    PAIRS: ClassVar[list[str]] = []
+    SINGLE: ClassVar[set[str]] = {"login.html", "agende-demonstracao.html"}
+
+    @classmethod
+    def setUpClass(cls):
+        cls.b = _build_en()
+        cls.PAIRS = cls.b.pair_pages()
+        cls.pt = {rel: _read(os.path.join(ROOT, rel)) for rel in cls.b.all_pages()}
+        cls.en = {rel: _read(os.path.join(ROOT, "en", rel)) for rel in cls.PAIRS}
+
+    def test_generator_check_is_clean(self):
+        """The committed /en/, head blocks, stamps and sitemap are what the script writes."""
+        if self.b.is_shallow():
+            self.skipTest("shallow clone: the page dates come from the full git log")
+        r = subprocess.run(
+            [sys.executable, os.path.join(ROOT, "scripts", "build-en.py"), "--check"],
+            capture_output=True, text=True, check=False,
+        )
+        self.assertEqual(r.returncode, 0, f"drift em /en/ — rode scripts/build-en.py:\n{r.stdout}{r.stderr}")
+
+    def test_parser_rebuild_is_lossless(self):
+        """The generator rewrites pages with an HTML parser: with no rule applied it must change nothing."""
+        for rel, txt in self.pt.items():
+            self.assertEqual(self.b.rebuild(txt, None, set()), txt, f"{rel}: rebuild altera o HTML")
+
+    def test_en_pages_match_the_pairs_exactly(self):
+        found = {os.path.relpath(p, os.path.join(ROOT, "en")).replace("\\", "/") for p in EN_FILES}
+        self.assertEqual(found, set(self.PAIRS))
+        for rel in self.SINGLE:
+            self.assertNotIn(rel, found, f"{rel} é URL única e não tem par em /en/")
+
+    def test_en_pages_are_only_english(self):
+        accent = re.compile(r"[ãõçáéíóúâêôà]", re.IGNORECASE)
+        for rel, txt in self.en.items():
+            self.assertIn('<html lang="en">', txt, rel)
+            self.assertNotIn('data-lang-panel="pt-BR"', txt, f"en/{rel}: painel PT sobrou")
+            self.assertNotRegex(txt, r"<[^<>]*\shidden(?=[\s>/])", f"en/{rel}: elemento oculto sobrou")
+            self.assertEqual(len(re.findall(r"<h1\b", txt)), 1, f"en/{rel}: um h1 só")
+            body = re.sub(r"<(script|style)\b.*?</\1>", "", txt, flags=re.DOTALL | re.IGNORECASE)
+            for line in body.splitlines():
+                if "Português (Brasil)" in line:  # the PT name of the language, in the selector
+                    continue
+                self.assertIsNone(accent.search(line), f"en/{rel}: texto em PT: {line.strip()[:100]}")
+
+    def test_every_page_has_one_main_and_articles_where_expected(self):
+        for rel, txt in self.pt.items():
+            self.assertEqual(len(re.findall(r"<main\b", txt)), 1, f"{rel}: um <main> só")
+            self.assertLess(txt.index("</header>"), txt.index("<main"), rel)
+            self.assertLess(txt.index("</main>"), txt.index("<footer"), rel)
+        for rel in self.PAIRS:
+            if 'property="og:type" content="article"' in self.pt[rel]:
+                self.assertIn("<article", self.pt[rel], f"{rel}: página de artigo sem <article>")
+                self.assertIn("<article", self.en[rel], f"en/{rel}: página de artigo sem <article>")
+
+    def test_hreflang_is_complete_and_reciprocal(self):
+        alt = re.compile(r'<link rel="alternate" hreflang="([^"]+)" href="([^"]+)">')
+        for rel in self.PAIRS:
+            want = {
+                "pt-BR": self.b.url(rel, "pt"),
+                "en": self.b.url(rel, "en"),
+                "x-default": self.b.url(rel, "pt"),
+            }
+            for label, txt, own in (("", self.pt[rel], "pt"), ("en/", self.en[rel], "en")):
+                self.assertEqual(dict(alt.findall(txt)), want, f"{label}{rel}: hreflang")
+                canon = re.findall(r'<link rel="canonical" href="([^"]+)">', txt)
+                self.assertEqual(canon, [self.b.url(rel, own)], f"{label}{rel}: canonical próprio")
+                if 'property="og:url"' in txt:
+                    self.assertIn(f'property="og:url" content="{self.b.url(rel, own)}"', txt)
+                    loc = "pt_BR" if own == "pt" else "en_US"
+                    self.assertIn(f'property="og:locale" content="{loc}"', txt, f"{label}{rel}")
+        for rel in self.SINGLE:
+            self.assertNotIn("hreflang", self.pt[rel], f"{rel}: URL única fica fora do hreflang")
+
+    def test_sitemap_lists_both_languages_with_alternates_and_real_dates(self):
+        import xml.etree.ElementTree as ET
+
+        ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9", "x": "http://www.w3.org/1999/xhtml"}
+        root = ET.parse(os.path.join(ROOT, "sitemap.xml")).getroot()
+        entries = {}
+        for u in root.findall("s:url", ns):
+            loc = u.find("s:loc", ns).text
+            entries[loc] = (
+                u.find("s:lastmod", ns).text,
+                {a.get("hreflang"): a.get("href") for a in u.findall("x:link", ns)},
+            )
+        for rel in self.PAIRS:
+            want = {
+                "pt-BR": self.b.url(rel, "pt"),
+                "en": self.b.url(rel, "en"),
+                "x-default": self.b.url(rel, "pt"),
+            }
+            day = re.search(r'<time datetime="([^"]+)"', self.pt.get(rel, "")) if rel != "index.html" else None
+            for lang in ("pt", "en"):
+                loc = self.b.url(rel, lang)
+                self.assertIn(loc, entries, f"sitemap sem {loc}")
+                self.assertEqual(entries[loc][1], want, f"sitemap: alternates de {loc}")
+                if day:
+                    self.assertEqual(entries[loc][0], day.group(1), f"sitemap: lastmod de {loc}")
+        locs = set(entries)
+        self.assertNotIn(f"{self.b.BASE}/login.html", locs)
+        self.assertNotIn(f"{self.b.BASE}/en/agende-demonstracao.html", locs)
+        for loc in locs:  # nothing in the sitemap points to a file that does not exist
+            path = loc.replace(self.b.BASE + "/", "") or "index.html"
+            path = (path + "index.html") if path.endswith("/") else path
+            self.assertTrue(os.path.exists(os.path.join(ROOT, path)), f"sitemap: {loc} não existe")
+
+    def test_jsonld_has_the_same_shape_in_both_languages_and_the_same_date(self):
+        for rel in self.PAIRS:
+            pt, en = _ld_blocks(self.pt[rel]), _ld_blocks(self.en[rel])
+            self.assertEqual(len(pt), len(en), f"{rel}: nº de blocos JSON-LD")
+            for a, b in zip(pt, en, strict=True):
+                self.assertEqual(_shape(a), _shape(b), f"{rel}: estrutura do JSON-LD")
+                self.assertEqual(a["inLanguage"], "pt-BR", rel)
+                self.assertEqual(b["inLanguage"], "en", f"en/{rel}")
+                self.assertRegex(a["dateModified"], r"^\d{4}-\d{2}-\d{2}$")
+                self.assertEqual(a["dateModified"], b["dateModified"], rel)
+                if rel != "index.html":
+                    self.assertIn(f'datetime="{a["dateModified"]}"', self.pt[rel], f"{rel}: data visível")
+                    self.assertIn(f'datetime="{a["dateModified"]}"', self.en[rel], f"en/{rel}: data visível")
+
+    def test_page_dates_are_not_in_the_future(self):
+        today = __import__("datetime").date.today().isoformat()
+        for rel in self.PAIRS:
+            for m in re.findall(r'<time datetime="([^"]+)"', self.pt[rel]):
+                self.assertLessEqual(m, today, f"{rel}: data no futuro")
+
+    def test_en_links_resolve_to_files_and_anchors(self):
+        for rel, txt in self.en.items():
+            base = os.path.dirname(os.path.join(ROOT, "en", rel))
+            for link in _links(txt):
+                if re.match(r"^(https?:|mailto:|tel:|//)", link):
+                    continue
+                path, _, frag = link.partition("#")
+                if not path:
+                    target = txt
+                else:
+                    full = os.path.normpath(os.path.join(base, path))
+                    if full.endswith(os.sep) or os.path.isdir(full):
+                        full = os.path.join(full, "index.html")
+                    self.assertTrue(os.path.exists(full), f"en/{rel}: link quebrado {link}")
+                    target = _read(full) if full.endswith(".html") else ""
+                if frag and target:
+                    self.assertIn(frag, _ids(target), f"en/{rel}: âncora inexistente {link}")
+
+    def test_en_pages_link_single_url_pages_at_the_root(self):
+        for rel, txt in self.en.items():
+            for single in self.SINGLE:
+                for link in _links(txt):
+                    if link.endswith(single):
+                        self.assertNotIn("en/", link)
+                        self.assertTrue(link.startswith("../"), f"en/{rel}: {link} deve apontar para a raiz")
+
+    def test_language_switch_navigates_and_never_redirects_by_browser(self):
+        js = _read(os.path.join(ROOT, "js", "site.js"))
+        self.assertNotRegex(js, r"navigator\.(languages?|userLanguage)", "sem detecção de idioma pelo navegador")
+        self.assertNotRegex(js, r"location\.(replace|assign)\(", "sem redirect automático")
+        self.assertIn('rel="alternate"][hreflang=', js, "o seletor navega pelo hreflang da página")
+
+    def test_hreflang_pairs_have_no_orphan_en_files(self):
+        self.assertEqual(self.b.pair_pages(), self.PAIRS)
+        self.assertFalse(
+            [p for p in EN_FILES if os.path.relpath(p, os.path.join(ROOT, "en")).replace("\\", "/") not in self.PAIRS]
+        )
+
+
 class AntiOverclaim(unittest.TestCase):
     FORBIDDEN: ClassVar[list[str]] = [
         r"garante[m]?\s+(a\s+)?conformidade",
@@ -704,7 +922,7 @@ class AntiOverclaim(unittest.TestCase):
     ]
 
     def test_no_forbidden_overclaims(self):
-        for name, txt in _html().items():
+        for name, txt in _html(include_en=True).items():
             for pat in self.FORBIDDEN:
                 m = re.search(pat, txt, re.IGNORECASE)
                 self.assertIsNone(
@@ -722,7 +940,7 @@ class AntiLlmDecision(unittest.TestCase):
     ]
 
     def test_no_llm_decides_findings(self):
-        for name, txt in _html().items():
+        for name, txt in _html(include_en=True).items():
             for pat in self.FORBIDDEN:
                 m = re.search(pat, txt, re.IGNORECASE)
                 self.assertIsNone(m, f"{name}: claim de LLM-decisor /{pat}/")

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Glossary &amp; Coverage — DataBoar</title>
+<meta name="description" content="DataBoar’s taxonomy (Data Sniffing, Deep Boring, Safe-Hold, Audit Trail) and the frameworks we help evidence: LGPD, GDPR, CCPA, HIPAA, PIPL, and CMMC/CUI.">
+<!-- i18n-head:begin -->
+<link rel="canonical" href="https://databoar.com.br/en/glossario.html">
+<link rel="alternate" hreflang="pt-BR" href="https://databoar.com.br/glossario.html">
+<link rel="alternate" hreflang="en" href="https://databoar.com.br/en/glossario.html">
+<link rel="alternate" hreflang="x-default" href="https://databoar.com.br/glossario.html">
+<!-- i18n-head:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32.png">
+<link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+</head>
+<body>
+
+<div class="announce">
+  <div class="wrap">
+    <div class="left">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+      <span><b>Compliance</b> that is smarter, leaner, and under your control.</span>
+    </div>
+    <div class="right">
+      <a class="mini-btn" href="../agende-demonstracao.html">Book a demo →</a>
+    </div>
+  </div>
+</div>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><img src="../images/logo-databoar.png" alt="DataBoar"></a>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation menu">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+    <nav class="links" id="site-nav">
+      <a href="solucao.html">Solution</a>
+      <a href="solucao.html#casos-de-uso-en">Use cases</a>
+      <a href="opensource.html">OpenSource</a>
+      <a href="faq.html">FAQ</a>
+      <span class="nav-soon" title="Coming soon">Pricing · coming soon</span>
+    </nav>
+    <div class="nav-cta">
+      <a class="login" href="../login.html">Login</a>
+      <div class="lang-switch">
+        <button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false">
+          <span class="lang-flag">🇺🇸</span>
+          <span class="lang-code">EN</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="lang-menu">
+          <a href="#" class="lang-option" data-lang="pt-BR" data-flag="🇧🇷">🇧🇷 Português (Brasil)</a>
+          <a href="#" class="lang-option selected" data-lang="en" data-flag="🇺🇸">🇺🇸 English</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-overlay" aria-hidden="true"></div>
+</header>
+
+<main>
+
+<div>
+<section class="legal">
+  <div class="wrap legal-wrap">
+    <div class="eyebrow">GLOSSARY</div>
+    <h1>Glossary &amp; Coverage</h1>
+    <p>The DataBoar vocabulary — the product taxonomy and the frameworks we help you evidence. Short version; the full glossary (engineering, compliance, and procurement) lives in the <a href="https://github.com/DataBoar/data-boar/blob/main/docs/MAP.md" rel="noopener noreferrer" target="_blank">documentation map</a>.</p>
+
+    <h2>Taxonomy</h2>
+    <ul>
+      <li><strong>Data Sniffing</strong> — Passive data-type detection phase: connectors map the structure, read limited excerpts, and run sensitivity detection over the configured targets. <strong>Metadata</strong> findings, no exfiltration.</li>
+      <li><strong>Deep Boring</strong> — Active column-level PII sampling, with the structured evidence from the same run: findings workbooks, norm and control alignment, optional heatmap, and recommendations. It is <strong>input for the DPO or controller's decision — never a legal opinion</strong>.</li>
+      <li><strong>Safe-Hold</strong> — Emergency brake: stop all operations and report the blocker to the operator.</li>
+      <li><strong>Audit Trail</strong> — Immutable operation log.</li>
+      <li><strong>Data soup</strong> / <strong>Hidden ingredients</strong> — The heterogeneous sources the boar roots through (databases, files, APIs, Power BI, Dataverse, SharePoint, SMB/NFS) and what usually slips past: renamed extensions (<em>magic bytes</em>), password-protected containers, legacy stores, and text in rich media.</li>
+    </ul>
+
+    <h2 id="frameworks-en">Frameworks we help you evidence</h2>
+    <p>DataBoar supports the <strong>evidence</strong> for compliance work — inventory, triage, and mapping of personal and sensitive data. <strong>It does not issue certification, does not perform a legal assessment, and does not replace your DPO or controller</strong>: the decision always belongs to the accountable party.</p>
+    <ul>
+      <li><strong>LGPD</strong> (Brazil) — discovery and inventory of personal and sensitive data; inputs for RoPA, the RIPD, and data-subject requests.</li>
+      <li><strong>GDPR</strong> (European Union) — personal-data mapping; inputs for the ROPA (Art. 30) and the DPIA (Art. 35).</li>
+      <li><strong>CCPA / CPRA</strong> (California) — personal-information inventory by category.</li>
+      <li><strong>HIPAA</strong> (US · healthcare) — PHI (protected health information) discovery signals.</li>
+      <li><strong>PIPL</strong> (China) — personal and sensitive information inventory.</li>
+      <li><strong>CMMC / CUI</strong> (US · defense) — inventory and triage signals for CUI (<em>Controlled Unclassified Information</em>): markings and banners, category labels, dissemination controls, and ITAR/EAR signals.</li>
+    </ul>
+    <p>Frameworks like NIS2, DORA, and the AI Act are served as <strong>evidence</strong> of data discovery — not as a detection <em>sample</em> of their own.</p>
+
+    <p class="legal-back"><a href="solucao.html#casos-de-uso-en">← Use cases</a></p>
+  </div>
+</section>
+</div>
+
+<!-- page-updated:begin -->
+<div class="wrap page-updated">Last updated <time datetime="2026-11-14">November 14, 2026</time></div>
+<!-- page-updated:end -->
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../images/logo-databoar.png" alt="DataBoar">
+        <p>Forensic, sovereign personal-data discovery, with evidence for compliance work.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="solucao.html">Solution</a>
+        <a href="solucao.html#casos-de-uso-en">Use cases</a>
+        <a href="opensource.html">OpenSource</a>
+        <a href="../agende-demonstracao.html">Book a demo</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="windows.html">Windows (no Docker)</a>
+        <a href="faq.html">FAQ</a>
+        <a href="inventario-dados-pessoais-lgpd.html">LGPD inventory</a>
+        <a href="descobrir-dados-pessoais.html">Find personal data</a>
+        <a href="verticais.html">Verticals</a>
+        <a href="glossario.html">Glossary</a>
+        <a href="https://github.com/DataBoar/data-boar/blob/main/docs/MAP.md" rel="noopener noreferrer" target="_blank">Docs</a>
+        <a href="https://databoar.wordpress.com" rel="noopener noreferrer" target="_blank">Blog</a>
+        <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">GitHub</a>
+      </div>
+      <div class="footer-col">
+        <h4>Positioning</h4>
+        <a href="opensource.html">Open-core &amp; method</a>
+        <a href="praticas-de-engenharia.html">Engineering Practices</a>
+        <a href="privacidade.html">Privacy Policy</a>
+        <span class="footer-soon">Pricing · coming soon</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 DataBoar</span>
+      <div class="footer-social">
+        <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.1 3.1 0 00-.9-2.4c3-.3 6-1.5 6-6.6a5.1 5.1 0 00-1.4-3.5 4.6 4.6 0 00-.1-3.5s-1.1-.3-3.5 1.3a12.2 12.2 0 00-6.4 0C6.9 1.3 5.8 1.6 5.8 1.6a4.6 4.6 0 00-.1 3.5A5.1 5.1 0 004.3 8.6c0 5 3 6.3 6 6.6a3.1 3.1 0 00-.9 2.4V22"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/faro-config.js"></script>
+<script src="../js/faro.js" defer></script>
+<script src="../js/site.js"></script>
+</body>
+</html>

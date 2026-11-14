@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LGPD data discovery for law firms | DataBoar</title>
+<meta name="description" content="Local personal-data scanner for law firms: cases, parties, email, and possible sensitive data. Auditable Excel, without sending case files to the cloud.">
+<!-- i18n-head:begin -->
+<link rel="canonical" href="https://databoar.com.br/en/data-discovery-advocacia.html">
+<link rel="alternate" hreflang="pt-BR" href="https://databoar.com.br/data-discovery-advocacia.html">
+<link rel="alternate" hreflang="en" href="https://databoar.com.br/en/data-discovery-advocacia.html">
+<link rel="alternate" hreflang="x-default" href="https://databoar.com.br/data-discovery-advocacia.html">
+<meta property="og:locale:alternate" content="pt_BR">
+<!-- i18n-head:end -->
+<meta property="og:title" content="LGPD data discovery for law firms | DataBoar">
+<meta property="og:description" content="Local discovery in case folders and exports — inventory and triage, without classifying privilege or issuing an opinion.">
+<meta property="og:url" content="https://databoar.com.br/en/data-discovery-advocacia.html">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32.png">
+<link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "en",
+  "dateModified": "2026-11-14",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does a law firm need LGPD data discovery?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Law firms accumulate case folders, email, and records of parties. The practical risk is not knowing which share or PST still holds PII — including from old cases. Local technical discovery helps map it; retention, access, and professional secrecy remain the firm’s responsibility."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does DataBoar identify criminal records or sensitive data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The engine can flag patterns and combinations useful for the inventory — including signals of sensitive categories when configured. This is an inventory and triage signal (LGPD Art. 11), not confirmation of criminal records, not privilege classification, and not a legal opinion."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to send case files to the cloud to scan them?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The model is local-first: the scan runs in the firm’s environment and produces an Excel report. Start with the demo on Windows without Docker, with synthetic data."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="announce">
+  <div class="wrap">
+    <div class="left">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+      <span><b>Compliance</b> that is smarter, leaner, and under your control.</span>
+    </div>
+    <div class="right">
+      <a class="mini-btn" href="../agende-demonstracao.html">Book a demo →</a>
+    </div>
+  </div>
+</div>
+<header>
+  <!-- NAV_SYNC -->
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><img src="../images/logo-databoar.png" alt="DataBoar"></a>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation menu">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+    <nav class="links" id="site-nav">
+      <a href="solucao.html">Solution</a>
+      <a href="solucao.html#casos-de-uso-en">Use cases</a>
+      <a href="opensource.html">OpenSource</a>
+      <a href="faq.html">FAQ</a>
+      <span class="nav-soon" title="Coming soon">Pricing · coming soon</span>
+    </nav>
+    <div class="nav-cta">
+      <a class="login" href="../login.html">Login</a>
+      <div class="lang-switch">
+        <button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false">
+          <span class="lang-flag">🇺🇸</span>
+          <span class="lang-code">EN</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="lang-menu">
+          <a href="#" class="lang-option" data-lang="pt-BR" data-flag="🇧🇷">🇧🇷 Português (Brasil)</a>
+          <a href="#" class="lang-option selected" data-lang="en" data-flag="🇺🇸">🇺🇸 English</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-overlay" aria-hidden="true"></div>
+</header>
+
+<main>
+
+<div>
+<article class="legal">
+  <div class="wrap legal-wrap">
+    <div class="eyebrow">LAW FIRMS · BOUTIQUE · MID-SIZE</div>
+    <h1>LGPD data discovery for <span class="accent">law firms</span></h1>
+    <p class="lede"><strong>Straight answer:</strong> firms already live in matter folders, email, and party records. What many lack is knowing <strong>which share, PST, or ZIP</strong> still holds PII — including closed matters. A <strong>local</strong> scan with an auditable Excel helps without an IT team or sending a brief to a vendor cloud.</p>
+
+    <p><strong>Important:</strong> the same scan that finds CPF and phone numbers may flag <strong>signals of sensitive categories</strong> (LGPD Art. 11) — for example criminal-nature material in a pointed export. That is an <strong>inventory and triage signal</strong>, not confirmation of criminal records, not privilege classification, and <strong>not</strong> legal advice.</p>
+
+    <p>The risk an “active-client / PII-only” inventory often ignores — <strong>PSTs and closed-matter folders</strong> with party lists and possible sensitive material still on the share. Few firms map that until an incident or diligence. YAML configuration and consulting/commercial support can prioritize those targets — without the tool deciding privilege.</p>
+
+    <p style="margin:1rem 0 1.5rem">
+      <a class="btn btn-primary" href="windows.html">Windows demo (no Docker) →</a>
+      &nbsp;
+      <a class="btn btn-outline" href="../agende-demonstracao.html">Book a demo</a>
+    </p>
+
+    <h2>Typical firm pain</h2>
+    <ul>
+      <li>A “Client X / 2019” folder still open on the network</li>
+      <li>PST/mbox with petition attachments and party spreadsheets</li>
+      <li>The same person in different roles across matters</li>
+      <li>Fear of a cloud tool touching privileged documents</li>
+    </ul>
+
+    <h2>What DataBoar does (and does not)</h2>
+    <p><strong>Helps:</strong> scan pointed folders and exports; look inside ZIPs; flag patterns (IDs, contact, triage-useful combinations); produce Excel; run offline.</p>
+    <p><strong>Does not replace:</strong> conflicts software, e-discovery, bar guidance, privilege validation, or a compliance “seal.” Technical evidence for the firm to decide.</p>
+
+    <h2>Start without drama</h2>
+    <ol>
+      <li>Follow <a href="windows.html">Data Boar on Windows — NO Docker</a>.</li>
+      <li>Run <code>data-boar --demo</code> (synthetic data).</li>
+      <li>Only then point at a test folder — never the whole firm archive on day one.</li>
+    </ol>
+
+    <h2>Related</h2>
+    <ul>
+      <li><a href="verticais.html">Verticals hub</a></li>
+      <li><a href="data-discovery-contabilidade.html">Accounting</a> · <a href="data-discovery-condominios.html">Condos</a></li>
+      <li><a href="casos/menores-lgpd-art-14.html">Minors / Art. 14</a> · <a href="faq.html">FAQ</a></li>
+    </ul>
+    <p class="legal-back"><a href="verticais.html">← Verticals</a> · <a href="index.html">Home</a></p>
+  </div>
+</article>
+</div>
+
+<!-- page-updated:begin -->
+<div class="wrap page-updated">Last updated <time datetime="2026-11-14">November 14, 2026</time></div>
+<!-- page-updated:end -->
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../images/logo-databoar.png" alt="DataBoar">
+        <p>Forensic, sovereign personal-data discovery, with evidence for compliance work.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="solucao.html">Solution</a>
+        <a href="solucao.html#casos-de-uso-en">Use cases</a>
+        <a href="opensource.html">OpenSource</a>
+        <a href="../agende-demonstracao.html">Book a demo</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="windows.html">Windows (no Docker)</a>
+        <a href="faq.html">FAQ</a>
+        <a href="inventario-dados-pessoais-lgpd.html">LGPD inventory</a>
+        <a href="descobrir-dados-pessoais.html">Find personal data</a>
+        <a href="verticais.html">Verticals</a>
+        <a href="glossario.html">Glossary</a>
+        <a href="https://github.com/DataBoar/data-boar/blob/main/docs/MAP.md" rel="noopener noreferrer" target="_blank">Docs</a>
+        <a href="https://databoar.wordpress.com" rel="noopener noreferrer" target="_blank">Blog</a>
+        <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">GitHub</a>
+      </div>
+      <div class="footer-col">
+        <h4>Positioning</h4>
+        <a href="opensource.html">Open-core &amp; method</a>
+        <a href="praticas-de-engenharia.html">Engineering Practices</a>
+        <a href="privacidade.html">Privacy Policy</a>
+        <span class="footer-soon">Pricing · coming soon</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 DataBoar</span>
+      <div class="footer-social">
+        <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.1 3.1 0 00-.9-2.4c3-.3 6-1.5 6-6.6a5.1 5.1 0 00-1.4-3.5 4.6 4.6 0 00-.1-3.5s-1.1-.3-3.5 1.3a12.2 12.2 0 00-6.4 0C6.9 1.3 5.8 1.6 5.8 1.6a4.6 4.6 0 00-.1 3.5A5.1 5.1 0 004.3 8.6c0 5 3 6.3 6 6.6a3.1 3.1 0 00-.9 2.4V22"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="../js/faro-config.js"></script>
+<script src="../js/faro.js" defer></script>
+<script src="../js/site.js"></script>
+</body>
+</html>

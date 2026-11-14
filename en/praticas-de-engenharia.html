@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Engineering practices — DataBoar</title>
+<meta name="description" content="How we build DataBoar: fail-closed by default, pinned dependencies with a cooldown period, integrity checks before trusting any artifact, and metadata before content. Principles, with links to the real code." />
+<!-- i18n-head:begin -->
+<link rel="canonical" href="https://databoar.com.br/en/praticas-de-engenharia.html">
+<link rel="alternate" hreflang="pt-BR" href="https://databoar.com.br/praticas-de-engenharia.html">
+<link rel="alternate" hreflang="en" href="https://databoar.com.br/en/praticas-de-engenharia.html">
+<link rel="alternate" hreflang="x-default" href="https://databoar.com.br/praticas-de-engenharia.html">
+<meta property="og:locale:alternate" content="pt_BR">
+<!-- i18n-head:end -->
+<meta property="og:title" content="Engineering practices — DataBoar">
+<meta property="og:description" content="Fail-closed, pin + cooldown, integrity verification, metadata before content — the engineering principles behind DataBoar, with links to the real code.">
+<meta property="og:url" content="https://databoar.com.br/en/praticas-de-engenharia.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32.png">
+<link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+</head>
+<body>
+
+<div class="announce">
+  <div class="wrap">
+    <div class="left">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+      <span><b>Compliance</b> that is smarter, leaner, and under your control.</span>
+    </div>
+    <div class="right">
+      <a class="mini-btn" href="../agende-demonstracao.html">Book a demo →</a>
+    </div>
+  </div>
+</div>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><img src="../images/logo-databoar.png" alt="DataBoar"></a>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation menu">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+    <nav class="links" id="site-nav">
+      <a href="solucao.html">Solution</a>
+      <a href="solucao.html#casos-de-uso-en">Use cases</a>
+      <a href="opensource.html">OpenSource</a>
+      <a href="faq.html">FAQ</a>
+      <span class="nav-soon" title="Coming soon">Pricing · coming soon</span>
+    </nav>
+    <div class="nav-cta">
+      <a class="login" href="../login.html">Login</a>
+      <div class="lang-switch">
+        <button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false">
+          <span class="lang-flag">🇺🇸</span>
+          <span class="lang-code">EN</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="lang-menu">
+          <a href="#" class="lang-option" data-lang="pt-BR" data-flag="🇧🇷">🇧🇷 Português (Brasil)</a>
+          <a href="#" class="lang-option selected" data-lang="en" data-flag="🇺🇸">🇺🇸 English</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-overlay" aria-hidden="true"></div>
+</header>
+
+<main>
+
+<!-- ============ PT-BR ============ -->
+
+<!-- ============ EN ============ -->
+<div>
+
+<section class="hero">
+  <div class="blob"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="eyebrow">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+        How we build
+      </div>
+      <h1>Engineering <span class="accent">practices</span>.</h1>
+      <p class="hero-highlight">Principles, not a promise — with a link to the real code where it's already public.</p>
+      <p class="lede">We won't list internal tooling that isn't public yet. What follows are the principles that shape how DataBoar is built, each backed by a verifiable example in the open repository — not a marketing claim.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">See the code on GitHub →</a>
+        <a class="btn btn-outline" href="opensource.html">Open-core &amp; method</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="art-inner">
+        <img src="../images/mascot-pot.png" alt="Data Boar mascot">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="diff-section">
+  <div class="wrap">
+    <div class="section-head center">
+      <h2>Four <span class="accent">principles</span></h2>
+      <p>Each one exists because of a real industry incident — not theory.</p>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+        <h3>Fail-closed by default</h3>
+        <p>When a security condition can't be verified, the system <b>denies</b> the operation — it never assumes things are fine. The local validation gate has to close 100% green before any code goes up; nothing ships on "trust the remote CI" alone. See the security policy at <a href="https://github.com/DataBoar/data-boar/blob/main/docs/SECURITY.md" rel="noopener noreferrer" target="_blank">docs/SECURITY.md</a>.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="3"/><path d="M12 12v9"/><path d="M9 21h6"/></svg></div>
+        <h3>Dependencies pinned, not followed blindly</h3>
+        <p>Every CI dependency is pinned to an exact version (SHA), never a floating tag — and a newly published release isn't pulled in automatically: it sits in a <b>quarantine period</b> first, giving a freshly discovered vulnerability time to surface before we pull it. Real, public, auditable config: <a href="https://github.com/DataBoar/data-boar/blob/main/.github/dependabot.yml" rel="noopener noreferrer" target="_blank">.github/dependabot.yml</a>.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Integrity verified, not assumed</h3>
+        <p>Before trusting an artifact — a published package, a binary, the build tooling itself — its integrity is checked first: hash and signature, not implicit trust. Same principle behind the build digest and the SBOMs (CycloneDX) we publish with every release: <a href="https://github.com/DataBoar/data-boar/blob/main/docs/RELEASE_INTEGRITY.md" rel="noopener noreferrer" target="_blank">docs/RELEASE_INTEGRITY.md</a>.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M10.8 12.2L20 3M16 7l3 3"/></svg></div>
+        <h3>1.8.0 hardening, with a public source</h3>
+        <p>Security changes in version 1.8.0 you can check in the release notes: a <b>hybrid</b> license signature (Ed25519 + ML-DSA-65), required in enforced mode; <code>GET /health</code> reduced to the minimum; a <b>429</b> block after 5 failed API-key attempts in 60 s, recorded in the audit trail without the key; and a 12 h session cookie with <code>SameSite=Strict</code>. Notes: <a href="https://github.com/DataBoar/data-boar/releases/tag/v1.8.0" rel="noopener noreferrer" target="_blank">release v1.8.0</a>.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M7 13h4M7 16h7"/></svg></div>
+        <h3>Metadata first</h3>
+        <p>What matters for discovery is <b>what, where, and in what shape</b> — not the raw data itself, and not how fast it's processed. The default scan (what the glossary calls <i>Data Sniffing</i>) produces metadata-only findings, with bounded sampling and no content exfiltration. See the formal definition: <a href="https://github.com/DataBoar/data-boar/blob/main/docs/GLOSSARY.md" rel="noopener noreferrer" target="_blank">docs/GLOSSARY.md</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner-wrap">
+  <div class="wrap">
+    <div class="cta-bar">
+      <div class="cta-bar-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+      </div>
+      <div class="cta-bar-text">
+        <h2>Not a black box.</h2>
+        <p>The core is open-core (BSD-3): audit it yourself, instead of trusting a marketing page.</p>
+      </div>
+      <a class="btn btn-primary cta-bar-btn" href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">Go to GitHub</a>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- page-updated:begin -->
+<div class="wrap page-updated">Last updated <time datetime="2026-11-14">November 14, 2026</time></div>
+<!-- page-updated:end -->
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../images/logo-databoar.png" alt="DataBoar">
+        <p>Forensic, sovereign personal-data discovery, with evidence for compliance work.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="solucao.html">Solution</a>
+        <a href="solucao.html#casos-de-uso-en">Use cases</a>
+        <a href="opensource.html">OpenSource</a>
+        <a href="../agende-demonstracao.html">Book a demo</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="windows.html">Windows (no Docker)</a>
+        <a href="faq.html">FAQ</a>
+        <a href="inventario-dados-pessoais-lgpd.html">LGPD inventory</a>
+        <a href="descobrir-dados-pessoais.html">Find personal data</a>
+        <a href="verticais.html">Verticals</a>
+        <a href="glossario.html">Glossary</a>
+        <a href="https://github.com/DataBoar/data-boar/blob/main/docs/MAP.md" rel="noopener noreferrer" target="_blank">Docs</a>
+        <a href="https://databoar.wordpress.com" rel="noopener noreferrer" target="_blank">Blog</a>
+        <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">GitHub</a>
+      </div>
+      <div class="footer-col">
+        <h4>Positioning</h4>
+        <a href="opensource.html">Open-core &amp; method</a>
+        <a href="praticas-de-engenharia.html">Engineering Practices</a>
+        <a href="privacidade.html">Privacy Policy</a>
+        <span class="footer-soon">Pricing · coming soon</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 DataBoar</span>
+      <div class="footer-social">
+        <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.1 3.1 0 00-.9-2.4c3-.3 6-1.5 6-6.6a5.1 5.1 0 00-1.4-3.5 4.6 4.6 0 00-.1-3.5s-1.1-.3-3.5 1.3a12.2 12.2 0 00-6.4 0C6.9 1.3 5.8 1.6 5.8 1.6a4.6 4.6 0 00-.1 3.5A5.1 5.1 0 004.3 8.6c0 5 3 6.3 6 6.6a3.1 3.1 0 00-.9 2.4V22"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/faro-config.js"></script>
+<script src="../js/faro.js" defer></script>
+<script src="../js/site.js"></script>
+</body>
+</html>
