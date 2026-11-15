@@ -19,10 +19,13 @@ Pausa: não
 
 | Assunto | Situação |
 | --- | --- |
-| "Só Linux é suportado" em `solucao.html` e `faq.html` (visível e JSON-LD) | Fala de nível de suporte, não de onde roda. Manter ou trocar por "suporte oficial: Linux; validado em laboratório (VM): …" |
 | "SaaS nosso" em `opensource.html` | Está no roadmap, em construção. Manter ou escrever "em construção" |
 | Regra do Cursor `execution-priority-and-pr-batching.mdc` | Commit assinado local, nunca publicado. Publicar por PR ou descartar |
 
 Registro: em 13/nov/2026 o operador mandou o PM criar a Release `wheelhouse-haiku-2026-11-04` (exceção pontual à regra de que o upload de Release é do operador) e, depois de a #101 mesclar e o `simple/` no ar ser conferido, remover a Release e a tag `wheelhouse-haiko-2026-11-04`. Decisão do operador (13/nov/2026): os wheels do Haiku ficam na Release, com o passo manual documentado, sem hospedar no Pages.
 
 Ver o plano de gestão em [plano.md](plano.md).
+
+## Decisões já tomadas
+
+- **"Só Linux é suportado" saiu do site (14/nov/2026, ordem do operador):** o Windows tem caminho nativo por PyPI (`pipx install data-boar`, guia `windows.html`) e o macOS instala pelo PyPI; só o MSI está em construção. Evidência no CI do `data-boar`: job `test-windows` (suíte completa em `windows-latest` + smoke de `pip install`) e `homebrew-tap.yml` (instala e testa em `macos-15`; o CI não roda a suíte completa em macOS). O texto diz "instalação validada no CI" e não promete nível de suporte; Homebrew segue fora do site enquanto o data-boar#2156 estiver aberto. A regra de redação do `PLAN_SITE_ALIGN_1_8_0.md` que dizia o contrário está superada.

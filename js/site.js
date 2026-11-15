@@ -6,14 +6,23 @@
   var overlay = document.querySelector('.nav-overlay');
   var siteNav = document.getElementById('site-nav');
 
+  // Language of the page: <html lang> says it (PT root pages, /en/ pages, and the
+  // single-URL pages login/agende, whose panels applyLanguage() toggles).
+  var currentLang = document.documentElement.lang === 'en' ? 'en' : 'pt-BR';
+  var navLabels = {
+    'pt-BR': { open: 'Abrir menu de navegação', close: 'Fechar menu de navegação' },
+    en: { open: 'Open navigation menu', close: 'Close navigation menu' }
+  };
+
+  function navLabel(open) {
+    return navLabels[currentLang][open ? 'close' : 'open'];
+  }
+
   function setNavOpen(open) {
     if (!header || !toggle) return;
     header.classList.toggle('nav-open', open);
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    toggle.setAttribute(
-      'aria-label',
-      open ? 'Fechar menu de navegação' : 'Abrir menu de navegação'
-    );
+    toggle.setAttribute('aria-label', navLabel(open));
     if (overlay) {
       overlay.setAttribute('aria-hidden', open ? 'false' : 'true');
     }
@@ -54,13 +63,38 @@
     });
   });
 
-  function applyLanguage(lang) {
-    var resolved = lang === 'en' ? 'en' : 'pt-BR';
-    document.documentElement.lang = resolved === 'en' ? 'en' : 'pt-BR';
+  function rememberLang(lang) {
     try {
-      localStorage.setItem('databoar-lang', resolved);
+      localStorage.setItem('databoar-lang', lang);
     } catch (err) {
       /* ignore */
+    }
+  }
+
+  // The language twin of this page, from <link rel="alternate" hreflang>. Pages that
+  // have one (the PT root page and its /en/ page) switch language by navigating to it.
+  // Pages without one (login, agende) keep toggling their panels in place.
+  function twinHref(lang) {
+    var link = document.querySelector('link[rel="alternate"][hreflang="' + lang + '"]');
+    if (!link) return null;
+    var href = link.getAttribute('href');
+    try {
+      var target = new URL(href, window.location.href);
+      return window.location.origin !== 'null' ? window.location.origin + target.pathname : href;
+    } catch (err) {
+      return href;
+    }
+  }
+
+  var hasTwin = !!(twinHref('en') && twinHref('pt-BR'));
+
+  function applyLanguage(lang) {
+    var resolved = lang === 'en' ? 'en' : 'pt-BR';
+    currentLang = resolved;
+    document.documentElement.lang = resolved === 'en' ? 'en' : 'pt-BR';
+    rememberLang(resolved);
+    if (toggle && header) {
+      toggle.setAttribute('aria-label', navLabel(header.classList.contains('nav-open')));
     }
     document.querySelectorAll('[data-lang-panel]').forEach(function (panel) {
       var match = panel.getAttribute('data-lang-panel') === resolved;
@@ -99,24 +133,37 @@
   document.querySelectorAll('.lang-option').forEach(function (opt) {
     opt.addEventListener('click', function (event) {
       event.preventDefault();
-      applyLanguage(this.dataset.lang);
+      var lang = this.dataset.lang === 'en' ? 'en' : 'pt-BR';
+      if (hasTwin) {
+        document.querySelectorAll('.lang-menu').forEach(function (menu) {
+          menu.classList.remove('open');
+        });
+        if (lang !== currentLang) {
+          rememberLang(lang);
+          window.location.href = twinHref(lang);
+        }
+        return;
+      }
+      applyLanguage(lang);
     });
   });
 
-  function detectLang() {
+  // No language detection by browser and no redirect: the URL decides the language.
+  // Single-URL pages only remember the last language chosen (or the last language page visited).
+  function savedLang() {
     try {
       var saved = localStorage.getItem('databoar-lang');
       if (saved === 'en' || saved === 'pt-BR') return saved;
     } catch (e) {
       /* ignore */
     }
-    // 1a visita: detecta pelo navegador. pt* -> PT-BR; qualquer outro -> EN.
-    var nav = (navigator.language || navigator.userLanguage || 'pt-BR').toLowerCase();
-    return nav.indexOf('pt') === 0 ? 'pt-BR' : 'en';
+    return 'pt-BR';
   }
 
-  if (document.querySelector('[data-lang-panel]')) {
-    applyLanguage(detectLang());
+  if (hasTwin) {
+    rememberLang(currentLang);
+  } else if (document.querySelector('[data-lang-panel]')) {
+    applyLanguage(savedLang());
   }
 
   document.addEventListener('click', function (event) {

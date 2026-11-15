@@ -27,6 +27,9 @@ run() { echo; echo "── $1 ──"; shift; if "$@"; then echo "  ✅ ok"; els
 # 0) Site chrome (nav + footer) must match partials/site-chrome — no silent drift
 run "site-chrome sync --check" python3 scripts/sync-site-chrome.py --check
 
+# 0a) English site (/en/), hreflang block, "updated" stamps and sitemap = what scripts/build-en.py writes
+run "build-en --check (en/ + hreflang + stamps + sitemap)" python3 scripts/build-en.py --check
+
 # 0b) Deterministic surface gates: Faro on every human page · chrome identical · contrast
 run "site surface (faro + chrome + contrast)" python3 -m unittest -q tests.test_site_surface
 
@@ -53,7 +56,7 @@ fi
 
 # 3) Lint / code quality (best-effort; skip if tool absent, never silently pass a present tool)
 if command -v tidy >/dev/null 2>&1; then
-  run "html tidy (errors only)" bash -c 'for f in *.html; do tidy -qe "$f" || exit 1; done'
+  run "html tidy (errors only)" bash -c 'for f in *.html en/*.html; do tidy -qe "$f" || exit 1; done'
 fi
 if command -v node >/dev/null 2>&1; then
   run "js syntax (node --check)" bash -c 'for f in js/*.js; do node --check "$f" || exit 1; done'

@@ -1,0 +1,438 @@
+{
+  "casos/menores-lgpd-art-14.html": {
+    "title": "Minors’ data / LGPD Art. 14 — evidence in folders and spreadsheets without coding | DataBoar",
+    "description": "How to evidence possible minors’ data (LGPD Art. 14) in folders, spreadsheets, and exports with no DBA or API: local scan, Excel report, inventory signals — evidence, not a legal conclusion.",
+    "og:title": "Minors’ data / LGPD Art. 14 — evidence without coding | DataBoar",
+    "og:description": "Local discovery of signals of minors’ data in files and spreadsheets. Offline, no mandatory Docker, Excel + JSON. Inventory evidence — never an age verdict.",
+    "jsonld": [
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How can you evidence minors’ data / LGPD Art. 14 in folders and spreadsheets without coding?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Use a local discovery tool that scans the folders and files you point it at (spreadsheets, CSVs, exports), identifies columns and values that suggest age or date of birth, and flags signals of possible minors’ data with high priority in the report. DataBoar does this offline, with no DBA or API needed, and produces Excel (for people) and JSON (for machines). These are inventory and triage signals — not legal age verification or a legal opinion."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is differential treatment under LGPD Art. 14 in this context?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "LGPD Art. 14 deals with the consent and processing of children’s and adolescents’ data with heightened care. In the product, “differential treatment” means prioritizing and highlighting in the report signals of possible minors’ data (for example DOB_POSSIBLE_MINOR), cross-referenced with identifiers in the same folder or table — for the DPO or controller to triage. The tool does not decide whether parental consent is valid."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does the tool generate the report on its own?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, once you point it at the target (a folder or a config). The scan produces a findings spreadsheet and prioritized recommendations. You check the paths; policy, legal basis, and any response to the ANPD stay with the organization."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need a programmer, a DBA, or an API to find a school record or an LMS export?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not for the file path. LMS CSV/Excel exports, enrollment folders, and class spreadsheets can be pointed at as a filesystem target. A database is optional and configurable later. Start with the demo on synthetic data on Windows, without Docker."
+            }
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to evidence possible minors’ data in folders (without coding)",
+        "description": "Light steps: validate the local demo, point at a test folder with a synthetic sample or a controlled export, and generate an Excel/JSON report with inventory signals aligned with the care of Art. 14.",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Lightweight install on Windows",
+            "text": "Follow the Windows quickstart without Docker and run data-boar --demo with synthetic data at http://127.0.0.1:8088. None of your real files are read in this step."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "Point at the folder",
+            "text": "With help or a simple config.yaml, point only at the test exports/enrollment folder (not the whole C: drive). Include spreadsheets and CSVs where columns such as date of birth, DDN, age, or NASC usually appear."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Generate the report",
+            "text": "Run the local scan. The report highlights signals of possible minors’ data, can cross-reference identifiers on the same path, and exports Excel for people and JSON for machines. Use it as evidence of diligence — not a legal conclusion."
+          }
+        ]
+      }
+    ]
+  },
+  "data-discovery-advocacia.html": {
+    "title": "LGPD data discovery for law firms | DataBoar",
+    "description": "Local personal-data scanner for law firms: cases, parties, email, and possible sensitive data. Auditable Excel, without sending case files to the cloud.",
+    "og:title": "LGPD data discovery for law firms | DataBoar",
+    "og:description": "Local discovery in case folders and exports — inventory and triage, without classifying privilege or issuing an opinion.",
+    "jsonld": [
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Does a law firm need LGPD data discovery?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Law firms accumulate case folders, email, and records of parties. The practical risk is not knowing which share or PST still holds PII — including from old cases. Local technical discovery helps map it; retention, access, and professional secrecy remain the firm’s responsibility."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does DataBoar identify criminal records or sensitive data?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The engine can flag patterns and combinations useful for the inventory — including signals of sensitive categories when configured. This is an inventory and triage signal (LGPD Art. 11), not confirmation of criminal records, not privilege classification, and not a legal opinion."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need to send case files to the cloud to scan them?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The model is local-first: the scan runs in the firm’s environment and produces an Excel report. Start with the demo on Windows without Docker, with synthetic data."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "data-discovery-condominios.html": {
+    "title": "LGPD data discovery for condominiums and real-estate agencies | DataBoar",
+    "description": "Local personal-data scanner for condominium management companies and real-estate agencies: tenants, owners, contracts, and former-occupant folders. Excel, no vendor cloud.",
+    "og:title": "LGPD data discovery for condominiums | DataBoar",
+    "og:description": "Local discovery in per-unit folders and contracts — inventory and triage, no compliance seal.",
+    "jsonld": [
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Does a condominium management company need LGPD data discovery?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Contracts, copies of documents, utility spreadsheets, and per-unit folders accumulate PII. The practical risk is the folder of a former tenant or former owner that nobody archived. Local discovery helps you see where it lives; retention and access remain with the management company."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can you scan without sending contracts to the cloud?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. DataBoar is local-first: the scan runs in the company’s environment and produces an Excel report. Start with the demo on Windows without Docker, with synthetic data."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is it for a small real-estate agency or only for large property managers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The open source core is a way to start in smaller operations with many per-unit folders. Expensive GRC suites make sense in mature programs; for mapping filesystems and spreadsheets, the lightweight path is usually enough."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "data-discovery-contabilidade.html": {
+    "title": "LGPD data discovery for accounting firms | DataBoar",
+    "description": "Personal-data scanner for accounting firms and solo professionals: local, open source, Excel, ZIP, no Docker. Find where clients’ CPF and tax data are.",
+    "og:title": "LGPD data discovery for accounting | DataBoar",
+    "og:description": "Personal-data discovery tool for accountants — local-first, without sending client files to the cloud.",
+    "jsonld": [
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Does an accounting firm need LGPD inventory / data discovery?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Firms handle CPF, income tax, payroll, and bank details by legal obligation. The practical risk is a loose file, a shared folder, or an old former client. Technical discovery helps you see where it lives; organizing access and retention remains the firm’s work."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there a personal-data scanner that doesn’t send files to the cloud?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. DataBoar is local-first and open-core: the scan runs in the firm’s environment and produces an Excel report. Start with the demo on Windows without Docker, with synthetic data."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is it for solo professionals or only for large companies?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The open source core is a way to start in smaller firms. Expensive GRC suites make sense in mature programs; for mapping folders and spreadsheets, the lightweight path is usually enough."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "descobrir-dados-pessoais.html": {
+    "title": "How to find where your company’s personal data is | DataBoar",
+    "description": "How to find personal data in folders, spreadsheets, CRM/ERP, and files without being in IT: local-first LGPD data discovery, Excel report, Windows demo without Docker.",
+    "og:title": "Where is your company’s personal data? | DataBoar",
+    "og:description": "A step-by-step guide to finding CPF and sensitive data in files — no cloud, no mandatory Docker.",
+    "jsonld": [
+      {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to find where your company’s personal data is without being in IT",
+        "description": "Validate the local demo, point at a working folder, and read the Excel report of findings — technical discovery for the LGPD.",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Run the demo on Windows",
+            "text": "Install via the Windows guide without Docker and run data-boar --demo. It uses only synthetic data at http://127.0.0.1:8088."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "Point at the right folder",
+            "text": "With a config pointing only at the clients or documents folder (not the whole disk), run the local scan."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Read the Excel of findings",
+            "text": "Open the report: file path and type of data found. Check it and decide on restriction, retention, or deletion with the person responsible in the organization."
+          }
+        ]
+      }
+    ]
+  },
+  "faq.html": {
+    "title": "FAQ — Personal-data inventory and discovery (LGPD) | DataBoar",
+    "description": "Frequently asked questions about personal-data inventory, LGPD data discovery, installing on Windows without Docker, local open source, and Excel reports. Clear answers for firms, SMEs, and people outside IT.",
+    "og:title": "FAQ — Personal-data inventory and discovery (LGPD) | DataBoar",
+    "og:description": "Clear answers: what a personal-data inventory is, how to find where your company’s data is, whether you need IT, Docker, or a DPO, and how to start on Windows.",
+    "jsonld": [
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is a personal-data inventory under the LGPD?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It is the record of which personal data the organization processes, where it is stored, for what purpose, under which legal basis, who has access, and for how long. The LGPD (Art. 37) requires controllers and processors to keep a record of processing operations. Without an inventory it is hard to answer data subjects, prepare a DPIA/RIPD, or demonstrate compliance."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I find where my company’s personal data is?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Beyond interviewing teams and filling in spreadsheets, you can automate technical discovery: scan folders, files (PDF, Excel, Word, ZIP) and, in many cases, databases and systems, identifying CPF, email, bank details, and other patterns. DataBoar does this discovery locally (the data does not leave your machine) and produces an Excel report with the findings."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need to be in IT or have a DPO to use DataBoar?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not necessarily. There is a path built for people who have never used a terminal: a demo on Windows without Docker, with explained steps. Micro-enterprises and solo professionals are often not required to appoint a DPO (ANPD Resolution CD/ANPD No. 2/2022). DataBoar produces technical evidence; the compliance decision stays with the person responsible for the organization."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does DataBoar send my data to the cloud?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The model is local-first: the scan runs in your environment. Only metadata and structured findings are produced as a report; the contents of client files are not sent to third-party servers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need to install Docker?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Docker is an option for people who already use containers. On Windows there is a native path with Python and the demo command data-boar --demo, described step by step on the Windows without Docker page."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the ways to install DataBoar?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "From PyPI: pip, pipx, or uvx data-boar --demo (a demo on synthetic data), on Linux, Windows, and macOS (installation validated in GitHub Actions CI); on Windows, the Windows without Docker guide walks through the pipx steps. There is also a Docker Hub image and native packages (deb, rpm, apk, pacman) attached to every release. The MSI installer for Windows is in progress."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it work with ZIP files and password-protected files?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ZIP files are analyzed from the inside, without you having to unpack folder by folder. Password-protected files cannot have their contents read (that is the password’s job); the report records that reading was blocked, so you know which documents are already locked."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is DataBoar free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The open source core is free and the code is public on GitHub. The model is open-core: the base stays open and auditable; advanced features, support, and SLA for larger corporate environments may be commercial. Smaller firms can start and operate on the free core."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is it only for the LGPD, or also for tax data and other frameworks?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The entry wedge in Brazil is the LGPD (CPF, sensitive data, etc.), but DataBoar is not only for that. The same engine helps discover tax and financial patterns (CNPJ, bank details, etc.) and produce technical evidence aligned with other frameworks — always inventory and triage, not a legal opinion."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I start without fearing I’ll break the computer?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Always start with demo mode: data-boar --demo uses only synthetic (fake) data and opens the panel at http://127.0.0.1:8088. None of your real files are touched. Only after validating, point it at a test folder or, with help, at the firm’s real folders."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "ANPD spreadsheet or automatic tool — which should I use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The ANPD’s simplified spreadsheet helps organize the record of processing activities (the administrative side). It does not scan the disk for a CPF forgotten in an old PDF or spreadsheet. A discovery tool and the spreadsheet complement each other: one finds where the data actually is; the other documents purpose, legal basis, and owners."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does DataBoar replace DPO-as-a-Service or self-declared mapping platforms?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No — they are different categories. Outsourced-DPO / self-declared mapping platforms usually document what the organization declares about processes and routines (client data generally does not enter the platform). DataBoar does local technical discovery: it looks for where the data actually appears in folders and files and produces inventory and triage evidence. They complement each other; one does not replace the other. It is not a legal opinion or a compliance seal."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I find minors’ data in my folders without coding?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Point folders and exports (enrollment, LMS, spreadsheets) at a local scan. DataBoar looks for columns and values of age or date of birth and flags signals of possible minors’ data in the Excel/JSON report. No DBA or API is needed for the file path. These are inventory signals — not legal age verification. See the dedicated case: casos/menores-lgpd-art-14.html."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What does differential treatment under LGPD Art. 14 mean in discovery?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "In inventory practice, it means prioritizing and highlighting in the report signals of possible children’s or adolescents’ data (LGPD Art. 14; GDPR Art. 8 parallel), including by cross-referencing identifiers in the same file. The tool does not decide whether the legal guardian’s consent is valid and does not issue an opinion."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does the tool generate the possible-minors report on its own?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, once you point it at the target. The scan produces a spreadsheet and prioritized recommendations; you check the paths. Policy, legal basis, and regulatory response stay with the DPO, legal counsel, and the organization."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I find a school record or an LMS export without being in IT?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes for files: CSV/Excel and export folders can be pointed at without coding. Start with the synthetic demo on Windows without Docker; only then point at a test folder. There is a case guide at casos/menores-lgpd-art-14.html."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "glossario.html": {
+    "title": "Glossary & Coverage — DataBoar",
+    "description": "DataBoar’s taxonomy (Data Sniffing, Deep Boring, Safe-Hold, Audit Trail) and the frameworks we help evidence: LGPD, GDPR, CCPA, HIPAA, PIPL, and CMMC/CUI."
+  },
+  "index.html": {
+    "title": "DataBoar — Personal-data inventory and discovery (LGPD), local-first",
+    "description": "Find where your company’s personal data is: local-first LGPD inventory and data discovery, open source, Excel report. No sending files to the cloud — Windows without Docker."
+  },
+  "inventario-dados-pessoais-lgpd.html": {
+    "title": "LGPD personal-data inventory: what it is and how to automate it | DataBoar",
+    "description": "What a personal-data inventory is under the LGPD, why the endless spreadsheet fails, and how to automate technical discovery without sending data to the cloud — Windows path without Docker.",
+    "og:title": "LGPD personal-data inventory | DataBoar",
+    "og:description": "Inventory ≠ an eternal spreadsheet. Find where personal data actually is, with local Excel evidence.",
+    "jsonld": [
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is a personal-data inventory under the LGPD?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It is the record of which personal data the organization processes, where it is, for what purpose, under which legal basis, who accesses it, and for how long. The LGPD (Art. 37) requires a record of processing operations. Without an inventory it is hard to answer data subjects or respond to an inspection."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why do most LGPD inventories fail?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Because they depend only on interviews and manual spreadsheets: what is on paper does not match the forgotten file on the shared folder. Technical discovery is missing — scanning where CPF, email, and sensitive data actually appear."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do you automate the inventory without an endless spreadsheet?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Combine the administrative record (purpose, legal basis) with a local data discovery tool that you point at folders and that produces an Excel report of the findings. DataBoar does the technical part offline; the organization completes the formal inventory. It does not replace a DPO or a legal opinion."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "opensource.html": {
+    "title": "OpenSource & method — DataBoar",
+    "description": "Open-core BSD-3, local-first: auditable LGPD personal-data inventory and discovery, with no LLM in the decision. Open method — you can audit how DataBoar behaves, without trusting a black box."
+  },
+  "praticas-de-engenharia.html": {
+    "title": "Engineering practices — DataBoar",
+    "description": "How we build DataBoar: fail-closed by default, pinned dependencies with a cooldown period, integrity checks before trusting any artifact, and metadata before content. Principles, with links to the real code.",
+    "og:title": "Engineering practices — DataBoar",
+    "og:description": "Fail-closed, pin + cooldown, integrity verification, metadata before content — the engineering principles behind DataBoar, with links to the real code."
+  },
+  "privacidade.html": {
+    "title": "Privacy Policy — DataBoar",
+    "description": "How DataBoar collects, processes, and protects your personal data, in compliance with the LGPD."
+  },
+  "solucao.html": {
+    "title": "Solution — LGPD inventory and data discovery | DataBoar",
+    "description": "DataBoar solution: discovery of personal and sensitive data in your environment, Excel evidence, local-first. For firms, SMEs, and compliance teams that don’t want to depend only on spreadsheets."
+  },
+  "verticais.html": {
+    "title": "Verticals — LGPD data discovery by sector | DataBoar",
+    "description": "DataBoar verticals hub: accounting, law, condominiums, and the minors topic (Art. 14). Local discovery of personal data and sensitive patterns — evidence, not an opinion.",
+    "og:title": "Verticals — LGPD data discovery by sector | DataBoar",
+    "og:description": "Same local tool, different sectors: accounting, law, condominiums, and a minors guide."
+  },
+  "windows.html": {
+    "title": "Data Boar on Windows — a demo in minutes, NO Docker | DataBoar",
+    "description": "Step by step to use Data Boar on Windows WITHOUT Docker: find personal and sensitive data (LGPD) right on your PC. Made for people who have never used a terminal — accounting firms, SMEs. Synthetic demo data, nothing leaves the machine."
+  }
+}
