@@ -11,8 +11,8 @@ Site público https://databoar.com.br (GitHub Pages): site comercial, `images/` 
 | 3 | Regra de leitura completa de thread no `AGENTS.md` | [#95](https://github.com/DataBoar/data-boar-site/issues/95) | Aberto |
 | 4 | Wheelhouses de laboratório Haiku, FreeBSD, NetBSD e OpenBSD no `simple/`, com instalação por SO | [#104](https://github.com/DataBoar/data-boar-site/issues/104), PR #101 (mesclada em 13/nov) | Concluído, exceto a 4.7 (illumos); inventário em [WHEELHOUSE_BSD_HAIKU.md](WHEELHOUSE_BSD_HAIKU.md) |
 | 5 | Bestiais no site (Sage Remora, Faithful Ferret, Stealthy Stoat, Keen Platypus): o que faz hoje × o que vem, pt/en, só o que a doc dos repos prova | [#106](https://github.com/DataBoar/data-boar-site/issues/106), PR única | Concluído (PR #107 mesclada em 14/nov); falta só a 5.5 |
-| 6 | Site bilíngue de verdade: corpo EN nas 3 páginas, `/en/` gerado, hreflang e AI-SEO básico | [#108](https://github.com/DataBoar/data-boar-site/issues/108), PR épica única (junto com o fechamento da rodada 2) | Pronto no branch local (`check-all` 0); falta a leitura do EN da `menores` e o "vai"; merge só depois da demo de quarta 18/nov |
-| 7 | Página de comparação por categoria (scanner local × mapeamento declarativo × DPO-as-a-Service × planilha ANPD), pt/en, sem citar marca | [#110](https://github.com/DataBoar/data-boar-site/issues/110), PR própria | Planejado (15/nov); execução depois do merge da #109 e da demo de 18/nov |
+| 6 | Site bilíngue de verdade: corpo EN nas 3 páginas, `/en/` gerado, hreflang e AI-SEO básico | [#108](https://github.com/DataBoar/data-boar-site/issues/108), PR épica única (junto com o fechamento da rodada 2) | Concluído (PR #109 mesclada pelo operador em 15/nov, 22:57 UTC); leitura do EN da `menores` não confirmada ao PM |
+| 7 | Página de comparação por categoria (scanner local × mapeamento declarativo × DPO-as-a-Service × planilha ANPD), pt/en, sem citar marca | [#110](https://github.com/DataBoar/data-boar-site/issues/110), PR própria | Plano mesclado (PR #111, 15/nov); execução (7.1 em diante) só depois da demo de 18/nov |
 
 ## Tarefas do entregável 2
 
@@ -55,19 +55,19 @@ Site público https://databoar.com.br (GitHub Pages): site comercial, `images/` 
 
 ## Tarefas do entregável 6
 
-Ordem do operador (14/nov): a 6.1 e a 6.2 vêm antes da 6.3 em diante. Uma PR épica, merge só depois da demo de quarta 18/nov. `llms.txt` fica para depois.
+Ordem do operador (14/nov): a 6.1 e a 6.2 vêm antes da 6.3 em diante. Uma PR épica (#109, mesclada em 15/nov). `llms.txt` fica para depois.
 
 | ID | Tarefa | Dono | Status |
 | --- | --- | --- | --- |
-| 6.1 | Corpo EN de `descobrir-dados-pessoais`, `inventario-dados-pessoais-lgpd` e `casos/menores-lgpd-art-14` (fiel ao PT, sem afirmação nova) e 2 links de rodapé em EN, pelo partial `footer.html` | PM | Feito (local); **o operador lê o EN da `menores-lgpd-art-14` antes do merge** |
-| 6.2 | Guardrail `BilingualParity` (texto de conteúdo dentro de painel, painel PT com irmão EN não vazio, razão EN/PT entre 0,6 e 1,5) | PM | Feito (local) |
-| 6.3 | `scripts/build-en.py`: gera `/en/` dos painéis EN (`html lang="en"`, canonical próprio, links internos e assets reescritos), commitado, com guardrail de drift | PM | Feito (local): `--check` no `check-all`; parser com teste de reescrita sem perdas |
-| 6.4 | Metadados por idioma: title, description, `og:*`, `og:locale` e JSON-LD (com `inLanguage`) em PT e EN | PM | Feito (local): `partials/i18n/head.en.json` (15 páginas, 8 blocos JSON-LD); o item em inglês que estava no JSON-LD PT da `faq.html` saiu (o EN tem o seu) |
-| 6.5 | hreflang `pt-BR`/`en`/`x-default` em cada par e sitemap com `xhtml:link`, com guardrail de consistência; `login.html` e `agende-demonstracao.html` ficam de fora | PM | Feito (local): canonical próprio nas 15 páginas (5 não tinham); sitemap com 30 URLs de par + `agende` |
-| 6.6 | Seletor de idioma navega para a URL do par; sai a detecção automática por navegador; sem redirect | PM | Feito (local): conferido em navegador (PT→EN→PT, e `agende` abre no idioma lembrado); guardrail proíbe `navigator.language` e redirect |
-| 6.7 | AI-SEO de baixo esforço: `<main>`/`<article>`, `dateModified` e "Atualizado em" com a data real do `git log` | PM | Feito (local): `<main>` nas 17 páginas, `<article>` nas 6 de artigo; datas do `git log` ignorando as linhas gerenciadas |
-| 6.8 | Fechamento da rodada 2 na mesma PR (custos, plano, memória; commit `fadf823`) | PM | Feito (local) |
-| 6.9 | Leitura do EN da `menores-lgpd-art-14` e "vai" do operador; merge depois de 18/nov | Operador | Pendente |
+| 6.1 | Corpo EN de `descobrir-dados-pessoais`, `inventario-dados-pessoais-lgpd` e `casos/menores-lgpd-art-14` (fiel ao PT, sem afirmação nova) e 2 links de rodapé em EN, pelo partial `footer.html` | PM | Feito (PR #109); **o operador lê o EN da `menores-lgpd-art-14` antes do merge** |
+| 6.2 | Guardrail `BilingualParity` (texto de conteúdo dentro de painel, painel PT com irmão EN não vazio, razão EN/PT entre 0,6 e 1,5) | PM | Feito (PR #109) |
+| 6.3 | `scripts/build-en.py`: gera `/en/` dos painéis EN (`html lang="en"`, canonical próprio, links internos e assets reescritos), commitado, com guardrail de drift | PM | Feito (PR #109): `--check` no `check-all`; parser com teste de reescrita sem perdas |
+| 6.4 | Metadados por idioma: title, description, `og:*`, `og:locale` e JSON-LD (com `inLanguage`) em PT e EN | PM | Feito (PR #109): `partials/i18n/head.en.json` (15 páginas, 8 blocos JSON-LD); o item em inglês que estava no JSON-LD PT da `faq.html` saiu (o EN tem o seu) |
+| 6.5 | hreflang `pt-BR`/`en`/`x-default` em cada par e sitemap com `xhtml:link`, com guardrail de consistência; `login.html` e `agende-demonstracao.html` ficam de fora | PM | Feito (PR #109): canonical próprio nas 15 páginas (5 não tinham); sitemap com 30 URLs de par + `agende` |
+| 6.6 | Seletor de idioma navega para a URL do par; sai a detecção automática por navegador; sem redirect | PM | Feito (PR #109): conferido em navegador (PT→EN→PT, e `agende` abre no idioma lembrado); guardrail proíbe `navigator.language` e redirect |
+| 6.7 | AI-SEO de baixo esforço: `<main>`/`<article>`, `dateModified` e "Atualizado em" com a data real do `git log` | PM | Feito (PR #109): `<main>` nas 17 páginas, `<article>` nas 6 de artigo; datas do `git log` ignorando as linhas gerenciadas |
+| 6.8 | Fechamento da rodada 2 na mesma PR (custos, plano, memória; commit `fadf823`) | PM | Feito (PR #109) |
+| 6.9 | Leitura do EN da `menores-lgpd-art-14` e "vai" do operador | Operador | "Vai" dado e PR mesclada em 15/nov; a leitura do EN não foi confirmada ao PM |
 
 ## Tarefas do entregável 7
 

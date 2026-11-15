@@ -1,3 +1,3 @@
-- [Estado do wheelhouse e do plano](project_wheelhouse_state.md) — #104 e bestiais (#107) mesclados; pendências 4.7/2/3/5.5, decisão do Haiku
-- [Regras de trabalho do operador](feedback_site_workflow.md) — PR pronta + vai, main só por PR, index-url exclusivo, sem trailers
+- [Estado do wheelhouse e do plano](project_wheelhouse_state.md) — #104, bestiais (#107), site bilíngue (#109) mesclados; entregável 7 planejado; pendências 4.7/2/3/5.5
+- [Regras de trabalho do operador](feedback_site_workflow.md) — PR pronta + vai, main só por PR, index-url exclusivo, sem trailers, sem regex em HTML, limpar só as minhas branches
 - [Armadilhas de infra](reference_infra_gotchas.md) — Cloudflare 403 no urllib, `~` vira `.`, issue de registro #103

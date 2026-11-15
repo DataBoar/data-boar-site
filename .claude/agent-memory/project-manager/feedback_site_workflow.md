@@ -12,3 +12,7 @@ metadata:
 - **Um tema, uma PR épica** (custo de CI). x86-64-v1 vai em PR própria.
 - **Ação destrutiva só com ordem do operador e precondições conferidas** (foi assim com a Release `haiko`): provar que a cópia nova é idêntica e que o índice no ar não aponta mais para a antiga, apagar, e conferir 404 depois.
 - Responder em pt-BR, curto, com evidência (números, SHAs, links).
+- **Nunca filtrar HTML com regex** (`<script.*?</script>`, `<(script|style)`); usar `html.parser`. **Why:** o CodeQL `py/bad-tag-filter` (alto) pegou um regex meu no teste da PR #109 e o `check-all` NÃO roda CodeQL. **How to apply:** o guardrail `HtmlParsingGuard` falha se um regex sobre `<script>`/`<style>` voltar; depois de cada push, olhar `gh pr checks` e `gh api code-scanning/alerts?ref=refs/pull/<n>/head` antes de reportar verde.
+- **Limpeza pós-merge só apaga as branches da própria entrega** (nomeadas, `git branch -d`), nunca um laço sobre todas. **Why:** em 15/nov um laço apagou 38 branches locais antigas já mescladas (nada se perdeu, mas passou do escopo). **How to apply:** listar o que será apagado e restringir às branches que eu criei.
+- **"Vai" solto não é "vai" de PR:** o operador dá o "vai" explícito para push/PR; um "Vai" depois de um relatório de progresso foi lido como sinal para seguir o código. Também: texto de plataforma/suporte no site só com evidência (CI do produto), nunca copiado de regra de redação sem fonte.
+

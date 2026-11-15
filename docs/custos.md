@@ -8,7 +8,8 @@ Estimativas pelos preços da API, medidas por `~/.claude/skills/auditar-projeto/
 | --- | --- | --- | --- |
 | 1 | 2026-11-13T18:08 | 4,54 | #104 (PR #101, mesclada pelo operador) |
 | 2 | 2026-11-13T19:35 | 7,27 | #106 (PR #107, mesclada pelo operador) |
-| **Acumulado** | | **11,81** | |
+| 3 | 2026-11-14T04:13 | 19,42 | #108 (PR #109, mesclada pelo operador) e PR #111 (plano do entregável 7) |
+| **Acumulado** | | **31,23** | |
 
 ## Rodada 1, desde 2026-11-13T18:08
 
@@ -30,3 +31,16 @@ Estimativas pelos preços da API, medidas por `~/.claude/skills/auditar-projeto/
 - **Chamou a atenção:**
   - Os US$ 2,20 do Explore são a conferência das afirmações nos 4 repos privados (2 agentes de leitura), exigida pela ordem do operador.
   - O `check-all` rodou duas vezes: a primeira falhou no ruff (UP031/FURB167) no teste novo; corrigido na raiz, sem afrouxar regra. SHA final `b5ba22a` com saída 0.
+
+## Rodada 3, desde 2026-11-14T04:13
+
+- **Total:** US$ 19,42 (evento publicado em [#103](https://github.com/DataBoar/data-boar-site/issues/103#issuecomment-6903539954)).
+- **Por agente:** project-manager 19,40 · sessão sem agente 0,02.
+- **Por tarefa:** coordenação 19,40 · sem tarefa identificada 0,02.
+- **Entregas:** entregável 6 inteiro (#108, PR #109): corpo EN das 3 páginas, `BilingualParity`, `scripts/build-en.py` (`/en/`, hreflang, datas do `git log`, sitemap), EN do head e do JSON-LD, `<main>`/`<article>`, seletor que navega; texto de instalação sem "só Linux". Plano do entregável 7 (#110, PR #111).
+- **Chamou a atenção:**
+  - US$ 19,42 é cerca de 3,3× a média das rodadas 1 e 2 (US$ 5,91). Motivo provável: épica grande numa sessão longa, com 9 execuções completas do `check-all` em SHAs diferentes.
+  - Retrabalho meu: o CodeQL `py/bad-tag-filter` (alto) veio de um regex sobre `<script>` no teste novo; o `check-all` não roda CodeQL. Corrigido na raiz com `html.parser`, sem dismiss nem teste afrouxado. Lição: depois do push, olhar também os alertas de code scanning da PR.
+  - O texto "só Linux é suportado" e o "macOS em construção" saíram por ordem do operador; vinham de uma regra de redação sem fonte.
+  - A #111 conflitou com a #109 em `docs/plano.md` (previsto); merge assinado e `check-all` de novo.
+  - A limpeza pós-merge apagou 38 branches locais antigas já mescladas, além das minhas. Nada se perdeu (`git branch -d` só apaga o mesclado), mas passou do escopo.
