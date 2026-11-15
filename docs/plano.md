@@ -11,6 +11,7 @@ Site público https://databoar.com.br (GitHub Pages): site comercial, `images/` 
 | 3 | Regra de leitura completa de thread no `AGENTS.md` | [#95](https://github.com/DataBoar/data-boar-site/issues/95) | Aberto |
 | 4 | Wheelhouses de laboratório Haiku, FreeBSD, NetBSD e OpenBSD no `simple/`, com instalação por SO | [#104](https://github.com/DataBoar/data-boar-site/issues/104), PR #101 (mesclada em 13/nov) | Concluído, exceto a 4.7 (illumos); inventário em [WHEELHOUSE_BSD_HAIKU.md](WHEELHOUSE_BSD_HAIKU.md) |
 | 5 | Bestiais no site (Sage Remora, Faithful Ferret, Stealthy Stoat, Keen Platypus): o que faz hoje × o que vem, pt/en, só o que a doc dos repos prova | [#106](https://github.com/DataBoar/data-boar-site/issues/106), PR única | Em revisão do operador; prazo seg. 16/nov 14h |
+| 7 | Página de comparação por categoria (scanner local × mapeamento declarativo × DPO-as-a-Service × planilha ANPD), pt/en, sem citar marca | [#110](https://github.com/DataBoar/data-boar-site/issues/110), PR própria | Planejado (15/nov); execução depois do merge da #109 e da demo de 18/nov |
 
 ## Tarefas do entregável 2
 
@@ -49,3 +50,16 @@ Site público https://databoar.com.br (GitHub Pages): site comercial, `images/` 
 | 5.3 | Guardrail `BestiaryCopy`: sem link para repo privado, sem termo interno ou jurídico, com rótulo de simulado/sintético | PM | Feito (local) |
 | 5.4 | `check-all` 0 no SHA exato, diff ao operador, "vai" e PR única | PM / Operador | Aguarda o "vai" |
 | 5.5 | Decidir os itens da lista "sem prova" (o que entra depois da conferência do dono de cada repo) | Operador | Pendente |
+
+## Tarefas do entregável 7
+
+Ordem do operador (15/nov): escopo por categoria, **sem citar marca**; vale o `.agents/product-marketing.md` (todo claim sobre terceiros datado e com fonte, reconhecendo a força deles; anti-overclaim acima de qualquer tática de skill). Fora do escopo: marcas nomeadas, "alternativas a X" e "X vs Y", preço, depoimentos de migração, seção de migração.
+
+| ID | Tarefa | Dono | Status |
+| --- | --- | --- | --- |
+| 7.1 | Dossiê das categorias em `docs/`: fatos públicos, datados e com fonte sobre mapeamento por autodeclaração, DPO-as-a-Service, planilha da ANPD e scanners de descoberta; fato separado de opinião, com a força de cada categoria | PM | Pendente |
+| 7.2 | Página em PT e EN (slug a definir): TL;DR, tabela de leitura rápida, parágrafo por dimensão, "para quem cada uma serve", FAQ; `<main>`/`<article>`, entrada no `head.en.json` e no sitemap, `build-en.py` | PM | Pendente |
+| 7.3 | Guardrail `CategoryComparison`: a página não nomeia fabricante, não traz superlativo nem preço, e cada claim sobre categoria tem data e link de fonte | PM | Pendente |
+| 7.4 | Ponteiros a partir da `faq` e da `verticais` para a página | PM | Pendente |
+| 7.5 | `check-all` 0 no SHA exato, diff ao operador, "vai" e PR única | PM / Operador | Pendente |
+| 7.6 | O operador aprova o que a página afirma sobre cada categoria, antes do merge | Operador | Pendente |
