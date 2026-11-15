@@ -12,6 +12,7 @@ Site público https://databoar.com.br (GitHub Pages): site comercial, `images/` 
 | 4 | Wheelhouses de laboratório Haiku, FreeBSD, NetBSD e OpenBSD no `simple/`, com instalação por SO | [#104](https://github.com/DataBoar/data-boar-site/issues/104), PR #101 (mesclada em 13/nov) | Concluído, exceto a 4.7 (illumos); inventário em [WHEELHOUSE_BSD_HAIKU.md](WHEELHOUSE_BSD_HAIKU.md) |
 | 5 | Bestiais no site (Sage Remora, Faithful Ferret, Stealthy Stoat, Keen Platypus): o que faz hoje × o que vem, pt/en, só o que a doc dos repos prova | [#106](https://github.com/DataBoar/data-boar-site/issues/106), PR única | Concluído (PR #107 mesclada em 14/nov); falta só a 5.5 |
 | 6 | Site bilíngue de verdade: corpo EN nas 3 páginas, `/en/` gerado, hreflang e AI-SEO básico | [#108](https://github.com/DataBoar/data-boar-site/issues/108), PR épica única (junto com o fechamento da rodada 2) | Pronto no branch local (`check-all` 0); falta a leitura do EN da `menores` e o "vai"; merge só depois da demo de quarta 18/nov |
+| 7 | Página de comparação por categoria (scanner local × mapeamento declarativo × DPO-as-a-Service × planilha ANPD), pt/en, sem citar marca | [#110](https://github.com/DataBoar/data-boar-site/issues/110), PR própria | Planejado (15/nov); execução depois do merge da #109 e da demo de 18/nov |
 
 ## Tarefas do entregável 2
 
@@ -67,3 +68,16 @@ Ordem do operador (14/nov): a 6.1 e a 6.2 vêm antes da 6.3 em diante. Uma PR é
 | 6.7 | AI-SEO de baixo esforço: `<main>`/`<article>`, `dateModified` e "Atualizado em" com a data real do `git log` | PM | Feito (local): `<main>` nas 17 páginas, `<article>` nas 6 de artigo; datas do `git log` ignorando as linhas gerenciadas |
 | 6.8 | Fechamento da rodada 2 na mesma PR (custos, plano, memória; commit `fadf823`) | PM | Feito (local) |
 | 6.9 | Leitura do EN da `menores-lgpd-art-14` e "vai" do operador; merge depois de 18/nov | Operador | Pendente |
+
+## Tarefas do entregável 7
+
+Ordem do operador (15/nov): escopo por categoria, **sem citar marca**; vale o `.agents/product-marketing.md` (todo claim sobre terceiros datado e com fonte, reconhecendo a força deles; anti-overclaim acima de qualquer tática de skill). Fora do escopo: marcas nomeadas, "alternativas a X" e "X vs Y", preço, depoimentos de migração, seção de migração.
+
+| ID | Tarefa | Dono | Status |
+| --- | --- | --- | --- |
+| 7.1 | Dossiê das categorias em `docs/`: fatos públicos, datados e com fonte sobre mapeamento por autodeclaração, DPO-as-a-Service, planilha da ANPD e scanners de descoberta; fato separado de opinião, com a força de cada categoria | PM | Pendente |
+| 7.2 | Página em PT e EN (slug a definir): TL;DR, tabela de leitura rápida, parágrafo por dimensão, "para quem cada uma serve", FAQ; `<main>`/`<article>`, entrada no `head.en.json` e no sitemap, `build-en.py` | PM | Pendente |
+| 7.3 | Guardrail `CategoryComparison`: a página não nomeia fabricante, não traz superlativo nem preço, e cada claim sobre categoria tem data e link de fonte | PM | Pendente |
+| 7.4 | Ponteiros a partir da `faq` e da `verticais` para a página | PM | Pendente |
+| 7.5 | `check-all` 0 no SHA exato, diff ao operador, "vai" e PR única | PM / Operador | Pendente |
+| 7.6 | O operador aprova o que a página afirma sobre cada categoria, antes do merge | Operador | Pendente |
