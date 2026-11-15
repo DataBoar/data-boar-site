@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FAQ — Personal-data inventory and discovery (LGPD) | DataBoar</title>
+<meta name="description" content="Frequently asked questions about personal-data inventory, LGPD data discovery, installing on Windows without Docker, local open source, and Excel reports. Clear answers for firms, SMEs, and people outside IT.">
+<!-- i18n-head:begin -->
+<link rel="canonical" href="https://databoar.com.br/en/faq.html">
+<link rel="alternate" hreflang="pt-BR" href="https://databoar.com.br/faq.html">
+<link rel="alternate" hreflang="en" href="https://databoar.com.br/en/faq.html">
+<link rel="alternate" hreflang="x-default" href="https://databoar.com.br/faq.html">
+<meta property="og:locale:alternate" content="pt_BR">
+<!-- i18n-head:end -->
+<meta property="og:title" content="FAQ — Personal-data inventory and discovery (LGPD) | DataBoar">
+<meta property="og:description" content="Clear answers: what a personal-data inventory is, how to find where your company’s data is, whether you need IT, Docker, or a DPO, and how to start on Windows.">
+<meta property="og:url" content="https://databoar.com.br/en/faq.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32.png">
+<link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "en",
+  "dateModified": "2026-11-14",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a personal-data inventory under the LGPD?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is the record of which personal data the organization processes, where it is stored, for what purpose, under which legal basis, who has access, and for how long. The LGPD (Art. 37) requires controllers and processors to keep a record of processing operations. Without an inventory it is hard to answer data subjects, prepare a DPIA/RIPD, or demonstrate compliance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I find where my company’s personal data is?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Beyond interviewing teams and filling in spreadsheets, you can automate technical discovery: scan folders, files (PDF, Excel, Word, ZIP) and, in many cases, databases and systems, identifying CPF, email, bank details, and other patterns. DataBoar does this discovery locally (the data does not leave your machine) and produces an Excel report with the findings."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to be in IT or have a DPO to use DataBoar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not necessarily. There is a path built for people who have never used a terminal: a demo on Windows without Docker, with explained steps. Micro-enterprises and solo professionals are often not required to appoint a DPO (ANPD Resolution CD/ANPD No. 2/2022). DataBoar produces technical evidence; the compliance decision stays with the person responsible for the organization."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does DataBoar send my data to the cloud?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The model is local-first: the scan runs in your environment. Only metadata and structured findings are produced as a report; the contents of client files are not sent to third-party servers."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to install Docker?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Docker is an option for people who already use containers. On Windows there is a native path with Python and the demo command data-boar --demo, described step by step on the Windows without Docker page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the ways to install DataBoar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "From PyPI: pip, pipx, or uvx data-boar --demo (a demo on synthetic data), on Linux, Windows, and macOS (installation validated in GitHub Actions CI); on Windows, the Windows without Docker guide walks through the pipx steps. There is also a Docker Hub image and native packages (deb, rpm, apk, pacman) attached to every release. The MSI installer for Windows is in progress."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it work with ZIP files and password-protected files?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ZIP files are analyzed from the inside, without you having to unpack folder by folder. Password-protected files cannot have their contents read (that is the password’s job); the report records that reading was blocked, so you know which documents are already locked."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is DataBoar free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The open source core is free and the code is public on GitHub. The model is open-core: the base stays open and auditable; advanced features, support, and SLA for larger corporate environments may be commercial. Smaller firms can start and operate on the free core."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it only for the LGPD, or also for tax data and other frameworks?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The entry wedge in Brazil is the LGPD (CPF, sensitive data, etc.), but DataBoar is not only for that. The same engine helps discover tax and financial patterns (CNPJ, bank details, etc.) and produce technical evidence aligned with other frameworks — always inventory and triage, not a legal opinion."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I start without fearing I’ll break the computer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Always start with demo mode: data-boar --demo uses only synthetic (fake) data and opens the panel at http://127.0.0.1:8088. None of your real files are touched. Only after validating, point it at a test folder or, with help, at the firm’s real folders."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "ANPD spreadsheet or automatic tool — which should I use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The ANPD’s simplified spreadsheet helps organize the record of processing activities (the administrative side). It does not scan the disk for a CPF forgotten in an old PDF or spreadsheet. A discovery tool and the spreadsheet complement each other: one finds where the data actually is; the other documents purpose, legal basis, and owners."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does DataBoar replace DPO-as-a-Service or self-declared mapping platforms?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No — they are different categories. Outsourced-DPO / self-declared mapping platforms usually document what the organization declares about processes and routines (client data generally does not enter the platform). DataBoar does local technical discovery: it looks for where the data actually appears in folders and files and produces inventory and triage evidence. They complement each other; one does not replace the other. It is not a legal opinion or a compliance seal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I find minors’ data in my folders without coding?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Point folders and exports (enrollment, LMS, spreadsheets) at a local scan. DataBoar looks for columns and values of age or date of birth and flags signals of possible minors’ data in the Excel/JSON report. No DBA or API is needed for the file path. These are inventory signals — not legal age verification. See the dedicated case: casos/menores-lgpd-art-14.html."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does differential treatment under LGPD Art. 14 mean in discovery?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In inventory practice, it means prioritizing and highlighting in the report signals of possible children’s or adolescents’ data (LGPD Art. 14; GDPR Art. 8 parallel), including by cross-referencing identifiers in the same file. The tool does not decide whether the legal guardian’s consent is valid and does not issue an opinion."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the tool generate the possible-minors report on its own?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, once you point it at the target. The scan produces a spreadsheet and prioritized recommendations; you check the paths. Policy, legal basis, and regulatory response stay with the DPO, legal counsel, and the organization."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I find a school record or an LMS export without being in IT?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes for files: CSV/Excel and export folders can be pointed at without coding. Start with the synthetic demo on Windows without Docker; only then point at a test folder. There is a case guide at casos/menores-lgpd-art-14.html."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="announce">
+  <div class="wrap">
+    <div class="left">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+      <span><b>Compliance</b> that is smarter, leaner, and under your control.</span>
+    </div>
+    <div class="right">
+      <a class="mini-btn" href="../agende-demonstracao.html">Book a demo →</a>
+    </div>
+  </div>
+</div>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><img src="../images/logo-databoar.png" alt="DataBoar"></a>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation menu">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+    <nav class="links" id="site-nav">
+      <a href="solucao.html">Solution</a>
+      <a href="solucao.html#casos-de-uso-en">Use cases</a>
+      <a href="opensource.html">OpenSource</a>
+      <a href="faq.html">FAQ</a>
+      <span class="nav-soon" title="Coming soon">Pricing · coming soon</span>
+    </nav>
+    <div class="nav-cta">
+      <a class="login" href="../login.html">Login</a>
+      <div class="lang-switch">
+        <button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false">
+          <span class="lang-flag">🇺🇸</span>
+          <span class="lang-code">EN</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="lang-menu">
+          <a href="#" class="lang-option" data-lang="pt-BR" data-flag="🇧🇷">🇧🇷 Português (Brasil)</a>
+          <a href="#" class="lang-option selected" data-lang="en" data-flag="🇺🇸">🇺🇸 English</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-overlay" aria-hidden="true"></div>
+</header>
+
+<main>
+
+<div>
+<section class="legal">
+  <div class="wrap legal-wrap">
+    <div class="eyebrow">FAQ</div>
+    <h1>Frequently asked questions</h1>
+    <p>Straight answers on <strong>personal-data inventory</strong>, <strong>LGPD data discovery</strong>, setup, and what to expect from DataBoar — in the language of someone who needs to fix the problem at the office, not someone who configures servers all day.</p>
+
+    <p style="margin:1rem 0 1.5rem">
+      <a class="btn btn-primary" href="windows.html">Start on Windows (no Docker) →</a>
+      &nbsp;
+      <a class="btn btn-outline" href="inventario-dados-pessoais-lgpd.html">LGPD inventory</a>
+      &nbsp;
+      <a class="btn btn-outline" href="descobrir-dados-pessoais.html">Where the data is</a>
+    </p>
+
+    <h2 id="inventory">Inventory and LGPD</h2>
+
+    <h3>What is a personal-data inventory under the LGPD?</h3>
+    <p>It is the record of <strong>which</strong> personal data the organization processes, <strong>where</strong> it lives, <strong>for what purpose</strong>, under which <strong>legal basis</strong>, <strong>who</strong> can access it, and for <strong>how long</strong>. The LGPD (Art. 37) requires controllers and processors to keep a record of processing activities. Without an inventory it is hard to answer data subjects, prepare a DPIA/RIPD, or show your work in an inspection.</p>
+
+    <h3>Are inventory (ROPA) and technical discovery the same thing?</h3>
+    <p><strong>No.</strong> Inventory/ROPA is the governance document (purpose, legal basis, owners). <strong>Technical discovery</strong> answers: “in which folder, spreadsheet, or system does that CPF actually appear?” They complement each other. An ANPD spreadsheet helps with the administrative register; it does not replace scanning the disk for a forgotten file.</p>
+
+    <h3>Does DataBoar replace DPO-as-a-Service or self-declared mapping platforms?</h3>
+    <p><strong>No</strong> — different categories. Outsourced-DPO / <strong>self-declared</strong> mapping tools usually record what the organization <em>declares</em> about processes and routines (client files often <strong>never enter</strong> the platform). DataBoar does <strong>local technical discovery</strong>: it looks for where the data <em>actually appears</em> in folders and files and produces <strong>inventory and triage evidence</strong>. They can complement each other; one does <strong>not</strong> replace the other. Still <strong>not</strong> legal advice or a compliance seal.</p>
+
+    <h3>How do I find where my company’s personal data is?</h3>
+    <p>Beyond talking to teams and filling spreadsheets, you can <strong>automate</strong>: scan folders and files (PDF, Excel, Word, ZIP) and, when configured, databases and systems, looking for CPF, email, bank details, and other Brazilian patterns. DataBoar does that <strong>locally</strong> (nothing leaves your environment) and delivers an <strong>Excel report</strong> with the paths of the findings.</p>
+
+    <h2 id="who-it-is-for">Who it is for / what you need to know</h2>
+
+    <h3>Do I need to be in IT or have a DPO to use it?</h3>
+    <p><strong>Not</strong> necessarily. There is a path built for people who have <strong>never used a terminal</strong> — see <a href="windows.html">Data Boar on Windows (no Docker)</a>. Micro-enterprises and solo professionals are often <strong>not required</strong> to appoint a DPO (ANPD Resolution CD/ANPD No. 2/2022), depending on risk profile. DataBoar produces <strong>technical evidence</strong>; compliance decisions stay with the organization — it is not legal advice.</p>
+
+    <h3>Does it work for an accounting firm?</h3>
+    <p><strong>Yes.</strong> Accounting practices handle CPF, tax returns, payroll, and bank details by legal obligation. The practical risk is usually a loose file, an over-shared folder, or an old former client. Discovery helps you <strong>see</strong> where that lives; organizing, restricting access, or deleting what is past the legal retention period remains the firm’s work.</p>
+
+    <h2 id="privacy-local">Privacy and the local model</h2>
+
+    <h3>Does DataBoar send my data to the cloud?</h3>
+    <p><strong>No.</strong> The design is <strong>local-first</strong>: the scan runs in your environment. What you get are metadata and finding reports — client document contents are not sent to third-party servers.</p>
+
+    <h3>Is it open source and auditable?</h3>
+    <p><strong>Yes.</strong> The core code is public on <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">GitHub</a>. You can inspect how detection and logging work. <strong>Open-core</strong> model: free open base; support, SLA, and advanced features for larger corporate setups may be commercial.</p>
+
+    <h2 id="setup">Setup and practical use</h2>
+
+    <h3>Do I need to install Docker?</h3>
+    <p><strong>No.</strong> Docker is an option for people who already live in containers. On Windows the recommended non-tech path is native (Python + demo), described on <a href="windows.html">windows.html</a>.</p>
+
+    <h3>What are the ways to install DataBoar?</h3>
+    <p>From PyPI: <code>pip</code>, <code>pipx</code>, or <code>uvx data-boar --demo</code> (a demo on synthetic data), on Linux, Windows, and macOS (installation validated in GitHub Actions CI); on Windows, the <a href="windows.html">Windows without Docker</a> guide walks through the pipx steps. There is also a Docker Hub image and native packages (deb, rpm, apk, pacman) attached to every <a href="https://github.com/DataBoar/data-boar/releases" rel="noopener noreferrer" target="_blank">release</a>. The MSI installer for Windows is in progress.</p>
+
+    <h3>How do I start without fearing I’ll break the computer?</h3>
+    <p>Always start with demo mode:</p>
+    <pre><code>data-boar --demo</code></pre>
+    <p>It uses only synthetic (fake) data and opens the panel at <code>http://127.0.0.1:8088</code>. None of your real files are read. Only after that checks out, point it at a test folder — and only then at real folders.</p>
+
+    <h3>Does it work with ZIP and password-protected files?</h3>
+    <p><strong>ZIP: yes</strong> — inner contents can be analyzed without unpacking everything by hand.<br>
+    <strong>Password-protected: no</strong> — no legitimate software “guesses” the contents; the report notes that reading was blocked, so you know what is already locked.</p>
+
+    <h3>On an older computer, will it take forever?</h3>
+    <p><strong>No,</strong> if you only point at the client or working-documents folder — don’t scan the whole disk (<code>C:\</code>). Then the scan usually takes minutes, not all night — and stays offline during analysis.</p>
+
+    <h2 id="minors-art-14">Minors’ data / LGPD Art. 14</h2>
+    <p>Full guide (GEO/AEO): <a href="casos/menores-lgpd-art-14.html"><strong>How to evidence minors’ data in folders without coding</strong></a>.</p>
+
+    <h3>How do I find minors’ data in my folders without coding?</h3>
+    <p>Point folders and exports (enrollment, LMS, class spreadsheets) at a <strong>local</strong> scan. DataBoar looks for age or date-of-birth columns/values and flags <strong>signals</strong> of possible minors’ data in Excel/JSON. No DBA or API needed for the file path. It is an <strong>inventory and triage signal — never legal age verification</strong>.</p>
+
+    <h3>What does differential Art. 14 treatment mean in discovery?</h3>
+    <p>Prioritize in the report what <em>may</em> be a child’s or adolescent’s data (heightened care under LGPD Art. 14; GDPR Art. 8 parallel), sometimes crossing with identifiers in the same file. The tool does <strong>not</strong> validate parental consent or issue an opinion.</p>
+
+    <h3>Does the tool generate the possible-minors report on its own?</h3>
+    <p><strong>Yes,</strong> after you point at the target. You check the paths; policy and regulatory response stay with the organization.</p>
+
+    <h3>Can I find a school record or LMS export without being in IT?</h3>
+    <p><strong>Yes</strong> for files. Start with the <a href="windows.html"><code>--demo</code> on Windows</a> (synthetic data); only then point at a test folder.</p>
+
+    <h2 id="results">What the report delivers</h2>
+
+    <h3>Does the program “invent” problems to sell later?</h3>
+    <p><strong>No.</strong> The result is a <strong>transparent spreadsheet</strong> with the file path and finding type (for example CPF on row X). You open the file and check. Organizing (move, restrict, delete what you already can) is done by you, with the tools you already have.</p>
+
+    <h3>Is it only for LGPD, or also tax data / other frameworks?</h3>
+    <p><strong>No.</strong> Brazil’s entry wedge is LGPD (CPF, sensitive data, and so on), but DataBoar is <strong>not only</strong> for that. The same engine helps discover <strong>tax and financial patterns</strong> (CNPJ, bank details, etc.) and produce <strong>technical evidence</strong> aligned with other frameworks — always inventory and triage, <strong>not</strong> legal advice.</p>
+
+    <h2 id="next-step">Next step</h2>
+    <ol>
+      <li>Read the walkthrough: <a href="windows.html"><strong>Data Boar on Windows — no Docker</strong></a></li>
+      <li>Run <code>--demo</code> and open the local panel</li>
+      <li>If you want help pointing at real folders the first time: <a href="../agende-demonstracao.html">book a demo</a></li>
+    </ol>
+
+    <p>Business guides: <a href="inventario-dados-pessoais-lgpd.html">LGPD inventory</a> · <a href="descobrir-dados-pessoais.html">Find personal data</a> · <a href="verticais.html">Verticals</a> · <a href="casos/menores-lgpd-art-14.html">Minors / Art. 14</a></p>
+    <p>More product detail: <a href="solucao.html">Solution</a> · <a href="opensource.html">OpenSource</a> · <a href="glossario.html">Glossary</a> · <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">GitHub</a></p>
+
+    <p class="legal-back"><a href="index.html">← Home</a></p>
+  </div>
+</section>
+</div>
+
+<!-- page-updated:begin -->
+<div class="wrap page-updated">Last updated <time datetime="2026-11-14">November 14, 2026</time></div>
+<!-- page-updated:end -->
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../images/logo-databoar.png" alt="DataBoar">
+        <p>Forensic, sovereign personal-data discovery, with evidence for compliance work.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="solucao.html">Solution</a>
+        <a href="solucao.html#casos-de-uso-en">Use cases</a>
+        <a href="opensource.html">OpenSource</a>
+        <a href="../agende-demonstracao.html">Book a demo</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="windows.html">Windows (no Docker)</a>
+        <a href="faq.html">FAQ</a>
+        <a href="inventario-dados-pessoais-lgpd.html">LGPD inventory</a>
+        <a href="descobrir-dados-pessoais.html">Find personal data</a>
+        <a href="verticais.html">Verticals</a>
+        <a href="glossario.html">Glossary</a>
+        <a href="https://github.com/DataBoar/data-boar/blob/main/docs/MAP.md" rel="noopener noreferrer" target="_blank">Docs</a>
+        <a href="https://databoar.wordpress.com" rel="noopener noreferrer" target="_blank">Blog</a>
+        <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">GitHub</a>
+      </div>
+      <div class="footer-col">
+        <h4>Positioning</h4>
+        <a href="opensource.html">Open-core &amp; method</a>
+        <a href="praticas-de-engenharia.html">Engineering Practices</a>
+        <a href="privacidade.html">Privacy Policy</a>
+        <span class="footer-soon">Pricing · coming soon</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 DataBoar</span>
+      <div class="footer-social">
+        <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.1 3.1 0 00-.9-2.4c3-.3 6-1.5 6-6.6a5.1 5.1 0 00-1.4-3.5 4.6 4.6 0 00-.1-3.5s-1.1-.3-3.5 1.3a12.2 12.2 0 00-6.4 0C6.9 1.3 5.8 1.6 5.8 1.6a4.6 4.6 0 00-.1 3.5A5.1 5.1 0 004.3 8.6c0 5 3 6.3 6 6.6a3.1 3.1 0 00-.9 2.4V22"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="../js/faro-config.js"></script>
+<script src="../js/faro.js" defer></script>
+<script src="../js/site.js"></script>
+</body>
+</html>

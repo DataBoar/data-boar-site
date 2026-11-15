@@ -975,6 +975,9 @@
 .legal a.btn-primary:hover{color:var(--color-primary);}
 .legal a.btn-outline{color:var(--color-primary);}
 .legal-back{margin-top:34px; padding-top:18px; border-top:1px solid var(--color-line);}
+/* "Atualizado em" / "Last updated": date from the git log, written by scripts/build-en.py */
+.page-updated{padding-top:18px; padding-bottom:32px; font-size:13px; color:var(--color-text-secondary);}
+.page-updated time{font-weight:600;}
 
 
 /* ===== Combobox de busca (indústria) ===== */
