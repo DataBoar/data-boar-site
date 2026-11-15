@@ -443,8 +443,9 @@ class Security(unittest.TestCase):
 
     def test_external_links_have_noopener(self):
         for name, txt in _html(include_en=True).items():
-            for tag in re.findall(r"<a\b[^>]*target=\"_blank\"[^>]*>", txt):
-                self.assertIn("noopener", tag, f"{name}: target=_blank sem rel=noopener: {tag[:80]}")
+            self.assertEqual(
+                _blank_without_noopener(txt), [], f"{name}: target=_blank sem rel=noopener"
+            )
 
     def test_no_dangerous_js_sinks(self):
         for js in glob.glob(os.path.join(ROOT, "js", "*.js")):
@@ -711,21 +712,81 @@ def _build_en():
     return mod
 
 
+class _Extract(HTMLParser):
+    """Reads a page with a real HTML parser, never with a regex over tags.
+
+    Regexes that "filter" HTML (``<script.*?</script>``) miss ``<SCRIPT>``, ``</script >``
+    and friends — CodeQL py/bad-tag-filter. The parser knows them all.
+    ``rest`` is the page without script/style elements; ``scripts`` holds (type, body).
+    """
+
+    def __init__(self):
+        super().__init__(convert_charrefs=False)
+        self.rest = []
+        self.scripts = []
+        self.tags = []  # (tag, {attr: value}) of every start tag, scripts included
+        self._open = None
+
+    def handle_starttag(self, tag, attrs):
+        attr = {k.lower(): (v or "") for k, v in attrs}
+        self.tags.append((tag, attr))
+        if tag in ("script", "style"):
+            self._open = (tag, attr.get("type", "").lower(), [])
+        else:
+            self.rest.append(self.get_starttag_text())
+
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+
+    def handle_endtag(self, tag):
+        if self._open and tag == self._open[0]:
+            self.scripts.append((self._open[0], self._open[1], "".join(self._open[2])))
+            self._open = None
+        else:
+            self.rest.append(f"</{tag}>")
+
+    def handle_data(self, data):
+        (self._open[2] if self._open else self.rest).append(data)
+
+    def handle_entityref(self, name):
+        self.rest.append(f"&{name};")
+
+    def handle_charref(self, name):
+        self.rest.append(f"&#{name};")
+
+    def handle_comment(self, data):
+        self.rest.append(f"<!--{data}-->")
+
+
+def _extract(txt):
+    parser = _Extract()
+    parser.feed(txt)
+    parser.close()
+    return parser
+
+
 def _ids(txt):
-    return set(re.findall(r'\b(?:id|name)="([^"]+)"', txt))
+    return {a[k] for _t, a in _extract(txt).tags for k in ("id", "name") if a.get(k)}
 
 
 def _links(txt):
-    body = re.sub(r"<script.*?</script>", "", txt, flags=re.DOTALL)
-    return re.findall(r'\b(?:href|src)="([^"]*)"', body)
+    return [a[k] for _t, a in _extract(txt).tags for k in ("href", "src") if k in a]
 
 
 def _ld_blocks(txt):
     import json
 
+    return [json.loads(body) for _t, kind, body in _extract(txt).scripts if kind == "application/ld+json"]
+
+
+def _blank_without_noopener(txt):
+    """href of every target=_blank anchor that lacks rel=noopener (any case, any quoting)."""
     return [
-        json.loads(b)
-        for b in re.findall(r'<script type="application/ld\+json">\n(.*?)\n</script>', txt, re.DOTALL)
+        attr.get("href", "")
+        for tag, attr in _extract(txt).tags
+        if tag == "a"
+        and attr.get("target", "").lower() == "_blank"
+        and "noopener" not in attr.get("rel", "").lower().split()
     ]
 
 
@@ -778,8 +839,8 @@ class EnglishSite(unittest.TestCase):
             self.assertIn('<html lang="en">', txt, rel)
             self.assertNotIn('data-lang-panel="pt-BR"', txt, f"en/{rel}: painel PT sobrou")
             self.assertNotRegex(txt, r"<[^<>]*\shidden(?=[\s>/])", f"en/{rel}: elemento oculto sobrou")
-            self.assertEqual(len(re.findall(r"<h1\b", txt)), 1, f"en/{rel}: um h1 só")
-            body = re.sub(r"<(script|style)\b.*?</\1>", "", txt, flags=re.DOTALL | re.IGNORECASE)
+            self.assertEqual([t for t, _a in _extract(txt).tags].count("h1"), 1, f"en/{rel}: um h1 só")
+            body = "".join(_extract(txt).rest)
             for line in body.splitlines():
                 if "Português (Brasil)" in line:  # the PT name of the language, in the selector
                     continue
@@ -787,7 +848,7 @@ class EnglishSite(unittest.TestCase):
 
     def test_every_page_has_one_main_and_articles_where_expected(self):
         for rel, txt in self.pt.items():
-            self.assertEqual(len(re.findall(r"<main\b", txt)), 1, f"{rel}: um <main> só")
+            self.assertEqual([t for t, _a in _extract(txt).tags].count("main"), 1, f"{rel}: um <main> só")
             self.assertLess(txt.index("</header>"), txt.index("<main"), rel)
             self.assertLess(txt.index("</main>"), txt.index("<footer"), rel)
         for rel in self.PAIRS:
@@ -904,6 +965,39 @@ class EnglishSite(unittest.TestCase):
         self.assertFalse(
             [p for p in EN_FILES if os.path.relpath(p, os.path.join(ROOT, "en")).replace("\\", "/") not in self.PAIRS]
         )
+
+
+class HtmlParsingGuard(unittest.TestCase):
+    """The guardrails read HTML with a parser; these pages are the ones a regex gets wrong."""
+
+    def test_script_and_style_variants_are_not_page_content(self):
+        page = (
+            '<p>ok</p><SCRIPT>var a = "<a href=no>";</SCRIPT ><script type="application/LD+JSON">'
+            '{"a": 1}</script ><Style>a{}</STYLE><!-- <script>x</script> -->'
+            '<A HREF="yes.html" TARGET="_blank" REL="noopener">x</A>'
+        )
+        got = _extract(page)
+        self.assertEqual(_links(page), ["yes.html"])
+        self.assertEqual([k for _t, k, _b in got.scripts], ["", "application/ld+json", ""])
+        self.assertEqual(_ld_blocks(page), [{"a": 1}])
+        self.assertNotIn("var a", "".join(got.rest))
+
+    def test_noopener_check_sees_uppercase_and_single_quoted_anchors(self):
+        bad = "<A TARGET='_blank' HREF='https://x.example'>x</A>"
+        good = '<a target="_blank" href="https://x.example" rel="noopener noreferrer">x</a>'
+        self.assertEqual(_blank_without_noopener(bad), ["https://x.example"])
+        self.assertEqual(_blank_without_noopener(good), [])
+
+    def test_no_regex_filters_script_or_style_tags_in_tests_and_scripts(self):
+        """py/bad-tag-filter: no re.* over <script>/<style>; the parser does it."""
+        bad = re.compile(r"re\.\w+\(.*<\(?(script|style)", re.IGNORECASE)
+        for path in glob.glob(os.path.join(ROOT, "tests", "*.py")) + glob.glob(
+            os.path.join(ROOT, "scripts", "*.py")
+        ):
+            for n, line in enumerate(_read(path).splitlines(), 1):
+                if os.path.basename(path) == "test_guardrails.py" and "bad = re.compile" in line:
+                    continue
+                self.assertIsNone(bad.search(line), f"{os.path.basename(path)}:{n}: regex sobre <script>/<style>")
 
 
 class AntiOverclaim(unittest.TestCase):

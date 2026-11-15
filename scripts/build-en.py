@@ -143,8 +143,53 @@ STAMP_BEGIN = "<!-- page-updated:begin -->"
 STAMP_END = "<!-- page-updated:end -->"
 HEAD_RE = re.compile(re.escape(HEAD_BEGIN) + r".*?" + re.escape(HEAD_END) + r"\n", re.DOTALL)
 STAMP_RE = re.compile(re.escape(STAMP_BEGIN) + r".*?" + re.escape(STAMP_END) + r"\n", re.DOTALL)
-CANON_RE = re.compile(r'<link rel="canonical"[^>]*>\n')
-LD_RE = re.compile(r'(<script type="application/ld\+json">\n)(.*?)(\n</script>)', re.DOTALL)
+CANON_RE = re.compile(r'<link rel="canonical"[^>]*>\n', re.IGNORECASE)
+
+
+class _LdSpans(HTMLParser):
+    """Where the JSON-LD script bodies are (character offsets), found by the parser.
+
+    A regex over <script>...</script> is the classic bad tag filter (case, </script >,
+    comments); the parser reports the real elements.
+    """
+
+    def __init__(self, text: str):
+        super().__init__(convert_charrefs=False)
+        self.starts = [0]
+        for line in text.split("\n")[:-1]:
+            self.starts.append(self.starts[-1] + len(line) + 1)
+        self.spans: list[tuple[int, int]] = []
+        self._open: int | None = None
+
+    def _here(self) -> int:
+        line, col = self.getpos()
+        return self.starts[line - 1] + col
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "script" and (dict(attrs).get("type") or "").lower() == "application/ld+json":
+            self._open = self._here() + len(self.get_starttag_text())
+
+    def handle_endtag(self, tag):
+        if tag == "script" and self._open is not None:
+            self.spans.append((self._open, self._here()))
+            self._open = None
+
+
+def ld_spans(text: str) -> list[tuple[int, int]]:
+    parser = _LdSpans(text)
+    parser.feed(text)
+    parser.close()
+    return parser.spans
+
+
+def map_ld(text: str, fn) -> str:
+    """Rewrite every JSON-LD body with fn(inner); the newline around it is kept."""
+    for start, end in reversed(ld_spans(text)):
+        body = text[start:end]
+        if not (body.startswith("\n") and body.endswith("\n")):
+            raise SystemExit("JSON-LD script body must sit on its own lines")
+        text = text[:start] + "\n" + fn(body[1:-1]) + "\n" + text[end:]
+    return text
 
 
 def head_block(rel: str, text: str, lang: str) -> str:
@@ -175,23 +220,23 @@ def stamp_block(day: str) -> str:
 
 
 def set_ld_meta(text: str, lang: str, day: str) -> str:
-    def fix(m: re.Match[str]) -> str:
-        body = re.sub(r'^\s*"(inLanguage|dateModified)":.*\n', "", m.group(2) + "\n", flags=re.M)
+    def fix(inner: str) -> str:
+        body = re.sub(r'^\s*"(inLanguage|dateModified)":.*\n', "", inner + "\n", flags=re.M)
         body = re.sub(
             r'^(  "@type": "[^"]+",\n)',
             lambda t: f'{t.group(1)}  "inLanguage": "{lang}",\n  "dateModified": "{day}",\n',
             body, count=1, flags=re.M,
         )
-        return m.group(1) + body.rstrip("\n") + m.group(3)
+        return body.rstrip("\n")
 
-    return LD_RE.sub(fix, text)
+    return map_ld(text, fix)
 
 
 def managed_pt(rel: str, text: str, day: str) -> str:
     """The PT page with its managed blocks (head, stamp, JSON-LD) up to date."""
     text = HEAD_RE.sub("", text)
     text = CANON_RE.sub("", text)
-    anchor = re.search(r'<meta name="description"[^>]*>\n', text)
+    anchor = re.search(r'<meta name="description"[^>]*>\n', text, re.IGNORECASE)
     if not anchor:
         raise SystemExit(f"{rel}: no <meta name=description> line to anchor the head block")
     text = text[: anchor.end()] + head_block(rel, text, "pt") + text[anchor.end():]
@@ -377,19 +422,19 @@ def to_en(rel: str, pt_text: str, head: dict, day: str, en_set: set[str]) -> str
     text = HEAD_RE.sub(lambda _m: head_block(rel, pt_text, "en"), text, count=1)
     # JSON-LD: the translated blocks, with the same structure as the PT ones.
     blocks = head.get("jsonld", [])
-    found = LD_RE.findall(text)
-    if len(found) != len(blocks):
-        raise SystemExit(f"en/{rel}: {len(found)} JSON-LD blocks in the page, {len(blocks)} in head.en.json")
-    it = iter(blocks)
+    found = len(ld_spans(text))
+    if found != len(blocks):
+        raise SystemExit(f"en/{rel}: {found} JSON-LD blocks in the page, {len(blocks)} in head.en.json")
+    it = iter(reversed(blocks))  # map_ld rewrites from the last block to the first
 
-    def ld(m: re.Match[str]) -> str:
+    def ld(_inner: str) -> str:
         block = next(it)
         ordered = {"@context": block["@context"], "@type": block["@type"],
                    "inLanguage": "en", "dateModified": day}
         ordered.update({k: v for k, v in block.items() if k not in ordered})
-        return m.group(1) + json.dumps(ordered, indent=2, ensure_ascii=False) + m.group(3)
+        return json.dumps(ordered, indent=2, ensure_ascii=False)
 
-    text = LD_RE.sub(ld, text)
+    text = map_ld(text, ld)
     # chrome: the selector and the menu label say English
     for old, new in (
         ('<span class="lang-flag">🇧🇷</span>', '<span class="lang-flag">🇺🇸</span>'),
