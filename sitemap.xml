@@ -34,14 +34,28 @@
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://databoar.com.br/opensource.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://databoar.com.br/en/opensource.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://databoar.com.br/opensource.html"/>
-    <lastmod>2026-11-14</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <lastmod>2026-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
   </url>
   <url>
     <loc>https://databoar.com.br/en/opensource.html</loc>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://databoar.com.br/opensource.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://databoar.com.br/en/opensource.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://databoar.com.br/opensource.html"/>
-    <lastmod>2026-11-14</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <lastmod>2026-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://databoar.com.br/ecosystem.html</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://databoar.com.br/ecosystem.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://databoar.com.br/en/ecosystem.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://databoar.com.br/ecosystem.html"/>
+    <lastmod>2026-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://databoar.com.br/en/ecosystem.html</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://databoar.com.br/ecosystem.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://databoar.com.br/en/ecosystem.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://databoar.com.br/ecosystem.html"/>
+    <lastmod>2026-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
   </url>
   <url>
     <loc>https://databoar.com.br/praticas-de-engenharia.html</loc>
