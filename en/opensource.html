@@ -265,40 +265,36 @@
 <section class="diff-section" id="beasts">
   <div class="wrap">
     <div class="section-head center">
-      <h2>The beasts: <span class="accent">what they do today × what's next</span></h2>
-      <p>Sister tools of Data Boar, one scope each. Here is what the code and docs already prove — and what is still a plan. None has a published release; anything simulated or demo-only is labeled.</p>
+      <h2><span class="accent">The Bestials: plugin superpowers</span></h2>
+      <p>Independent tools that connect via SDK. No Bestial has a published release. <a href="ecosystem.html">View the complete Ecosystem overview →</a></p>
     </div>
     <div class="diff-grid">
       <div class="diff-card">
-        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
-        <h3>Sage Remora (Sage)</h3>
-        <p><b>Today:</b> reads only the Boar findings manifest — metadata, never the value. It infers re-identification risk (indirect identifiers, cross-table linkage), decides policy (what to tokenize, who may see what) and asks for confirmation when it needs more evidence. It refuses a manifest that carries a raw value and executes nothing on the content. Every decision carries the reasoning behind it.</p>
-        <p><b>Label:</b> the current rules are illustrative proof-of-concept content, not a validated ruleset.</p>
-        <p><b>Next:</b> a memory of what was decided over time (planned; today each run reads one manifest and answers).</p>
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3><span class="accent">Sage Remora (Sage)</span></h3>
+        <p>Reads finding manifests, infers re-identification risk <b>without touching data</b>. SDK Contract.</p>
+        <p><b>Maturity:</b> PoC</p>
       </div>
       <div class="diff-card">
-        <div class="diff-icon c2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
-        <h3>Faithful Ferret (Ferret)</h3>
-        <p><b>Today:</b> runs only with an explicit per-dispatch grant, limited to the authorized columns; no grant, no run. Over the rows it receives, it measures how unique the records are (k-anonymity) and returns the measurement as evidence, with its limitations — not as a verdict. It does not connect to a database: it receives rows already delivered. It is ephemeral, logs what it did and refuses an output that contains the value.</p>
-        <p><b>Label:</b> exercised so far only with synthetic data, in development mode; thresholds are proof-of-concept, not a certified methodology.</p>
-        <p><b>Next:</b> more missions (draft today), a time limit per dispatch (not enforced yet), a destruction attestation signed by the dispatcher (unsigned today) and record-aligned rows straight from the Boar (still a proposal).</p>
+        <div class="diff-icon c2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3><span class="accent">Faithful Ferret (Ferret)</span></h3>
+        <p>Measures k-anonymity on authorized rows. SDK Contract.</p>
+        <p><b>Maturity:</b> Demo/PoC</p>
       </div>
       <div class="diff-card">
-        <div class="diff-icon c3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
-        <h3>Stealthy Stoat (Stoat)</h3>
-        <p><b>Today:</b> swaps the sensitive value for a token in place, without exfiltrating it. The software rung uses FF1 (NIST SP 800-38G) in Rust, checked against the NIST sample vectors; it is not CAVP/FIPS validated and it is not an HSM. Values too short for the cipher are refused.</p>
-        <p><b>Label:</b> runs as a demo, with synthetic values only. The HSM client uses a <b>simulated</b> transport: it has never been tested against a real HSM. TPM and KMS are interfaces only, not wired yet.</p>
-        <p><b>Next:</b> a real HSM with measured throughput (there is no measured number today) and CAVP/FIPS validation — planned, no date.</p>
+        <div class="diff-icon c3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3><span class="accent">Stealthy Stoat (Stoat)</span></h3>
+        <p>FF1 tokenization (NIST SP 800-38G) with <b>synthetic data</b>. HSM simulated. SDK Contract.</p>
+        <p><b>Maturity:</b> Demo/PoC</p>
       </div>
       <div class="diff-card">
-        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
-        <h3>Keen Platypus (Platypus)</h3>
-        <p><b>Today:</b> a local DevSecOps assistant: authorized recon and vulnerability scanning, code and supply-chain review, and pentest correlation in phase 1 only (recon and correlation — not a full pentest). Code review has a deterministic tier that closes with no call to a language model; when a model is used, it is the user's own, and a model alone never confirms a finding. It is a separate tool: Data Boar stays LLM-free on the path that decides what is sensitive data.</p>
-        <p><b>Label:</b> the code module's automated tests use scanner stand-ins, and the limits are declared in the project documentation.</p>
-        <p><b>Next:</b> live attack confirmation, a red → blue bridge, SARIF export to GRC tools and integration with the Ferret (all planned, none of it exists today); a polyglot rewrite is in progress and incomplete.</p>
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3><span class="accent">Keen Platypus (Platypus)</span></h3>
+        <p>Local DevSecOps: vulnerability scanning and code.</p>
+        <p><b>Maturity:</b> In development</p>
       </div>
     </div>
-    <p><b>Order in the pipe:</b> Boar → Sage → Ferret; the Sage also feeds the Stoat (<code>boar | sage &gt; stoat</code>). Outputs are technical evidence for a person to decide on, not a verdict. The repositories are private.</p>
+    <p class="lede" style="margin-top: 1.5rem;"><strong>Note:</strong> More Bestials in development. See <a href="ecosystem.html">Ecosystem</a> for complete view, explicit superpowers, and communication flows.</p>
   </div>
 </section>
 
