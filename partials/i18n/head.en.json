@@ -367,7 +367,24 @@
   },
   "index.html": {
     "title": "DataBoar — Personal-data inventory and discovery (LGPD), local-first",
-    "description": "Find where your company’s personal data is: local-first LGPD inventory and data discovery, open source, Excel report. No sending files to the cloud — Windows without Docker."
+    "description": "Find where your company’s personal data is: local-first LGPD inventory and data discovery, open source, Excel report. No sending files to the cloud — Windows without Docker.",
+    "jsonld": [
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Data Boar",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Windows, Linux, macOS",
+        "description": "Local-first, open-core scanner for deterministic discovery of personal and sensitive data (LGPD/GDPR/CCPA). Findings and evidence stay in the customer environment.",
+        "url": "https://databoar.com.br/",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "BRL",
+          "description": "Open-core Community edition under BSD-3. Paid support and advanced features are commercial and not priced on this site."
+        }
+      }
+    ]
   },
   "inventario-dados-pessoais-lgpd.html": {
     "title": "LGPD personal-data inventory: what it is and how to automate it | DataBoar",
