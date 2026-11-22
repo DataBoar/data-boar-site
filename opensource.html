@@ -264,59 +264,43 @@
       <p data-lang-panel="pt-BR">Ferramentas independentes que se conectam via SDK. Nenhuma Bestial tem versão publicada. <a href="ecosystem.html">Ver visão completa do Ecosystem →</a></p>
       <p data-lang-panel="en" hidden>Independent tools that connect via SDK. No Bestial has a published version. <a href="ecosystem.html">View the complete Ecosystem overview →</a></p>
     </div>
-    <div class="table-responsive">
-      <table>
-        <thead>
-          <tr>
-            <th data-lang-panel="pt-BR">Bestial</th>
-            <th data-lang-panel="en" hidden>Bestial</th>
-            <th data-lang-panel="pt-BR">Hoje</th>
-            <th data-lang-panel="en" hidden>Today</th>
-            <th data-lang-panel="pt-BR">Maturidade</th>
-            <th data-lang-panel="en" hidden>Maturity</th>
-            <th data-lang-panel="pt-BR">Contrato</th>
-            <th data-lang-panel="en" hidden>Contract</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong data-lang-panel="pt-BR">Sage Remora (Sage)</strong><strong data-lang-panel="en" hidden>Sage Remora (Sage)</strong></td>
-            <td data-lang-panel="pt-BR">Lê manifesto de achados, infere risco de reidentificação <b>sem tocar dados</b>. Recusa valores brutos. Regra ilustrativa (PoC).</td>
-            <td data-lang-panel="en" hidden>Reads finding manifests, infers re-identification risk <b>without touching data</b>. Refuses raw values. Illustrative rule (PoC).</td>
-            <td data-lang-panel="pt-BR">PoC</td>
-            <td data-lang-panel="en" hidden>PoC</td>
-            <td data-lang-panel="pt-BR">Contrato SDK</td>
-            <td data-lang-panel="en" hidden>SDK Contract</td>
-          </tr>
-          <tr>
-            <td><strong data-lang-panel="pt-BR">Faithful Ferret (Ferret)</strong><strong data-lang-panel="en" hidden>Faithful Ferret (Ferret)</strong></td>
-            <td data-lang-panel="pt-BR">Mede anonimato sobre linhas autorizadas. <b>Apenas dados autorizados</b>. Simulado para dados sintéticos.</td>
-            <td data-lang-panel="en" hidden>Measures anonymity on authorized rows. <b>Only authorized data</b>. Simulated for synthetic data.</td>
-            <td data-lang-panel="pt-BR">Demo/PoC</td>
-            <td data-lang-panel="en" hidden>Demo/PoC</td>
-            <td data-lang-panel="pt-BR">Contrato SDK</td>
-            <td data-lang-panel="en" hidden>SDK Contract</td>
-          </tr>
-          <tr>
-            <td><strong data-lang-panel="pt-BR">Stealthy Stoat (Stoat)</strong><strong data-lang-panel="en" hidden>Stealthy Stoat (Stoat)</strong></td>
-            <td data-lang-panel="pt-BR">Tokenização demonstrativa com valores sintéticos. HSM simulado.</td>
-            <td data-lang-panel="en" hidden>Demonstration tokenization with synthetic values. HSM simulated.</td>
-            <td data-lang-panel="pt-BR">Demo/PoC</td>
-            <td data-lang-panel="en" hidden>Demo/PoC</td>
-            <td data-lang-panel="pt-BR">Contrato SDK</td>
-            <td data-lang-panel="en" hidden>SDK Contract</td>
-          </tr>
-          <tr>
-            <td><strong data-lang-panel="pt-BR">Keen Platypus (Platypus)</strong><strong data-lang-panel="en" hidden>Keen Platypus (Platypus)</strong></td>
-            <td data-lang-panel="pt-BR">DevSecOps local: varredura de vulnerabilidades e código.</td>
-            <td data-lang-panel="en" hidden>Local DevSecOps: vulnerability scanning and code.</td>
-            <td data-lang-panel="pt-BR">Em desenvolvimento</td>
-            <td data-lang-panel="en" hidden>In development</td>
-            <td data-lang-panel="pt-BR">Contrato SDK</td>
-            <td data-lang-panel="en" hidden>SDK Contract</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3 data-lang-panel="pt-BR"><span class="accent">Sage Remora (Sage)</span></h3>
+        <h3 data-lang-panel="en" hidden><span class="accent">Sage Remora (Sage)</span></h3>
+        <p data-lang-panel="pt-BR">Lê manifesto de achados, infere risco de reidentificação <b>sem tocar dados</b>. Contrato SDK.</p>
+        <p data-lang-panel="en" hidden>Reads finding manifests, infers re-identification risk <b>without touching data</b>. SDK Contract.</p>
+        <p data-lang-panel="pt-BR"><b>Maturidade:</b> PoC</p>
+        <p data-lang-panel="en" hidden><b>Maturity:</b> PoC</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3 data-lang-panel="pt-BR"><span class="accent">Faithful Ferret (Ferret)</span></h3>
+        <h3 data-lang-panel="en" hidden><span class="accent">Faithful Ferret (Ferret)</span></h3>
+        <p data-lang-panel="pt-BR">Mede k-anonimato sobre linhas autorizadas. Contrato SDK.</p>
+        <p data-lang-panel="en" hidden>Measures k-anonymity on authorized rows. SDK Contract.</p>
+        <p data-lang-panel="pt-BR"><b>Maturidade:</b> Demo/PoC</p>
+        <p data-lang-panel="en" hidden><b>Maturity:</b> Demo/PoC</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3 data-lang-panel="pt-BR"><span class="accent">Stealthy Stoat (Stoat)</span></h3>
+        <h3 data-lang-panel="en" hidden><span class="accent">Stealthy Stoat (Stoat)</span></h3>
+        <p data-lang-panel="pt-BR">Tokenização FF1 (NIST SP 800-38G) com <b>dados sintéticos</b>. HSM simulado. Contrato SDK.</p>
+        <p data-lang-panel="en" hidden>FF1 tokenization (NIST SP 800-38G) with <b>synthetic data</b>. HSM simulated. SDK Contract.</p>
+        <p data-lang-panel="pt-BR"><b>Maturidade:</b> Demo/PoC</p>
+        <p data-lang-panel="en" hidden><b>Maturity:</b> Demo/PoC</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3 data-lang-panel="pt-BR"><span class="accent">Keen Platypus (Platypus)</span></h3>
+        <h3 data-lang-panel="en" hidden><span class="accent">Keen Platypus (Platypus)</span></h3>
+        <p data-lang-panel="pt-BR">DevSecOps local: varredura de vulnerabilidades e código.</p>
+        <p data-lang-panel="en" hidden>Local DevSecOps: vulnerability scanning and code.</p>
+        <p data-lang-panel="pt-BR"><b>Maturidade:</b> Em desenvolvimento</p>
+        <p data-lang-panel="en" hidden><b>Maturity:</b> In development</p>
+      </div>
     </div>
     <p class="lede" style="margin-top: 1.5rem;">
       <span data-lang-panel="pt-BR"><strong>Nota:</strong> Mais Bestials em desenvolvimento. Ver <a href="ecosystem.html">Ecosystem</a> para visão completa, superpoderes explícitos e fluxos de comunicação.</span>
