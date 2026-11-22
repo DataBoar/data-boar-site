@@ -210,16 +210,36 @@
   <div class="wrap">
     <div class="section-head center">
       <h2>Wheelhouse de laboratório: <span class="accent">instalação por sistema</span></h2>
-      <p>Receita validada em laboratório (VM), com SHA256 publicado. Não é canal suportado.</p>
+      <p>Receita validada em laboratório (VM), com SHA256 publicado. <span data-lang-panel="pt-BR">Não é canal suportado.</span> <span data-lang-panel="en" hidden>Not a supported channel.</span></p>
     </div>
-    <p>O índice é <b>exclusivo</b>: use <code>--index-url</code> (nunca <code>--extra-index-url</code>, que mistura a PyPI). O pip do sistema precisa informar a tag de plataforma do wheel.</p>
-    <ul>
-      <li><b>FreeBSD 15.1</b> (Python 3.12; tag com o patch <code>p6</code>): <code>pip install --index-url https://databoar.com.br/simple/ --only-binary=:all: numpy</code></li>
-      <li><b>NetBSD 11.1</b> (Python 3.12): <code>pip install --index-url https://databoar.com.br/simple/ --only-binary=:all: numpy</code></li>
-      <li><b>OpenBSD 8.0</b> (Python 3.14): <code>pip install --index-url https://databoar.com.br/simple/ --only-binary=:all: pymongo</code></li>
-      <li><b>Haiku R1/beta6</b> (Python 3.14): o índice não resolve, porque o GitHub troca o <code>~</code> da tag por <code>.</code>. Baixe os arquivos da <a href="https://github.com/DataBoar/data-boar-site/releases/tag/wheelhouse-haiku-2026-11-04" rel="noopener noreferrer" target="_blank">Release</a>, devolva o <code>~</code> ao nome, confira com <code>sha256sum -c SHA256SUMS</code> e use <code>pip install --no-index --find-links .</code>. Passo a passo no <a href="https://github.com/DataBoar/data-boar-site/blob/main/docs/WHEELHOUSE_BSD_HAIKU.md" rel="noopener noreferrer" target="_blank">inventário</a>.</li>
-    </ul>
-    <p><b>Limites:</b> os conjuntos são parciais (o que falta, como <code>scipy</code> no NetBSD e no OpenBSD, não resolve pelo índice); o <code>cryptography</code> do OpenBSD não é portável; wheels do NetBSD podem ligar bibliotecas do host de build; illumos não tem wheels. O teste foi de resolução do pip contra o índice, não uma instalação nas VMs.</p>
+    <div class="wheelhouse-list">
+      <div class="wheelhouse-item">
+        <h3 data-lang-panel="pt-BR">FreeBSD 15.1 <span class="wheelhouse-meta">Python 3.12 · tag p6</span></h3>
+        <h3 data-lang-panel="en" hidden>FreeBSD 15.1 <span class="wheelhouse-meta">Python 3.12 · tag p6</span></h3>
+        <pre><code data-lang-panel="pt-BR">pip install --index-url https://databoar.com.br/simple/ --only-binary=:all: numpy</code>
+<code data-lang-panel="en" hidden>pip install --index-url https://databoar.com.br/simple/ --only-binary=:all: numpy</code></pre>
+      </div>
+      <div class="wheelhouse-item">
+        <h3 data-lang-panel="pt-BR">NetBSD 11.1 <span class="wheelhouse-meta">Python 3.12</span></h3>
+        <h3 data-lang-panel="en" hidden>NetBSD 11.1 <span class="wheelhouse-meta">Python 3.12</span></h3>
+        <pre><code data-lang-panel="pt-BR">pip install --index-url https://databoar.com.br/simple/ --only-binary=:all: numpy</code>
+<code data-lang-panel="en" hidden>pip install --index-url https://databoar.com.br/simple/ --only-binary=:all: numpy</code></pre>
+      </div>
+      <div class="wheelhouse-item">
+        <h3 data-lang-panel="pt-BR">OpenBSD 8.0 <span class="wheelhouse-meta">Python 3.14</span></h3>
+        <h3 data-lang-panel="en" hidden>OpenBSD 8.0 <span class="wheelhouse-meta">Python 3.14</span></h3>
+        <pre><code data-lang-panel="pt-BR">pip install --index-url https://databoar.com.br/simple/ --only-binary=:all: pymongo</code>
+<code data-lang-panel="en" hidden>pip install --index-url https://databoar.com.br/simple/ --only-binary=:all: pymongo</code></pre>
+      </div>
+      <div class="wheelhouse-item">
+        <h3 data-lang-panel="pt-BR">Haiku R1/beta6 <span class="wheelhouse-meta">Python 3.14 · download manual</span></h3>
+        <h3 data-lang-panel="en" hidden>Haiku R1/beta6 <span class="wheelhouse-meta">Python 3.14 · manual download</span></h3>
+        <pre><code data-lang-panel="pt-BR">pip install --no-index --find-links .</code>
+<code data-lang-panel="en" hidden>pip install --no-index --find-links .</code></pre>
+      </div>
+    </div>
+    <p data-lang-panel="pt-BR"><b>Limites:</b> os conjuntos são parciais (o que falta, como <code>scipy</code> em NetBSD e OpenBSD, não resolve através do índice); OpenBSD <code>cryptography</code> não é portável; NetBSD wheels podem ligar bibliotecas do host de build; illumos ainda não tem wheels. O teste foi resolução pip contra o índice, não instalação nas VMs.</p>
+    <p data-lang-panel="en" hidden><b>Limits:</b> the sets are partial (what is missing, such as <code>scipy</code> on NetBSD and OpenBSD, does not resolve through the index); OpenBSD <code>cryptography</code> is not portable; NetBSD wheels may link libraries of the build host; illumos has no wheels. The test was pip resolution against the index, not an install on the VMs.</p>
   </div>
 </section>
 

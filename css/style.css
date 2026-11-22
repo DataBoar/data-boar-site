@@ -958,6 +958,28 @@
 .consent-note a{color:var(--color-accent); font-weight:600; text-decoration:underline;}
 
 
+/* ---------- Wheelhouse system list ---------- */ */
+.wheelhouse-list{
+  display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:18px;
+  text-align:left; max-width:900px; margin:0 auto;
+}
+.wheelhouse-item{
+  background:var(--color-bg); border:1px solid var(--color-line);
+  border-radius:var(--radius); padding:20px 22px;
+}
+.wheelhouse-item h3{margin:0 0 10px; font-size:1.05rem;}
+.wheelhouse-meta{display:block; font-size:.85rem; font-weight:400; color:var(--color-muted);}
+.wheelhouse-item pre{
+  margin:0; padding:12px 14px; background:var(--color-surface);
+  border-radius:8px; overflow-x:auto;
+}
+.wheelhouse-item code{
+  font-size:.85rem; white-space:pre-wrap; overflow-wrap:anywhere; word-break:break-word;
+}
+@media (max-width:760px){
+  .wheelhouse-list{grid-template-columns:1fr;}
+}
+
 /* ===== Página legal (privacidade) ===== */
 .legal{padding:56px 0 72px; background:var(--color-bg);}
 .legal-wrap{max-width:760px;}
