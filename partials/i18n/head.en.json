@@ -435,6 +435,12 @@
     "title": "Data Boar on Windows — a demo in minutes, NO Docker | DataBoar",
     "description": "Step by step to use Data Boar on Windows WITHOUT Docker: find personal and sensitive data (LGPD) right on your PC. Made for people who have never used a terminal — accounting firms, SMEs. Synthetic demo data, nothing leaves the machine."
   },
+  "trust.html": {
+    "title": "Trust & Security — Security, privacy and evidence — DataBoar",
+    "description": "Understand how DataBoar handles data, where the public evidence is, and what the boundaries are. No certification claim and no legal conclusion.",
+    "og:title": "Trust & Security — DataBoar",
+    "og:description": "Understand how DataBoar handles data, review the evidence, evaluate the boundaries."
+  },
   "ecosystem.html": {
     "title": "Ecosystem — DataBoar",
     "description": "Data Boar Ecosystem: composition architecture of independent Bestials. An ecosystem with explicit superpowers, without monolithic runtime. Plugins/sidecars connected via SDK.",
