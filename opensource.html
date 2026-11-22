@@ -487,13 +487,24 @@
       <h2>Lab wheelhouse: <span class="accent">install by OS</span></h2>
       <p>Recipe validated in the lab (VM), with published SHA256. Not a supported channel.</p>
     </div>
-    <p>The index is <b>exclusive</b>: use <code>--index-url</code> (never <code>--extra-index-url</code>, which merges PyPI). The system pip must report the wheel's platform tag.</p>
-    <ul>
-      <li><b>FreeBSD 15.1</b> (Python 3.12; the tag carries patch <code>p6</code>): <code>pip install --index-url https://databoar.com.br/simple/ --only-binary=:all: numpy</code></li>
-      <li><b>NetBSD 11.1</b> (Python 3.12): <code>pip install --index-url https://databoar.com.br/simple/ --only-binary=:all: numpy</code></li>
-      <li><b>OpenBSD 8.0</b> (Python 3.14): <code>pip install --index-url https://databoar.com.br/simple/ --only-binary=:all: pymongo</code></li>
-      <li><b>Haiku R1/beta6</b> (Python 3.14): the index does not resolve, because GitHub rewrites the <code>~</code> in the tag to <code>.</code>. Download the files from the <a href="https://github.com/DataBoar/data-boar-site/releases/tag/wheelhouse-haiku-2026-11-04" rel="noopener noreferrer" target="_blank">Release</a>, restore the <code>~</code> in the names, check with <code>sha256sum -c SHA256SUMS</code> and use <code>pip install --no-index --find-links .</code>. Step by step in the <a href="https://github.com/DataBoar/data-boar-site/blob/main/docs/WHEELHOUSE_BSD_HAIKU.md" rel="noopener noreferrer" target="_blank">inventory</a>.</li>
-    </ul>
+    <div class="wheelhouse-list">
+      <div class="wheelhouse-item">
+        <h3>FreeBSD 15.1 <span class="wheelhouse-meta">Python 3.12 · tag p6</span></h3>
+        <pre><code>pip install --index-url https://databoar.com.br/simple/ --only-binary=:all: numpy</code></pre>
+      </div>
+      <div class="wheelhouse-item">
+        <h3>NetBSD 11.1 <span class="wheelhouse-meta">Python 3.12</span></h3>
+        <pre><code>pip install --index-url https://databoar.com.br/simple/ --only-binary=:all: numpy</code></pre>
+      </div>
+      <div class="wheelhouse-item">
+        <h3>OpenBSD 8.0 <span class="wheelhouse-meta">Python 3.14</span></h3>
+        <pre><code>pip install --index-url https://databoar.com.br/simple/ --only-binary=:all: pymongo</code></pre>
+      </div>
+      <div class="wheelhouse-item">
+        <h3>Haiku R1/beta6 <span class="wheelhouse-meta">Python 3.14 · manual download</span></h3>
+        <pre><code>pip install --no-index --find-links .</code></pre>
+      </div>
+    </div>
     <p><b>Limits:</b> the sets are partial (what is missing, such as <code>scipy</code> on NetBSD and OpenBSD, does not resolve through the index); OpenBSD <code>cryptography</code> is not portable; NetBSD wheels may link libraries of the build host; illumos has no wheels. The test was pip resolution against the index, not an install on the VMs.</p>
   </div>
 </section>
