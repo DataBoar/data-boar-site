@@ -1,0 +1,46 @@
+# GitHub Pages header rules (https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/about-custom-domains-and-github-pages)
+#
+# Problema: o cache interno do GitHub Pages (Varnish/Fastly, visivel em
+# x-cache: HIT / x-served-by: cache-gig...) servia HTML antigo por muito mais
+# tempo que o max-age=600. Nao existe API de purge para esse cache; o controle
+# disponivel e este arquivo, que o Pages aplica na entrega.
+#
+# Solucao: HTML sempre revalidado (sem conteudo velho apos merge);
+# assets estaticos com cache longo (performance preservada).
+#
+# Referencia: issue de navegacao/paridade PT-EN (22/nov/2026).
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# HTML: revalidar sempre. O browser guarda, mas pergunta ao Pages se mudou;
+# se mudou, serve a versao nova no mesmo instante (via ETag/Last-Modified).
+/*.html
+  Cache-Control: no-cache, max-age=0, must-revalidate
+
+/en/*.html
+  Cache-Control: no-cache, max-age=0, must-revalidate
+
+/casos/*.html
+  Cache-Control: no-cache, max-age=0, must-revalidate
+
+# Raiz (mesmo padrao de HTML, sem extensao)
+/
+  Cache-Control: no-cache, max-age=0, must-revalidate
+
+# Assets: cache longo e imutavel — nao afetados por conteudo novo.
+/css/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/favicon.ico
+  Cache-Control: public, max-age=31536000, immutable
+
+/simple/*
+  Cache-Control: public, max-age=3600
