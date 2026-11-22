@@ -434,5 +434,13 @@
   "windows.html": {
     "title": "Data Boar on Windows — a demo in minutes, NO Docker | DataBoar",
     "description": "Step by step to use Data Boar on Windows WITHOUT Docker: find personal and sensitive data (LGPD) right on your PC. Made for people who have never used a terminal — accounting firms, SMEs. Synthetic demo data, nothing leaves the machine."
+  },
+  "ecosystem.html": {
+    "title": "Ecosystem — DataBoar",
+    "description": "Data Boar Ecosystem: composition architecture of independent Bestials. An ecosystem with explicit superpowers, without monolithic runtime. Plugins/sidecars connected via SDK.",
+    "og_title": "Data Boar Ecosystem",
+    "og_description": "An architecture of independent plugins that compose via SDK contract. Choose the tools you need - not forced to use them all.",
+    "twitter_title": "Ecosystem — DataBoar",
+    "twitter_description": "Data Boar Ecosystem: composition architecture of independent Bestials connected via SDK contract."
   }
 }

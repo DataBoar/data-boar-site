@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ecosystem — DataBoar</title>
+<meta name="description" content="Data Boar Ecosystem: arquitetura de composição de Bestials independentes. Um ecossistema com superpoderes explícitos, sem runtime monolítico. Plugins/sidecars conectados via SDK." />
+<!-- i18n-head:begin -->
+<link rel="canonical" href="https://databoar.com.br/ecosystem.html">
+<link rel="alternate" hreflang="pt-BR" href="https://databoar.com.br/ecosystem.html">
+<link rel="alternate" hreflang="en" href="https://databoar.com.br/en/ecosystem.html">
+<link rel="alternate" hreflang="x-default" href="https://databoar.com.br/ecosystem.html">
+<!-- i18n-head:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+</head>
+<body>
+
+<div class="announce">
+  <div class="wrap">
+    <div class="left">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+      <span data-lang-panel="pt-BR"><b>O compliance</b> da sua empresa mais inteligente, ágil e seguro.</span>
+      <span data-lang-panel="en" hidden><b>Compliance</b> that is smarter, leaner, and under your control.</span>
+    </div>
+    <div class="right">
+      <a class="mini-btn" href="agende-demonstracao.html" data-lang-panel="pt-BR">Agendar Demonstração →</a>
+      <a class="mini-btn" href="agende-demonstracao.html" data-lang-panel="en" hidden>Book a demo →</a>
+    </div>
+  </div>
+</div>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><img src="images/logo-databoar.png" alt="DataBoar"></a>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menu de navegação">
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+    <nav class="links" id="site-nav">
+      <a href="solucao.html" data-lang-panel="pt-BR">Solução</a>
+      <a href="solucao.html" data-lang-panel="en" hidden>Solution</a>
+      <a href="solucao.html#casos-de-uso" data-lang-panel="pt-BR">Casos de uso</a>
+      <a href="solucao.html#casos-de-uso-en" data-lang-panel="en" hidden>Use cases</a>
+      <a href="opensource.html">OpenSource</a>
+      <a href="faq.html">FAQ</a>
+      <span class="nav-soon" title="Em breve" data-lang-panel="pt-BR">Preços · em breve</span>
+      <span class="nav-soon" title="Coming soon" data-lang-panel="en" hidden>Pricing · coming soon</span>
+    </nav>
+    <div class="nav-cta">
+      <a class="login" href="login.html">Login</a>
+      <div class="lang-switch">
+        <button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false">
+          <span class="lang-flag">🇧🇷</span>
+          <span class="lang-code">PT-BR</span>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="lang-menu">
+          <a href="#" class="lang-option selected" data-lang="pt-BR" data-flag="🇧🇷">🇧🇷 Português (Brasil)</a>
+          <a href="#" class="lang-option" data-lang="en" data-flag="🇺🇸">🇺🇸 English</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-overlay" aria-hidden="true"></div>
+</header>
+
+<main>
+
+<!-- ============ PT-BR ============ -->
+<div data-lang-panel="pt-BR">
+
+<section class="hero">
+  <div class="blob"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="eyebrow">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+        Ecosystem de composição
+      </div>
+      <h1>Um ecossistema de <span class="accent">plugins independentes</span>.</h1>
+      <p class="hero-highlight">Bestials conectadas via SDK. Sem runtime monolítico. Superpoderes explícitos.</p>
+      <p class="lede">O Data Boar Ecosystem é uma arquitetura de composição: cada Bestial é um plugin/sidecar independente que se comunica via contrato SDK. Você escolhe as ferramentas que precisa — não é forçado usar tudo.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">Ver o código no GitHub →</a>
+        <a class="btn btn-outline" href="agende-demonstracao.html">Agendar demonstração</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="art-inner">
+        <img src="images/mascot-pot.png" alt="Mascote Data Boar">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="diff-section">
+  <div class="wrap">
+    <div class="section-head center">
+      <h2>Visão geral da <span class="accent">arquitetura</span></h2>
+      <p>Não é um produto monolítico. É um ecossistema de plugins separados.</p>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Composable by design</h3>
+        <p>Cada Bestial é um plugin/sidecar com escopo definido. Elas se conectam via SDK — não via chamar código interno. Você pode usar apenas as que precisa.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V4z"/><path d="M7 12l2 2 4-4"/></svg></div>
+        <h3>Superpoderes explícitos</h3>
+        <p>Cada Bestial tem uma responsabilidade única e documentada. Você sabe exatamente o que cada plugin faz — e o que NÃO faz.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3>Fronteiras claras</h3>
+        <p>Limits de dados, autorização, retenção e egress são definidos por contrato. Nenhum plugin decide sobre dados que não autorizou explicitamente.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <h3>Auditável por design</h3>
+        <p>Todos os plugins seguem o mesmo padrão de contrato. Você pode auditorizar o comportamento de cada um separadamente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="diff-section" id="bestiais">
+  <div class="wrap">
+    <div class="section-head center">
+      <h2>As Bestials: <span class="accent">Superpoderes do ecossistema</span></h2>
+      <p>Cada uma tem uma missão clara. Nenhuma é obrigatória.</p>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Sage Remora (Sage)</h3>
+        <p><b>Superpoder:</b> Análise de risco de reidentificação <b>sem tocar dados</b>. Lê manifestos de achados e infere risco de cruzamento de identificadores indiretos.</p>
+        <p><b>Maturidade:</b> Em desenvolvimento/PoC</p>
+        <p><b>Contrato:</b> SDK Manifesto L1</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3>Faithful Ferret (Ferret)</h3>
+        <p><b>Superpoder:</b> Mede k-anonimato sobre dados autorizados. Garante que grupos de registros não podem ser re-identificados.</p>
+        <p><b>Maturidade:</b> Demo/PoC</p>
+        <p><b>Contrato:</b> SDK Transformado L3</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3>Stealthy Stoat (Stoat)</h3>
+        <p><b>Superpoder:</b> Tokenização FF1 (NIST SP 800-38G). Substitui valores sensíveis por tokens reversíveis controlados.</p>
+        <p><b>Maturidade:</b> Demo/PoC</p>
+        <p><b>Contrato:</b> SDK Transformado L3</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3>Keen Platypus (Platypus)</h3>
+        <p><b>Superpoder:</b> DevSecOps local: varredura de vulnerabilidades e código. Detecta riscos na cadeia de suprimentos.</p>
+        <p><b>Maturidade:</b> Em desenvolvimento</p>
+        <p><b>Contrato:</b> SDK</p>
+      </div>
+    </div>
+    <p><b>Fluxo típico:</b> <code>Boar → Sage → Ferret</code>. A Sage também alimenta o Stoat (<code>boar | sage > stoat</code>).</p>
+  </div>
+</section>
+
+<section class="diff-section">
+  <div class="wrap">
+    <div class="section-head center">
+      <h2>Como <span class="accent">funciona a comunicação</span></h2>
+      <p>SDK como contrato único para todos os plugins.</p>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8l-9-5-9 5v8l9 5 9-5z"/><path d="M3.3 7L12 12l8.7-5"/></svg></div>
+        <h3>Manifesto de achados (L1)</h3>
+        <p>Primeiro patamar: metadados estruturados sobre o que foi encontrado. Nunca valores brutos.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3>Transformação governada (L3)</h3>
+        <p>Terceiro patamar: dados transformados com scope de permissão explícita. Sempre auditável.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Saídas verificáveis</h3>
+        <p>Cada plugin produz evidências técnicas para uma pessoa decidir — não um veredito automático.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner-wrap">
+  <div class="wrap">
+    <div class="cta-bar">
+      <div class="cta-bar-icon">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+      </div>
+      <div class="cta-bar-text">
+        <h2>Leia o código antes de confiar nele.</h2>
+        <p>É open-core: audite, rode local e veja por que a evidência é reprodutível.</p>
+      </div>
+      <a class="btn btn-primary cta-bar-btn" href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">Ir para o GitHub</a>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- ============ EN ============ -->
+<div data-lang-panel="en" hidden>
+
+<section class="hero">
+  <div class="blob"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="eyebrow">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+        Composition ecosystem
+      </div>
+      <h1>An <span class="accent">ecosystem of independent</span> plugins.</h1>
+      <p class="hero-highlight">Bestials connected via SDK. No monolithic runtime. Explicit superpowers.</p>
+      <p class="lede">The Data Boar Ecosystem is an architecture of composition: each Bestial is an independent plugin/sidecar that communicates via SDK contract. Choose the tools you need — you're not forced to use them all.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">View the code on GitHub →</a>
+        <a class="btn btn-outline" href="agende-demonstracao.html">Book a demo</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="art-inner">
+        <img src="images/mascot-pot.png" alt="Data Boar mascot">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="diff-section">
+  <div class="wrap">
+    <div class="section-head center">
+      <h2>Overview of the <span class="accent">architecture</span></h2>
+      <p>This is not a monolithic product. It's an ecosystem of separate plugins.</p>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Composable by design</h3>
+        <p>Each Bestial is an independent plugin/sidecar with defined scope. They connect via SDK — not via internal code calls. Use only the tools you need.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V4z"/><path d="M7 12l2 2 4-4"/></svg></div>
+        <h3>Explicit superpowers</h3>
+        <p>Each Bestial has a unique, documented responsibility. You know exactly what each plugin does — and what it does NOT do.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3>Clear boundaries</h3>
+        <p>Data limits, authorization, retention and egress are defined by contract. No plugin decides on data that was not explicitly authorized.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <h3>Auditable by design</h3>
+        <p>All plugins follow the same contract pattern. You can audit each one's behavior separately.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="diff-section" id="bestiais">
+  <div class="wrap">
+    <div class="section-head center">
+      <h2>The Bestials: <span class="accent">Ecosystem superpowers</span></h2>
+      <p>Each has a clear mission. None is mandatory.</p>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Sage Remora (Sage)</h3>
+        <p><b>Power:</b> Re-identification risk analysis <b>without touching data</b>. Reads finding manifests and infers risk of indirect identifier cross-over.</p>
+        <p><b>Maturity:</b> Development/PoC</p>
+        <p><b>Contract:</b> L1 Manifest SDK</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3>Faithful Ferret (Ferret)</h3>
+        <p><b>Power:</b> Measures k-anonymity on authorized data. Ensures record groups cannot be re-identified.</p>
+        <p><b>Maturity:</b> Demo/PoC</p>
+        <p><b>Contract:</b> L3 Transformed SDK</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3>Stealthy Stoat (Stoat)</h3>
+        <p><b>Power:</b> FF1 tokenization (NIST SP 800-38G). Replaces sensitive values with controlled reversible tokens.</p>
+        <p><b>Maturity:</b> Demo/PoC</p>
+        <p><b>Contract:</b> L3 Transformed SDK</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3>Keen Platypus (Platypus)</h3>
+        <p><b>Power:</b> Local DevSecOps: vulnerability scanning and code. Detects supply chain risks.</p>
+        <p><b>Maturity:</b> Development</p>
+        <p><b>Contract:</b> SDK</p>
+      </div>
+    </div>
+    <p><b>Typical flow:</b> <code>Boar → Sage → Ferret</code>. Sage also feeds Stoat (<code>boar | sage > stoat</code>).</p>
+  </div>
+</section>
+
+<section class="diff-section">
+  <div class="wrap">
+    <div class="section-head center">
+      <h2>How <span class="accent">plugins communicate</span></h2>
+      <p>SDK as single contract for all plugins.</p>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-icon c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8l-9-5-9 5v8l9 5 9-5z"/><path d="M3.3 7L12 12l8.7-5"/></svg></div>
+        <h3>Finding manifest (L1)</h3>
+        <p>First tier: structured metadata about what was found. Never raw values.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <h3>Governed transformation (L3)</h3>
+        <p>Third tier: transformed data with explicit permission scope. Always auditable.</p>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon c3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3v6c0 5-3.4 8.5-8 11-4.6-2.5-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Verifiable outputs</h3>
+        <p>Each plugin produces technical evidence for a person to decide — not an automated verdict.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner-wrap">
+  <div class="wrap">
+    <div class="cta-bar">
+      <div class="cta-bar-icon">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+      </div>
+      <div class="cta-bar-text">
+        <h2>Read the code before you trust it.</h2>
+        <p>It is open-core: audit it, run it locally, and see why the evidence is reproducible.</p>
+      </div>
+      <a class="btn btn-primary cta-bar-btn" href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">Go to GitHub</a>
+    </div>
+  </div>
+</section>
+
+</div>
+
+
+<!-- page-updated:begin -->
+<div class="wrap page-updated" data-lang-panel="pt-BR">Atualizado em <time datetime="2026-11-21">21/11/2026</time></div>
+<div class="wrap page-updated" data-lang-panel="en" hidden>Last updated <time datetime="2026-11-21">November 21, 2026</time></div>
+<!-- page-updated:end -->
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo-databoar.png" alt="DataBoar">
+        <p data-lang-panel="pt-BR">Descoberta de dados pessoais forense, soberana e com evidência para conformidade.</p>
+        <p data-lang-panel="en" hidden>Forensic, sovereign personal-data discovery, with evidence for compliance work.</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-lang-panel="pt-BR">Produto</h4>
+        <h4 data-lang-panel="en" hidden>Product</h4>
+        <a href="solucao.html" data-lang-panel="pt-BR">Solução</a>
+        <a href="solucao.html" data-lang-panel="en" hidden>Solution</a>
+        <a href="solucao.html#casos-de-uso" data-lang-panel="pt-BR">Casos de uso</a>
+        <a href="solucao.html#casos-de-uso-en" data-lang-panel="en" hidden>Use cases</a>
+        <a href="opensource.html">OpenSource</a>
+        <a href="agende-demonstracao.html" data-lang-panel="pt-BR">Agendar demonstração</a>
+        <a href="agende-demonstracao.html" data-lang-panel="en" hidden>Book a demo</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-lang-panel="pt-BR">Recursos</h4>
+        <h4 data-lang-panel="en" hidden>Resources</h4>
+        <a href="windows.html" data-lang-panel="pt-BR">Windows (sem Docker)</a>
+        <a href="windows.html" data-lang-panel="en" hidden>Windows (no Docker)</a>
+        <a href="faq.html">FAQ</a>
+        <a href="inventario-dados-pessoais-lgpd.html" data-lang-panel="pt-BR">Inventário LGPD</a>
+        <a href="inventario-dados-pessoais-lgpd.html" data-lang-panel="en" hidden>LGPD inventory</a>
+        <a href="descobrir-dados-pessoais.html" data-lang-panel="pt-BR">Descobrir dados pessoais</a>
+        <a href="descobrir-dados-pessoais.html" data-lang-panel="en" hidden>Find personal data</a>
+        <a href="verticais.html" data-lang-panel="pt-BR">Verticais</a>
+        <a href="verticais.html" data-lang-panel="en" hidden>Verticals</a>
+        <a href="glossario.html" data-lang-panel="pt-BR">Glossário</a>
+        <a href="glossario.html" data-lang-panel="en" hidden>Glossary</a>
+        <a href="https://github.com/DataBoar/data-boar/blob/main/docs/MAP.pt_BR.md" rel="noopener noreferrer" target="_blank" data-lang-panel="pt-BR">Documentação</a>
+        <a href="https://github.com/DataBoar/data-boar/blob/main/docs/MAP.md" rel="noopener noreferrer" target="_blank" data-lang-panel="en" hidden>Docs</a>
+        <a href="https://databoar.wordpress.com" rel="noopener noreferrer" target="_blank" data-lang-panel="pt-BR">Blog</a>
+        <a href="https://databoar.wordpress.com" rel="noopener noreferrer" target="_blank" data-lang-panel="en" hidden>Blog</a>
+        <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank">GitHub</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-lang-panel="pt-BR">Posicionamento</h4>
+        <h4 data-lang-panel="en" hidden>Positioning</h4>
+        <a href="opensource.html" data-lang-panel="pt-BR">Open-core &amp; método</a>
+        <a href="opensource.html" data-lang-panel="en" hidden>Open-core &amp; method</a>
+        <a href="praticas-de-engenharia.html" data-lang-panel="pt-BR">Práticas de Engenharia</a>
+        <a href="praticas-de-engenharia.html" data-lang-panel="en" hidden>Engineering Practices</a>
+        <a href="privacidade.html" data-lang-panel="pt-BR">Política de Privacidade</a>
+        <a href="privacidade.html" data-lang-panel="en" hidden>Privacy Policy</a>
+        <span class="footer-soon" data-lang-panel="pt-BR">Preços · em breve</span>
+        <span class="footer-soon" data-lang-panel="en" hidden>Pricing · coming soon</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 DataBoar</span>
+      <div class="footer-social">
+        <a href="https://github.com/DataBoar/data-boar" rel="noopener noreferrer" target="_blank" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.1 3.1 0 00-.9-2.4c3-.3 6-1.5 6-6.6a5.1 5.1 0 00-1.4-3.5 4.6 4.6 0 00-.1-3.5s-1.1-.3-3.5 1.3a12.2 12.2 0 00-6.4 0C6.9 1.3 5.8 1.6 5.8 1.6a4.6 4.6 0 00-.1 3.5A5.1 5.1 0 004.3 8.6c0 5 3 6.3 6 6.6a3.1 3.1 0 00-.9 2.4V22"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/faro-config.js"></script>
+<script src="js/faro.js" defer></script>
+<script src="js/site.js"></script>
+</body>
+</html>
