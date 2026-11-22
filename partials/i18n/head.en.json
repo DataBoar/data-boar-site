@@ -465,5 +465,11 @@
     "og_description": "An architecture of independent plugins that compose via SDK contract. Choose the tools you need - not forced to use them all.",
     "twitter_title": "Ecosystem — DataBoar",
     "twitter_description": "Data Boar Ecosystem: composition architecture of independent Bestials connected via SDK contract."
+  },
+  "comparacao.html": {
+    "title": "Comparison by category: local scanner, self-declared mapping, DPO-as-a-Service, and ANPD ROPA — DataBoar",
+    "description": "Compare four inventory categories for personal data: local technical discovery, self-declared mapping platforms, DPO-as-a-Service, and the ANPD's official ROPA template. No vendor names, no legal conclusions.",
+    "og:title": "Comparison by category — DataBoar",
+    "og:description": "Four inventory categories, four questions. Compare without vendor names or legal conclusions. A map, not a contest between tools."
   }
 }
