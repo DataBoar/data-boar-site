@@ -16,8 +16,10 @@
 
 # HTML: revalidar sempre. O browser guarda, mas pergunta ao Pages se mudou;
 # se mudou, serve a versao nova no mesmo instante (via ETag/Last-Modified).
+# Usamos no-store (nao apenas no-cache) porque o Cloudflare na borda substitui
+# o max-age da origem por 600s; no-store é respeitado na maioria dos planos.
 /*.html
-  Cache-Control: no-cache, max-age=0, must-revalidate
+  Cache-Control: no-store, max-age=0, must-revalidate
 
 /en/*.html
   Cache-Control: no-cache, max-age=0, must-revalidate
