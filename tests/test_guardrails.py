@@ -1072,5 +1072,81 @@ class Hitl(unittest.TestCase):
             )
 
 
+class CategoryComparison(unittest.TestCase):
+    """Issue #110 / deliverable 7.3: the category-comparison page compares by
+    CATEGORY only — no vendor name, no 'alternative to X', no price, no
+    superlative, and every third-party-category claim is dated and sourced.
+    """
+
+    PAGE = "comparacao.html"
+    EN_PAGE = "en/comparacao.html"
+
+    FORBIDDEN: ClassVar[list[str]] = [
+        r"\bBigID\b",
+        r"\bOneTrust\b",
+        r"\bCollibra\b",
+        r"\bThales\b",
+        r"alternativas?\s+(open source\s+)?a",
+        r"\bvs\.?\b",
+        r"\bmelhor\b",
+        r"\blíder\b",
+        r"\bpreço\b",
+        r"\bprice\b",
+        r"\bnunca mais\b",
+        # "não é conclusão jurídica" / "not a legal conclusion" são LIMITES honestos.
+        # O guardrail anti-overclaim global do repo já cobre a forma afirmativa em
+        # todas as páginas; duplicar aqui geraria falso-positivo na negação.
+    ]
+
+    def test_page_exists_pt_and_en(self):
+        self.assertTrue(os.path.isfile(os.path.join(ROOT, self.PAGE)), "comparacao.html ausente")
+        self.assertTrue(
+            os.path.isfile(os.path.join(ROOT, self.EN_PAGE)), "en/comparacao.html ausente"
+        )
+
+    def test_no_vendor_names_prices_or_superlatives(self):
+        for rel in (self.PAGE, self.EN_PAGE):
+            txt = _read(os.path.join(ROOT, rel))
+            for pat in self.FORBIDDEN:
+                m = re.search(pat, txt, re.IGNORECASE)
+                self.assertIsNone(
+                    m, f"{rel}: overclaim proibido /{pat}/ -> {m.group(0) if m else ''}"
+                )
+
+    def test_four_categories_present(self):
+        txt = _read(os.path.join(ROOT, self.PAGE))
+        for cat in (
+            "Registro declarativo",
+            "Modelo oficial de registro",
+            "DPO como serviço",
+            "Descoberta técnica local",
+        ):
+            self.assertIn(cat, txt, f"categoria ausente em comparacao.html: {cat}")
+
+    def test_claims_are_sourced_and_bounded(self):
+        txt = _read(os.path.join(ROOT, self.PAGE))
+        self.assertIn("LGPD", txt, "claim do ROPA sem fonte da LGPD art. 37")
+        self.assertIn("art. 37", txt, "ROPA deve citar LGPD art. 37")
+        self.assertIn("instrumento oficial", txt, "força do modelo oficial ausente")
+        self.assertIn(
+            "não transfere a responsabilidade",
+            txt,
+            "qualificador do DPO-as-a-service ausente",
+        )
+        self.assertTrue(
+            "não conclusão jurídica" in txt.lower()
+            or "não substitui análise jurídica" in txt.lower()
+            or "não emite conclusões jurídicas" in txt.lower(),
+            "limite do scanner ausente",
+        )
+
+    def test_pointers_from_faq_and_verticais(self):
+        for rel in ("faq.html", "verticais.html"):
+            txt = _read(os.path.join(ROOT, rel))
+            self.assertIn(
+                "comparacao.html", txt, f"{rel} deve apontar para a página de comparação"
+            )
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
