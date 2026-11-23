@@ -1,0 +1,32 @@
+name: Site live parity
+
+# "Merge green" != "site no ar". Este check prova que o conteúdo publicado no
+# GitHub Pages bate com o main. Roda depois de cada deploy e sob demanda.
+# Para valer no merge-green, adicionar "Site live parity" aos required checks
+# da branch ruleset de main (decisão do operador — não mexemos na regra daqui).
+on:
+  workflow_run:
+    workflows: ["Deploy GitHub Pages"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-live-parity
+  cancel-in-progress: false
+
+jobs:
+  parity:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main (fonte da verdade publicada)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: main
+          persist-credentials: false
+
+      - name: Provar que o ar == main
+        run: bash scripts/site-live-check.sh
