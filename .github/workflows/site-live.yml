@@ -29,6 +29,10 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           ref: main
+          # build-en.py --check deriva o stamp "Atualizado em" de git log por
+          # arquivo (content_date). Sem historico completo, cai no fallback
+          # date.today() para todas as paginas e o check falha com drift falso.
+          fetch-depth: 0
           persist-credentials: false
 
       - name: Provar que o ar == main
